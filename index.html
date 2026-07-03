@@ -1293,7 +1293,7 @@ tr:focus-within .row-comment-btn{opacity:1;}
    Bump toda vez que subir um novo build no GitHub Pages. Aparece no rodapé
    da navbar — permite conferir num relance se o F5 pegou o arquivo novo
    ou se o navegador ainda está mostrando o cache antigo. */
-const APP_VERSION = 'v1.5';
+const APP_VERSION = 'v1.6';
 document.addEventListener('DOMContentLoaded', () => {
   const tag = document.getElementById('appVersionTag');
   if(tag) tag.textContent = APP_VERSION;
@@ -2829,13 +2829,26 @@ function loadImport() {
 
 /* ── Liquid tokenizers — usados pelo extrator de strings e pelo viewer ── */
 
+// Acha o fim de um bloco {{ ... }} respeitando chaves aninhadas.
+// Isso corrige o caso {{content_blocks.${gym_quantity}}} onde o parser antigo casava
+// no primeiro }} interno (do ${...}) em vez do }} externo, deixando um } órfão sobrando.
+function _findEndOfDoubleBrace(str, startIdx){
+  let j = startIdx, depth = 0;
+  while(j < str.length - 1){
+    if(str[j] === '}' && str[j+1] === '}' && depth === 0) return j;
+    if(str[j] === '{') depth++;
+    else if(str[j] === '}' && depth > 0) depth--;
+    j++;
+  }
+  return j; // não achou — trata o resto como Liquid
+}
+
 // Remove todos os tokens {{ }} e {% %} do texto, devolvendo só o conteúdo textual.
 function stripLiquid(str){
   let out='', i=0;
   while(i<str.length){
     if(str[i]==='{' && str[i+1]==='{'){
-      let j=i+2;
-      while(j<str.length-1 && !(str[j]==='}' && str[j+1]==='}')) j++;
+      const j = _findEndOfDoubleBrace(str, i+2);
       i=j+2;
     } else if(str[i]==='{' && str[i+1]==='%'){
       let j=i+2;
@@ -2853,8 +2866,7 @@ function splitLiquid(str){
   const r=[]; let i=0;
   while(i<str.length){
     if(str[i]==='{' && str[i+1]==='{'){
-      let j=i+2;
-      while(j<str.length-1 && !(str[j]==='}' && str[j+1]==='}')) j++;
+      const j = _findEndOfDoubleBrace(str, i+2);
       r.push({type:'liquid', val:str.slice(i,j+2)}); i=j+2;
     } else if(str[i]==='{' && str[i+1]==='%'){
       let j=i+2;
