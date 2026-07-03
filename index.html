@@ -122,8 +122,10 @@ body{background:var(--bg);font-family:var(--sans);font-size:14px;color:var(--tex
 .btn-next:disabled{opacity:.38;cursor:not-allowed;}
 .btn-back{background:none;border:1.5px solid var(--border-s);border-radius:var(--r);padding:9px 18px;font-size:13px;cursor:pointer;color:var(--text2);font-family:var(--sans);transition:background .15s,border-color .15s;}
 .btn-back:hover{background:var(--s2);border-color:var(--wh-navy);color:var(--wh-navy);}
-.btn-go{padding:10px 22px;border-radius:var(--r);background:var(--wh-navy);color:#fff;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--sans);display:flex;align-items:center;gap:6px;transition:background .15s,box-shadow .15s;}
+.btn-go{padding:10px 22px;border-radius:var(--r);background:var(--wh-navy);color:#fff;border:none;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--sans);display:flex;align-items:center;gap:6px;transition:background .15s,box-shadow .15s,opacity .15s;}
 .btn-go:hover{background:var(--wh-navy2);box-shadow:0 4px 12px rgba(27,19,64,.25);}
+.btn-go:disabled{opacity:.38;cursor:not-allowed;pointer-events:none;}
+.btn-go:disabled:hover{background:var(--wh-navy);box-shadow:none;}
 .btn-next.btn-destructive{background:#b91c1c;}
 .btn-next.btn-destructive:hover{background:#991b1b;box-shadow:0 4px 12px rgba(185,28,28,.25);}
 .frow{display:flex;align-items:center;justify-content:space-between;margin-top:28px;padding-top:20px;border-top:1px solid var(--border);}
@@ -630,6 +632,7 @@ tr:focus-within .row-comment-btn{opacity:1;}
 .proj-flags .lang-chip.origin{background:var(--grn-bg);border-color:var(--grn-bd);color:var(--green);}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
@@ -820,6 +823,8 @@ tr:focus-within .row-comment-btn{opacity:1;}
     <span class="logo-name">Multilanguage Tool</span>
     <span class="logo-sep">/</span>
     <span class="logo-sub">Campaign Studio</span>
+    <span class="logo-sep" style="margin-left:6px;">·</span>
+    <span id="appVersionTag" style="font-size:10px;font-weight:600;color:rgba(255,255,255,.55);font-family:var(--mono);letter-spacing:.02em;"></span>
   </div>
   <div id="userBadge" style="display:flex;align-items:center;gap:8px;margin-left:auto;">
     <span id="userBadgeEmail" class="topbar-email"></span>
@@ -828,6 +833,10 @@ tr:focus-within .row-comment-btn{opacity:1;}
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
       Dashboard
     </button>
+    <span id="syncStatus" title="Cloud sync status" style="display:inline-flex;align-items:center;gap:5px;padding:6px 10px;font-size:11px;color:rgba(255,255,255,.65);">
+      <span id="syncDot" style="width:7px;height:7px;border-radius:50%;background:#9a9a90;flex-shrink:0;"></span>
+      Sync
+    </span>
     <button class="navlink ghost" onclick="doLogout()">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
       Log out
@@ -1280,6 +1289,17 @@ tr:focus-within .row-comment-btn{opacity:1;}
 
 
 <script>
+/* ═══════════ VERSÃO ═══════════
+   Bump toda vez que subir um novo build no GitHub Pages. Aparece no rodapé
+   da navbar — permite conferir num relance se o F5 pegou o arquivo novo
+   ou se o navegador ainda está mostrando o cache antigo. */
+const APP_VERSION = 'v1.5';
+document.addEventListener('DOMContentLoaded', () => {
+  const tag = document.getElementById('appVersionTag');
+  if(tag) tag.textContent = APP_VERSION;
+  document.title = 'Multilanguage Tool ' + APP_VERSION;
+});
+
 /* ═══════════ AUTH (e-mail/senha, client-side, localStorage) ═══════════
    ATENÇÃO: isto NÃO é seguro de verdade — senhas ficam visíveis no
    navegador (DevTools/localStorage). Serve para controle de acesso
@@ -1289,8 +1309,9 @@ const AUTH_USERS_KEY = 'mlt_users_v1';
 
 // Admin inicial — troque o e-mail/senha abaixo antes de compartilhar o arquivo.
 const AUTH_DEFAULT_USERS = [
-  { email: 'hiago@wellhub.com', pass: 'troque-essa-senha', role: 'admin', name: 'Hiago' },
-  { email: 'pablo.ribeiro@wellhub.com', pass: 'troque-essa-senha-2', role: 'member', name: 'Pablo Ribeiro' }
+  { email: 'hiago.branco@gympass.com', pass: '123', role: 'admin', name: 'Hiago' },
+  { email: 'helena.carbonari@gympass.com', pass: '123', role: 'member', name: 'Helena Carbonari' },
+  { email: 'christiane.steinhoff@gympass.com', pass: '123', role: 'member', name: 'Christiane Steinhoff' }
 ];
 
 function authGetUsers() {
@@ -1306,6 +1327,7 @@ function authGetUsers() {
 
 function authSaveUsers(users) {
   localStorage.setItem(AUTH_USERS_KEY, JSON.stringify(users));
+  sbPushUsers(users); // sincroniza com o Supabase em segundo plano
 }
 
 // Sessão guardada SÓ EM MEMÓRIA — ao recarregar/reabrir a página, sempre pede login de novo.
@@ -1329,7 +1351,7 @@ function authCurrentUser() {
   return authGetUsers().find(u => u.email.toLowerCase() === sess.email.toLowerCase()) || null;
 }
 
-function doLogin() {
+async function doLogin() {
   const email = (document.getElementById('loginEmail').value || '').trim().toLowerCase();
   const pass = document.getElementById('loginPass').value || '';
   const errEl = document.getElementById('loginErr');
@@ -1341,7 +1363,13 @@ function doLogin() {
     return;
   }
 
-  const user = authGetUsers().find(u => u.email.toLowerCase() === email && u.pass === pass);
+  // Primeiro tenta local (rápido). Se falhar, puxa do banco e tenta de novo —
+  // cobre o caso em que um admin trocou/adicionou usuário em outro navegador.
+  let user = authGetUsers().find(u => u.email.toLowerCase() === email && u.pass === pass);
+  if(!user && ghConfigured()) {
+    await sbPullUsers();
+    user = authGetUsers().find(u => u.email.toLowerCase() === email && u.pass === pass);
+  }
   if(!user) {
     errEl.textContent = 'Incorrect email or password.';
     errEl.classList.add('show');
@@ -1359,8 +1387,11 @@ function doLogout() {
 
 async function enterApp(user) {
   document.getElementById('loginOverlay').style.display = 'none';
-  document.getElementById('appBody').style.display = '';
+  // NÃO revelar appBody aqui — a primeira .page.active é a page1 (New Project),
+  // e ela pisca durante os awaits abaixo. O goToDashboard cuida da UI correta.
   document.getElementById('userBadgeEmail').textContent = user.email + (user.role === 'admin' ? ' · Admin' : '');
+  if(ghConfigured()) { setSyncDot('on'); sbStartRealtime(); } else { setSyncDot('off'); }
+  await sbPullUsers();          // mantém a lista de logins fresca e semeia a DB no primeiro uso
   await ghPullNotifications();
   renderNotifBell();
   goToDashboard();
@@ -1410,27 +1441,42 @@ function closeLockTakeoverModal() {
   goToDashboard();
 }
 
-/* ───────── GITHUB SYNC ─────────
-   PREENCHA estes 4 valores antes de usar:
-   - GH_OWNER / GH_REPO: seu usuário/organização e o nome do repositório já criado.
-   - GH_TOKEN: um Personal Access Token do GitHub (recomendo "fine-grained",
-     com permissão de Contents: Read & Write SÓ nesse repositório).
-   - GH_BRANCH: branch onde o arquivo de projetos vai ser salvo (ex: 'main').
+/* ───────── SUPABASE SYNC (realtime) ─────────
+   O banco (Postgres) é a fonte da verdade; o localStorage é só um cache rápido
+   pra leitura síncrona. Cada projeto/notificação é uma linha; o Realtime empurra
+   as mudanças pra todo mundo na hora (troca ao vivo entre as equipes).
 
-   ATENÇÃO DE SEGURANÇA: esse token fica visível pra qualquer pessoa que abrir
-   o código-fonte deste arquivo (é client-side, sem backend). Como é um token
-   único compartilhado pelo time, qualquer um com o arquivo consegue escrever
-   nesse repositório. Use um token restrito só a este repo, e troque/revogue
-   se o arquivo for compartilhado fora do time. */
-const GH_OWNER  = 'SEU_USUARIO_OU_ORG';
-const GH_REPO   = 'SEU_REPOSITORIO';
-const GH_BRANCH = 'main';
-const GH_TOKEN  = 'COLE_O_TOKEN_AQUI';
-const GH_PATH   = 'mlt-projects.json'; // todos os projetos ficam num único arquivo JSON no repo
+   As duas credenciais abaixo são PUBLICÁVEIS por design — a publishable key é
+   feita pra rodar no browser; quem protege os dados é o RLS no banco. NUNCA
+   coloque aqui a service_role/secret key: essa é secreta e só vive no servidor. */
 
-function ghConfigured() {
-  return GH_TOKEN && !GH_TOKEN.includes('COLE_O_TOKEN') && GH_OWNER && !GH_OWNER.includes('SEU_USUARIO');
+const SB_URL = 'https://ygzowchpmcsxfececxmq.supabase.co';
+const SB_PUBLISHABLE_KEY = 'sb_publishable_e9aojCkioVKnSjoYo7j_MQ_rXeA1_FP';
+
+let _sb = null;         // cliente Supabase (lazy)
+let _sbChannel = null;  // canal de realtime
+
+function sbClient() {
+  if(_sb) return _sb;
+  if(!SB_URL || !SB_PUBLISHABLE_KEY) return null;
+  if(!(window.supabase && window.supabase.createClient)) return null; // CDN ainda não carregou
+  _sb = window.supabase.createClient(SB_URL, SB_PUBLISHABLE_KEY);
+  return _sb;
 }
+
+// Mantém o nome usado pelo resto do app: "tem sync na nuvem configurado?"
+function ghConfigured() {
+  return !!sbClient();
+}
+
+// Atualiza o pontinho de status do botão "Sync" na navbar.
+function setSyncDot(state) {
+  const dot = document.getElementById('syncDot');
+  if(!dot) return;
+  const colors = { off:'#9a9a90', on:'#2e9e5b', error:'#d8385e' };
+  dot.style.background = colors[state] || colors.off;
+}
+
 
 let _syncToastTimer = null;
 function showSyncWarning(msg) {
@@ -1442,107 +1488,86 @@ function showSyncWarning(msg) {
   _syncToastTimer = setTimeout(() => toast.classList.remove('show'), 5000);
 }
 
-function utf8ToBase64(str) {
-  return btoa(unescape(encodeURIComponent(str)));
-}
-function base64ToUtf8(str) {
-  return decodeURIComponent(escape(atob(str)));
-}
-
-async function ghFetchFile(path) {
-  const url = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${path}?ref=${GH_BRANCH}`;
-  const res = await fetch(url, {
-    headers: { Authorization: `Bearer ${GH_TOKEN}`, Accept: 'application/vnd.github+json' }
-  });
-  if(res.status === 404) return { sha: null, data: [] };
-  if(!res.ok) throw new Error('GitHub fetch failed: ' + res.status);
-  const resData = await res.json();
-  const data = JSON.parse(base64ToUtf8(resData.content));
-  return { sha: resData.sha, data };
-}
-
-// Sobe uma lista (projetos OU notificações) pro GitHub num arquivo JSON. "Fire and forget" —
-// não bloqueia a UI, e se falhar (sem internet, token errado, etc.) só avisa no console.
-async function ghPushFile(path, payload) {
-  if(!ghConfigured()) return;
-  try {
-    let sha = null;
-    try { sha = (await ghFetchFile(path)).sha; } catch(e) {}
-    const url = `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`;
-    const body = {
-      message: 'Update ' + path + ' — ' + new Date().toISOString(),
-      content: utf8ToBase64(JSON.stringify(payload, null, 2)),
-      branch: GH_BRANCH
-    };
-    if(sha) body.sha = sha;
-    const res = await fetch(url, {
-      method: 'PUT',
-      headers: { Authorization: `Bearer ${GH_TOKEN}`, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    });
-    if(!res.ok) {
-      console.warn('GitHub sync (push) failed:', res.status, await res.text());
-      showSyncWarning();
-    }
-  } catch(e) {
-    console.warn('GitHub sync (push) error:', e);
-    showSyncWarning();
-  }
-}
-
-async function ghPushProjects(projects) {
-  return ghPushFile(GH_PATH, projects);
-}
-
-// Tombstones — projetos excluídos localmente nesta sessão, pra não "ressuscitarem"
-// quando a gente buscar a versão remota durante o merge abaixo.
+// Tombstones — projetos excluídos nesta sessão, pra também apagá-los no banco.
 const _recentlyDeletedProjectIds = new Set();
 
-// Faz merge antes de salvar: pra QUALQUER projeto que não seja o que estou editando agora,
-// confia na versão que está no GitHub (pode ter sido editada por outra pessoa nesse meio
-// tempo) — só sobrescreve, de fato, o projeto que eu mesmo estou tocando nesta sessão.
-// Isso reduz (não elimina 100%, já que não tem transação real) o risco de dois saves
-// simultâneos de pessoas diferentes se sobrescreverem silenciosamente.
+// Salva localmente na hora e sobe pro Supabase em segundo plano (não trava a UI).
+// Como cada projeto é uma LINHA independente, não precisa do merge de arquivo único
+// que o GitHub exigia: faz upsert das linhas e delete das que foram excluídas.
 async function ghMergeAndPushProjects(localProjects) {
-  if(!ghConfigured()) { projSaveAllLocal(localProjects); return; }
+  projSaveAllLocal(localProjects);
+  const sb = sbClient();
+  if(!sb) return;
   try {
-    const { data: remoteData } = await ghFetchFile(GH_PATH);
-    const remote = Array.isArray(remoteData) ? remoteData : [];
-    const remoteById = new Map(remote.map(p => [p.id, p]));
-    const localIds = new Set(localProjects.map(p => p.id));
-
-    const merged = localProjects.map(p => {
-      if(p.id === currentProjectId) return p; // este eu estou editando agora — minha versão vale
-      return remoteById.get(p.id) || p;        // qualquer outro — confia no que tem no GitHub
-    });
-
-    remote.forEach(rp => {
-      if(!localIds.has(rp.id) && !_recentlyDeletedProjectIds.has(rp.id)) merged.push(rp); // projeto criado por outra pessoa
-    });
-
-    projSaveAllLocal(merged);
-    await ghPushFile(GH_PATH, merged);
+    const rows = localProjects.map(p => ({ id: p.id, payload: p }));
+    if(rows.length) {
+      const { error } = await sb.from('projects').upsert(rows);
+      if(error) throw error;
+    }
+    for(const delId of _recentlyDeletedProjectIds) {
+      await sb.from('projects').delete().eq('id', delId);
+    }
+    setSyncDot('on');
   } catch(e) {
-    console.warn('GitHub sync (merge+push projects) error:', e);
-    projSaveAllLocal(localProjects); // garante que ao menos fica salvo localmente
+    console.warn('Supabase sync (push projects) error:', e);
+    setSyncDot('error');
     showSyncWarning();
   }
 }
 
-// Busca a versão mais recente do GitHub e atualiza o localStorage com ela.
-// Chamado ao entrar no Dashboard, pra trazer projetos criados/editados por outras pessoas.
+// Busca todos os projetos do banco e atualiza o cache local.
 async function ghPullProjects() {
-  if(!ghConfigured()) return false;
+  const sb = sbClient();
+  if(!sb) return false;
   try {
-    const { data } = await ghFetchFile(GH_PATH);
-    if(Array.isArray(data)) {
-      localStorage.setItem(PROJ_KEY, JSON.stringify(data));
-      return true;
-    }
+    const { data, error } = await sb.from('projects').select('id,payload');
+    if(error) throw error;
+    const projects = (data || []).map(r => r.payload).filter(Boolean);
+    localStorage.setItem(PROJ_KEY, JSON.stringify(projects));
+    setSyncDot('on');
+    return true;
   } catch(e) {
-    console.warn('GitHub sync (pull) error:', e);
+    console.warn('Supabase sync (pull projects) error:', e);
+    setSyncDot('error');
+    return false;
   }
-  return false;
+}
+
+// ── REALTIME ──────────────────────────────────────────────────────────
+// Uma assinatura só para as duas tabelas. Quando algo muda no banco (por você
+// OU por outra equipe), re-puxa o cache e re-renderiza a tela ativa na hora.
+function sbStartRealtime() {
+  const sb = sbClient();
+  if(!sb || _sbChannel) return;
+  _sbChannel = sb.channel('mlt-sync-v1')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'projects' },      () => sbOnProjectsChanged())
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'notifications' }, () => sbOnNotifsChanged())
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'users' },         () => sbOnUsersChanged())
+    .subscribe();
+}
+
+async function sbOnUsersChanged() {
+  await sbPullUsers();
+  // Se o admin está na aba Members, re-renderiza pra mostrar mudanças ao vivo.
+  const membersTab = document.getElementById('dashTabMembers');
+  if(membersTab && membersTab.style.display !== 'none') renderDashUserList();
+}
+
+// Um upsert em lote dispara vários eventos; o debounce agrupa num único refresh.
+let _sbRefreshTimer = null;
+function sbOnProjectsChanged() {
+  clearTimeout(_sbRefreshTimer);
+  _sbRefreshTimer = setTimeout(async () => {
+    await ghPullProjects();
+    const dash = document.getElementById('dashboardScreen');
+    if(dash && dash.style.display !== 'none') renderDashboard();
+    checkMyLockTakeover(); // se outra pessoa assumiu o projeto que eu tenho aberto, avisa na hora
+  }, 250);
+}
+async function sbOnNotifsChanged() {
+  await ghPullNotifications();
+  renderNotifBell();
+  if(isNotifPanelOpen()) renderNotifPanel();
 }
 
 /* ═══════════ NOTIFICATIONS (bell) ═══════════
@@ -1551,7 +1576,6 @@ async function ghPullProjects() {
    so a notification created on one device shows up for the recipient on theirs. */
 
 const NOTIF_KEY = 'mlt_notifications_v1';
-const NOTIF_PATH = 'mlt-notifications.json';
 const NOTIF_PAGE_SIZE = 10;
 let notifPage = 0;
 
@@ -1562,21 +1586,91 @@ function notifGetAll() {
 
 function notifSaveAll(notifs) {
   localStorage.setItem(NOTIF_KEY, JSON.stringify(notifs));
-  ghPushFile(NOTIF_PATH, notifs); // sincroniza com o GitHub em segundo plano
+  sbPushNotifs(notifs); // sincroniza com o Supabase em segundo plano
+}
+
+async function sbPushNotifs(notifs) {
+  const sb = sbClient();
+  if(!sb) return;
+  try {
+    const rows = notifs.map(n => ({ id: n.id, payload: n }));
+    if(rows.length) {
+      const { error } = await sb.from('notifications').upsert(rows);
+      if(error) throw error;
+    }
+  } catch(e) {
+    console.warn('Supabase sync (push notifications) error:', e);
+  }
+}
+
+async function sbDeleteNotif(id) {
+  const sb = sbClient();
+  if(!sb) return;
+  try { await sb.from('notifications').delete().eq('id', id); }
+  catch(e) { console.warn('Supabase sync (delete notification) error:', e); }
+}
+
+// ── USUÁRIOS ──────────────────────────────────────────────
+// Sincroniza a lista de logins do app (Members tab). A DB é a fonte da verdade;
+// o localStorage é só um cache rápido pra validar login sem esperar rede.
+
+async function sbPushUsers(users) {
+  const sb = sbClient();
+  if(!sb) return;
+  try {
+    const rows = users.map(u => ({ email: (u.email||'').toLowerCase(), payload: u }));
+    if(rows.length) {
+      const { error } = await sb.from('users').upsert(rows);
+      if(error) throw error;
+    }
+  } catch(e) {
+    console.warn('Supabase sync (push users) error:', e);
+  }
+}
+
+async function sbDeleteUser(email) {
+  const sb = sbClient();
+  if(!sb) return;
+  try { await sb.from('users').delete().eq('email', (email||'').toLowerCase()); }
+  catch(e) { console.warn('Supabase sync (delete user) error:', e); }
+}
+
+// Puxa a lista da DB. Se a DB estiver vazia (primeira vez), publica o que está
+// no localStorage nela — assim o banco fica populado logo no primeiro uso.
+async function sbPullUsers() {
+  const sb = sbClient();
+  if(!sb) return false;
+  try {
+    const { data, error } = await sb.from('users').select('email,payload');
+    if(error) throw error;
+    const dbUsers = (data || []).map(r => r.payload).filter(Boolean);
+    if(dbUsers.length > 0) {
+      localStorage.setItem(AUTH_USERS_KEY, JSON.stringify(dbUsers));
+    } else {
+      // Bootstrap: se a DB está vazia, empurra o que já temos localmente.
+      const local = authGetUsers();
+      if(local.length > 0) await sbPushUsers(local);
+    }
+    return true;
+  } catch(e) {
+    console.warn('Supabase sync (pull users) error:', e);
+    return false;
+  }
 }
 
 async function ghPullNotifications() {
-  if(!ghConfigured()) return false;
+  const sb = sbClient();
+  if(!sb) return false;
   try {
-    const { data } = await ghFetchFile(NOTIF_PATH);
-    if(Array.isArray(data)) {
-      localStorage.setItem(NOTIF_KEY, JSON.stringify(data));
-      return true;
-    }
+    const { data, error } = await sb.from('notifications').select('id,payload');
+    if(error) throw error;
+    const notifs = (data || []).map(r => r.payload).filter(Boolean);
+    localStorage.setItem(NOTIF_KEY, JSON.stringify(notifs));
+    return true;
   } catch(e) {
-    console.warn('GitHub sync (notifications pull) error:', e);
+    console.warn('Supabase sync (pull notifications) error:', e);
+    return false;
   }
-  return false;
 }
 
 // Cria uma notificação pra alguém. Nunca é removida depois.
@@ -1599,6 +1693,7 @@ function notifAdd(toEmail, fromEmail, message, meta) {
 function notifDelete(id) {
   const notifs = notifGetAll().filter(n => n.id !== id);
   notifSaveAll(notifs);
+  sbDeleteNotif(id); // remove a linha no banco (upsert do array não apaga sozinho)
   renderNotifPanel();
   renderNotifBell();
 }
@@ -1845,8 +1940,10 @@ function dashAddUser() {
 
 function dashRemoveUser(index) {
   const users = authGetUsers();
+  const removed = users[index];
   users.splice(index, 1);
   authSaveUsers(users);
+  if(removed) sbDeleteUser(removed.email); // upsert do array não remove linha sozinho
   renderDashUserList();
 }
 
@@ -1913,6 +2010,8 @@ function projRowHtml(p, isOwner) {
 function projCreate() {
   // Leva direto pra Tela 1, onde a pessoa escolhe "New project" (upload) ou "Continue editing".
   // A criação do registro do projeto (nome, dono, trava) passa a acontecer dentro desse fluxo.
+  currentProjectId = null; // ESSENCIAL: sem isso, projSaveOnBuild sobrescreve o último projeto aberto
+  _openedFromDashboard = false;
   enterWizardForProject();
 }
 
@@ -1960,6 +2059,7 @@ function projOpen(id) {
 // acessível pelo botão "Edit an existing project" no Dashboard.
 function goToContinueEditing() {
   resetAll();
+  currentProjectId = null; // ESSENCIAL: sem isso, sobrescreve o último projeto aberto ao salvar
   document.getElementById('dashboardScreen').style.display = 'none';
   document.getElementById('appBody').style.display = '';
   document.getElementById('hdrBar').style.display = 'none';
@@ -2332,6 +2432,7 @@ function resetAll() {
   S.vLang = null;
   _imgPickHtml = null;
   _imgTipShown = false;
+  _openedFromDashboard = false; // reset — só é true quando restoreProjectContent liga
   S.allC = [...COUNTRIES];
 
   // Reset import state
@@ -2783,6 +2884,28 @@ function buildCSV() {
         S.csv.rows.forEach(r => { r.translations[l] = r.translations[l] || ''; });
       }
     });
+
+    // Sincroniza LINHAS DE IMAGEM com o S.selImgs — permite voltar em "Images"
+    // depois do primeiro build e adicionar/remover imagens, sem perder o resto.
+    const existingImgSrcs = new Set(S.csv.rows.filter(r => r.isImg).map(r => r.src));
+    // 1) Remove linhas de imagem cuja seleção foi tirada
+    S.csv.rows = S.csv.rows.filter(r => !r.isImg || S.selImgs.has(r.src));
+    // 2) Adiciona linhas pras imagens selecionadas que ainda não estavam no CSV
+    let idSeed = S.csv.rows.length + 1;
+    S.strings
+      .filter(s => s.isImg && S.selImgs.has(s.src) && !existingImgSrcs.has(s.src))
+      .forEach(s => {
+        S.csv.rows.push({
+          id: 'id' + (idSeed++),
+          src: s.src,
+          display: s.display || s.src,
+          isStyle: false, outerKey: null, openTag: null, closeTag: null,
+          isImg: true, imgTag: s.imgTag || null,
+          isLiquidDefault: false, isLiquidFull: false, liquidToken: null,
+          translations: Object.fromEntries(S.csv.langs.map(l => [l, '']))
+        });
+      });
+
     const origLang = S.allC.find(c=>c.code===S.origin)?.lang||null;
     S.vLang = origLang;
     S.isImport = false;
@@ -2907,6 +3030,7 @@ function projSaveOnBuild(wasImport) {
 // Para na tela de seleção de imagens (3.5), já com as imagens que estavam marcadas.
 function restoreProjectContent(data) {
   resetAll(); // zera TODO o estado global (idiomas customizados, seleção de linha, targets, origin, etc.)
+  _openedFromDashboard = true; // marca que veio do "Open Project" (não é import manual)
               // antes de carregar o novo projeto — sem isso, sobras de uma sessão anterior podem
               // contaminar o projeto que está sendo aberto agora (foi a causa do bug do origin).
   closeCommentPopover(); // garante que não fique um popover de comentário aberto referenciando a linha de outro projeto
@@ -2935,6 +3059,27 @@ function restoreProjectContent(data) {
   // Pré-marca como selecionadas as imagens que já estavam nas linhas salvas
   S.selImgs = new Set(S.csv.rows.filter(r => r.isImg).map(r => r.src));
 
+  // O loadImport reconstrói S.strings só a partir do CSV — perdemos qualquer
+  // imagem do HTML que nunca foi selecionada. Aqui, re-escaneamos o HTML e
+  // adicionamos as que faltam, pra que apareçam clicáveis no passo Images.
+  (function reAddMissingImages(){
+    if(!S.rawHtml) return;
+    const already = new Set(S.strings.filter(s => s.isImg).map(s => s.src));
+    const tokens = S.rawHtml.split(/(<[^>]*>|<!--[\s\S]*?-->)/g);
+    let idSeed = S.strings.length + 1;
+    for(const tok of tokens){
+      if(!/^<img[\s>]/i.test(tok)) continue;
+      const srcM = tok.match(/\bsrc=(?:"([^"]*)"|'([^']*)')/i);
+      if(!srcM) continue;
+      const src = (srcM[1] || srcM[2] || '').trim();
+      const isLiquid = src.startsWith('{{') || src.startsWith('{%');
+      if(!src || src.length <= 5 || src.startsWith('data:') || isLiquid) continue;
+      if(already.has(src)) continue;
+      already.add(src);
+      S.strings.push({ src, text: src, isImg: true, imgTag: tok, isStyle: false, outerKey: null, openTag: null, closeTag: null, id: 'imgnew' + (idSeed++) });
+    }
+  })();
+
   if(!data.origin) {
     // Projeto antigo salvo antes da correção do origin — não temos o valor real pra restaurar.
     // Em vez de seguir com origin vazio, pede pra escolher de novo (só dessa vez; o próximo
@@ -2946,13 +3091,11 @@ function restoreProjectContent(data) {
   S.origin = data.origin;
   S.targets = S.targets.filter(c => c !== data.origin);
 
-  if(pendingCommentTarget) {
-    // Veio de uma notificação de comentário — pula direto pro editor, sem parar em Imagens/Confirm.
-    goTo(4);
-    buildAndGo();
-  } else {
-    goTo(3.5); // tela de escolher as imagens
-  }
+  // Ao ABRIR um projeto existente, pula direto pro editor (o passo de Imagens
+  // é útil só na criação). A pessoa ainda pode voltar em "Images" pelo breadcrumb
+  // se quiser mudar a seleção — o estado (S.selImgs, S.strings) já está pronto.
+  goTo(4);
+  buildAndGo();
 }
 
 
@@ -2963,11 +3106,13 @@ function goToEditor() {
   });
   document.getElementById('pageContinue')?.classList.remove('active');
   updateBreadcrumb('edit');
-  // Continue Editing: hide Download HTML, show Download XLSX
-  // New Project: show Download HTML, hide Download XLSX
-  const isImport = !!(IMP.html);
+  // Regra: só esconde o botão "Download HTML" no fluxo de IMPORT MANUAL
+  // (Continue Editing → uploads HTML+CSV do zero). Em projetos abertos do
+  // Dashboard, o botão fica visível — a pessoa pode precisar reexportar o
+  // HTML tageado a qualquer momento durante a edição.
+  const isManualImport = !!(IMP.html) && !_openedFromDashboard;
   const btnHtml = document.getElementById('btnDlHtml');
-  if(btnHtml) btnHtml.style.display = isImport ? 'none' : '';
+  if(btnHtml) btnHtml.style.display = isManualImport ? 'none' : '';
   buildTable();
   renderLbar();
   showViewer();
@@ -3016,11 +3161,30 @@ function toLiquidPlaceholder(text) {
 }
 
 
+// Restrutura padrões de botão VML/MSO (Braze default) para o formato "bulletproof":
+// duplica o conteúdo do <span> dentro do bloco MSO (Outlook) e envelopa o span original
+// numa condicional negativa <!--[if !mso]><!--> ... <!--<![endif]--> pra não duplicar
+// visualmente no Outlook. Assim o extrator vê o texto DUAS vezes (Outlook e non-Outlook),
+// gerando ids separados no CSV — que era o pedido.
+function preprocessVmlButtons(html) {
+  const pattern = /(<!--\[if mso\]>\s*<v:roundrect[\s\S]*?<v:textbox[\s\S]*?<center[^>]*>)\s*<!\[endif\]-->([\s\S]*?)<!--\[if mso\]>\s*<\/center>\s*<\/v:textbox>\s*<\/v:roundrect>\s*<!\[endif\]-->/gi;
+  return html.replace(pattern, (m, msoOpen, middle) => {
+    // Extrai o texto mais interno do botão (dentro do span mais interno, se aninhado)
+    const inner = middle.match(/<span[^>]*class="button"[^>]*>\s*<span[^>]*>([\s\S]*?)<\/span>\s*<\/span>/i);
+    const outer = middle.match(/<span[^>]*class="button"[^>]*>([\s\S]*?)<\/span>/i);
+    const vmlText = inner ? inner[1] : (outer ? outer[1] : middle);
+    return `${msoOpen}${vmlText}</center></v:textbox></v:roundrect><![endif]-->\n<!--[if !mso]><!-->${middle}<!--<![endif]-->`;
+  });
+}
+
 function extractStr() {
+  // Roda o pre-processamento antes de tokenizar (só afeta padrões que casam com VML button)
+  S.rawHtml = preprocessVmlButtons(S.rawHtml);
+
   const SKIP_PAIR  = /^(script|style|pre|code|noscript|svg)$/i;   // have open+close
   const SKIP_VOID  = /^(meta|link|path|input|br|hr|img|area|base|col|embed|param|source|track|wbr)$/i; // self-closing
   const STYLE      = /^(strong|b|em|i|u|s|mark|small|sup|sub)$/i;
-  const res=[]; let styleStack=[], skipDepth=0, msoDepth=0;
+  const res=[]; let styleStack=[], skipDepth=0, msoDepth=0, vmlBtnDepth=0;
 
   const tokens = S.rawHtml.split(/(<[^>]*>|<!--[\s\S]*?-->)/g);
 
@@ -3030,10 +3194,18 @@ function extractStr() {
     const isTag=(ti%2===1);
 
     if(isTag){
-      if(/<!--\[if/i.test(tok))   { msoDepth++; continue; }
-      if(/<!\[endif\]/i.test(tok)){ msoDepth=Math.max(0,msoDepth-1); continue; }
+      // [if !mso] é "downlevel-revealed" — conteúdo visível pra não-Outlook. NÃO skipa.
+      if(/<!--\[if\s+!/i.test(tok)) { continue; }
+      if(/<!--\[if/i.test(tok))     { msoDepth++; continue; }
+      // Fechamento de [if !mso] vem como <!--<![endif]--> (comment token com endif dentro).
+      // Só decrementa se estamos de fato dentro de um bloco mso (msoDepth>0).
+      if(/<!\[endif\]/i.test(tok))  { if(msoDepth>0) msoDepth--; continue; }
       if(/^<!--/.test(tok)) continue;
-      if(msoDepth>0) continue;
+      // Dentro de um bloco MSO, normalmente skipa TUDO — MAS se estiver dentro de um
+      // VML button (<v:roundrect>...</v:roundrect>), extrai (é o texto do botão pro Outlook).
+      if(/<v:roundrect/i.test(tok))   { vmlBtnDepth++; }
+      if(/<\/v:roundrect/i.test(tok)) { vmlBtnDepth=Math.max(0,vmlBtnDepth-1); }
+      if(msoDepth>0 && vmlBtnDepth===0) continue;
 
       const nameM=tok.match(/^<\/?([a-zA-Z][a-zA-Z0-9-]*)/);
       if(!nameM) continue;
@@ -3117,7 +3289,7 @@ function extractStr() {
     }
 
     // Text token
-    if(msoDepth>0||skipDepth>0) continue;
+    if((msoDepth>0 && vmlBtnDepth===0) || skipDepth>0) continue;
     const t=tok.trim();
     if(!t||t.length<2){
       if(styleStack.length>0) styleStack[styleStack.length-1].parts.push(tok);
@@ -3387,12 +3559,27 @@ function updateImgThumbs() {
 }
 
 let _imgPickHtml = null; // cache key — rawHtml reference when pick iframe was last built
+let _openedFromDashboard = false; // true quando o projeto foi aberto do Dashboard (não é import manual)
 
 function refreshViewerImgPick() {
   if(!S.rawHtml) return;
   showViewer();
   const imgs = S.strings.filter(s => s.isImg);
-  if(!imgs.length) return;
+
+  // Sem imagens: renderiza só a preview do HTML (sem overlays clicáveis) —
+  // antes esse caminho saía cedo e deixava o iframe em branco nesse passo.
+  if(!imgs.length){
+    if(_imgPickHtml === S.rawHtml) return; // já carregado
+    _imgPickHtml = S.rawHtml;
+    const html = S.rawHtml.replace(/\{%translation\s+\S+?%\}/g,'').replace(/\{%endtranslation%\}/g,'');
+    const iframe = document.getElementById('vf');
+    if(iframe){
+      const old = iframe.src;
+      iframe.src = URL.createObjectURL(new Blob([html],{type:'text/html'}));
+      if(old && old.startsWith('blob:')) URL.revokeObjectURL(old);
+    }
+    return;
+  }
 
   // If iframe already loaded for this HTML, just sync selection state — no reload
   if(_imgPickHtml === S.rawHtml){
