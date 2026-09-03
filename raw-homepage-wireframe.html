@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Raw Home Wireframe</title>
-<meta name="description" content="Wireframe de baixa fidelidade da home institucional da Raw, para validar estrutura e hierarquia de conteúdo antes da definição visual.">
+<meta name="description" content="Wireframe de baixa fidelidade da nova home institucional da Raw — navegação por intenção, portfólio, prova técnica e conversão.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,67 +14,66 @@
 
 <style>
   /* ============================================================
-     DESIGN TOKENS
-     Wireframe em escala de cinza — sem cores de marca.
-     Light definido em :root; dark redefine só os tokens.
+     DESIGN TOKENS — wireframe em escala de cinza, sem cor de marca.
+     Light em :root; dark redefine só os tokens (system + [data-theme]).
   ============================================================ */
   :root{
-    --bg: #F2F3F5;
+    --bg: #F1F2F4;
     --surface: #FFFFFF;
-    --surface-alt: #E8EAED;
-    --surface-sunken: #D7DADF;
-    --border: #9BA3AE;
-    --border-strong: #454B54;
-    --dash: #9BA3AE;
-    --text: #23272E;
-    --text-muted: #5B6270;
-    --text-faint: #8B93A0;
-    --chip-bg: #23272E;
-    --chip-text: #F2F3F5;
-    --invert-bg: #23272E;
+    --surface-alt: #E6E8EB;
+    --surface-sunken: #C9CED5;
+    --border: #6B7280;
+    --border-strong: #33383F;
+    --dash: #7B828D;
+    --text: #1D2126;
+    --text-muted: #565D68;
+    --text-faint: #868D98;
+    --chip-bg: #1D2126;
+    --chip-text: #F1F2F4;
+    --invert-bg: #1D2126;
     --invert-text: #F5F6F7;
-    --banner-bg: #23272E;
-    --banner-text: #E8EAED;
-    --focus: #23272E;
+    --banner-bg: #1D2126;
+    --banner-text: #E6E8EB;
+    --focus: #1D2126;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --bg: #16181C;
-      --surface: #1D2025;
-      --surface-alt: #24282E;
-      --surface-sunken: #323740;
-      --border: #565D68;
-      --border-strong: #A7AEB9;
-      --dash: #565D68;
+      --bg: #17191D;
+      --surface: #1E2126;
+      --surface-alt: #262A30;
+      --surface-sunken: #383E47;
+      --border: #6A7180;
+      --border-strong: #B7BCC5;
+      --dash: #6A7180;
       --text: #E7E9EC;
-      --text-muted: #A0A7B2;
-      --text-faint: #6E7581;
+      --text-muted: #A3AAB6;
+      --text-faint: #767E8B;
       --chip-bg: #E7E9EC;
-      --chip-text: #16181C;
+      --chip-text: #17191D;
       --invert-bg: #E7E9EC;
-      --invert-text: #16181C;
+      --invert-text: #17191D;
       --banner-bg: #E7E9EC;
-      --banner-text: #16181C;
+      --banner-text: #17191D;
       --focus: #E7E9EC;
     }
   }
   :root[data-theme="dark"]{
-    --bg: #16181C;
-    --surface: #1D2025;
-    --surface-alt: #24282E;
-    --surface-sunken: #323740;
-    --border: #565D68;
-    --border-strong: #A7AEB9;
-    --dash: #565D68;
+    --bg: #17191D;
+    --surface: #1E2126;
+    --surface-alt: #262A30;
+    --surface-sunken: #383E47;
+    --border: #6A7180;
+    --border-strong: #B7BCC5;
+    --dash: #6A7180;
     --text: #E7E9EC;
-    --text-muted: #A0A7B2;
-    --text-faint: #6E7581;
+    --text-muted: #A3AAB6;
+    --text-faint: #767E8B;
     --chip-bg: #E7E9EC;
-    --chip-text: #16181C;
+    --chip-text: #17191D;
     --invert-bg: #E7E9EC;
-    --invert-text: #16181C;
+    --invert-text: #17191D;
     --banner-bg: #E7E9EC;
-    --banner-text: #16181C;
+    --banner-text: #17191D;
     --focus: #E7E9EC;
   }
 
@@ -87,7 +86,7 @@
     font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
-  h1,h2,h3{ text-wrap: balance; }
+  h1,h2,h3{ text-wrap: balance; margin:0; }
   .mono{ font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace; }
   a, button{ font-family: inherit; }
   :focus-visible{ outline: 2px solid var(--focus); outline-offset: 2px; }
@@ -96,17 +95,13 @@
     *{ transition: none !important; animation: none !important; }
   }
 
-  /* Bloco cinza no lugar de texto real (linha de "greeking") */
-  .txt-line{
-    height: .8em;
-    border-radius: 3px;
-    background: var(--surface-sunken);
-  }
+  /* linha fina no lugar de texto real ainda não redigido */
+  .txt-line{ height:.5em; background: var(--surface-sunken); border-radius:1px; }
 
-  /* Caixa com borda tracejada no lugar de imagem/mapa */
+  /* caixa de traço no lugar de imagem/vídeo real */
   .ph-box{
     border: 1.5px dashed var(--dash);
-    border-radius: 4px;
+    border-radius: 0;
     background-color: var(--surface-alt);
     background-image:
       linear-gradient(to bottom right, transparent calc(50% - 1px), var(--dash) 50%, transparent calc(50% + 1px)),
@@ -114,375 +109,457 @@
     background-repeat: no-repeat;
     display:flex; align-items:center; justify-content:center;
   }
-  .ph-tag{
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: .35rem .6rem;
-  }
+  .ph-tag{ background: var(--surface); border: 1px solid var(--border); border-radius:0; padding:.35rem .6rem; }
 
-  /* Legenda de anotação de wireframe, ao final de cada seção */
-  .wf-note{
-    border-top: 1px dashed var(--dash);
-    background: var(--surface-alt);
-  }
-  .wf-chip{
-    background: var(--chip-bg);
-    color: var(--chip-text);
-    flex: none;
-  }
+  /* legenda de anotação de wireframe, ao final de cada seção */
+  .wf-note{ border-top: 1px dashed var(--dash); background: var(--surface-alt); }
+  .wf-chip{ background: var(--chip-bg); color: var(--chip-text); flex:none; border-radius:0; }
 
-  .card-ph{ border: 1px solid var(--border); border-radius: 4px; background: var(--surface); }
+  .card-ph{ border: 1.5px solid var(--border); border-radius: 0; background: var(--surface); }
   .icon-ph{
-    border: 1.5px dashed var(--dash);
-    border-radius: 4px;
-    display:flex; align-items:center; justify-content:center;
-    color: var(--text-faint);
+    border: 1.5px dashed var(--dash); border-radius:0;
+    display:flex; align-items:center; justify-content:center; color: var(--text-faint); flex:none;
   }
-  .btn-ph{
-    border-radius: 3px;
-    font-weight: 600;
-    text-align:center;
-    white-space: nowrap;
+  .tag-ph{ border:1px solid var(--border); border-radius:0; color: var(--text-muted); }
+
+  .btn-ph{ border-radius:0; font-weight:600; text-align:center; white-space:nowrap; }
+  .btn-primary{ background: var(--invert-bg); color: var(--invert-text); border:1.5px solid var(--invert-bg); }
+  .btn-secondary{ background: transparent; color: var(--text); border:1.5px solid var(--border-strong); }
+  .btn-link{ color: var(--text); border-bottom:1.5px solid var(--border-strong); padding-bottom:1px; font-weight:600; }
+
+  .list-row{ border-bottom: 1px solid var(--border); }
+  .list-row:first-child{ border-top: 1px solid var(--border); }
+
+  .eyebrow{ font-family:'IBM Plex Mono'; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color: var(--text-faint); }
+  .step-num{
+    width:2.5rem; height:2.5rem; border-radius:999px; border:1.5px dashed var(--dash);
+    display:flex; align-items:center; justify-content:center; flex:none;
+    font-family:'IBM Plex Mono'; font-weight:600; color: var(--text-muted);
   }
-  .btn-primary{ background: var(--invert-bg); color: var(--invert-text); border: 1px solid var(--invert-bg); }
-  .btn-secondary{ background: transparent; color: var(--text); border: 1.5px solid var(--border-strong); }
 </style>
 </head>
 <body class="mx-auto max-w-[1440px]">
 
-  <!-- Faixa de status do documento — não é uma das 11 seções, é meta-informação do artefato -->
+  <!-- Faixa de status do documento — meta-informação do artefato, não é uma das 12 seções -->
   <div class="mono text-[11px] tracking-wide text-center py-1.5 px-3" style="background:var(--banner-bg); color:var(--banner-text);">
-    WIREFRAME · BAIXA FIDELIDADE — RAW / HOME INSTITUCIONAL — v0.1 (estrutura, não visual)
+    WIREFRAME · BAIXA FIDELIDADE — RAW / HOME INSTITUCIONAL — v0.2 (navegação por intenção)
   </div>
 
   <!-- ============================================================
-       1. HEADER / NAVEGAÇÃO
+       1. HEADER — orientação + conversão
   ============================================================ -->
   <header id="secao-1">
-    <div class="max-w-[1200px] mx-auto flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 py-3" style="border-bottom:1px solid var(--border);">
-      <!-- Logo -->
+    <div class="max-w-[1280px] mx-auto flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 py-3" style="border-bottom:1.5px solid var(--border);">
       <div class="ph-box shrink-0" style="width:76px; height:34px;">
         <span class="mono text-[11px] text-center px-1" style="color:var(--text-faint);">LOGO<br>RAW</span>
       </div>
 
-      <!-- Menu desktop -->
       <nav aria-label="Navegação principal" class="hidden md:flex items-center gap-7 mono text-[13px]" style="color:var(--text-muted);">
-        <a href="#" class="hover:opacity-100" style="color:var(--text);">Empresa</a>
-        <a href="#" class="hover:opacity-100" style="color:var(--text);">Produtos</a>
-        <a href="#" class="hover:opacity-100" style="color:var(--text);">Segmentos</a>
-        <a href="#" class="hover:opacity-100" style="color:var(--text);">Centro técnico</a>
-        <a href="#" class="hover:opacity-100" style="color:var(--text);">Contato</a>
+        <a href="#secao-5" style="color:var(--text);">Produtos</a>
+        <a href="#secao-3" style="color:var(--text);">Soluções</a>
+        <a href="#secao-4" style="color:var(--text);">Aplicações</a>
+        <a href="#secao-6" style="color:var(--text);">Marcas</a>
+        <a href="#secao-10" style="color:var(--text);">Conhecimento</a>
+        <a href="#secao-7" style="color:var(--text);">Sobre a Raw</a>
       </nav>
 
       <div class="flex items-center gap-3">
-        <a href="#" class="btn-ph btn-primary hidden sm:block px-4 py-2 text-[13px]">Fale conosco</a>
-        <!-- Botão de menu mobile -->
-        <button id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu"
-          class="md:hidden ph-box" style="width:38px; height:34px;">
+        <a href="#secao-11" class="btn-ph btn-primary hidden sm:block px-4 py-2 text-[13px]">Falar com um especialista</a>
+        <button id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu" class="md:hidden ph-box" style="width:38px; height:34px;">
           <span class="mono text-[10px]" style="color:var(--text-faint);">MENU</span>
         </button>
       </div>
     </div>
 
-    <!-- Menu mobile -->
     <nav id="mobileMenu" aria-label="Navegação principal (mobile)" hidden
-      class="md:hidden max-w-[1200px] mx-auto px-4 sm:px-6 py-3 flex flex-col gap-3 mono text-[13px]" style="border-bottom:1px solid var(--border); color:var(--text);">
-      <a href="#">Empresa</a>
-      <a href="#">Produtos</a>
-      <a href="#">Segmentos</a>
-      <a href="#">Centro técnico</a>
-      <a href="#">Contato</a>
-      <a href="#" class="btn-ph btn-primary px-4 py-2 text-center mt-1">Fale conosco</a>
+      class="md:hidden max-w-[1280px] mx-auto px-4 sm:px-6 py-3 flex flex-col gap-3 mono text-[13px]" style="border-bottom:1.5px solid var(--border); color:var(--text);">
+      <a href="#secao-5">Produtos</a>
+      <a href="#secao-3">Soluções</a>
+      <a href="#secao-4">Aplicações</a>
+      <a href="#secao-6">Marcas</a>
+      <a href="#secao-10">Conhecimento</a>
+      <a href="#secao-7">Sobre a Raw</a>
+      <a href="#secao-11" class="btn-ph btn-primary px-4 py-2 text-center mt-1">Falar com um especialista</a>
     </nav>
 
     <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
-      <span class="wf-chip mono text-[10px] font-semibold rounded px-1.5 py-0.5">01</span>
-      <span><strong style="color:var(--text);">Header / navegação</strong> — logotipo, menu institucional (Empresa, Produtos, Segmentos, Centro técnico, Contato) e CTA de contato sempre visíveis; colapsa em menu mobile abaixo de md.</span>
+      <span class="wf-chip mono text-[10px] font-semibold px-1.5 py-0.5">01</span>
+      <span><strong style="color:var(--text);">Header</strong> — objetivo: orientação + conversão. Logo, menu (Produtos, Soluções, Aplicações, Marcas, Conhecimento, Sobre a Raw) e CTA principal fixo. Colapsa em menu mobile abaixo de md.</span>
     </p>
   </header>
 
   <!-- ============================================================
-       2. HERO
+       2. HERO — posicionamento (full-bleed)
   ============================================================ -->
-  <section id="secao-2" class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 grid lg:grid-cols-2 gap-10 items-center">
-    <div>
-      <div class="ph-box inline-flex px-3 py-1.5 mb-6" style="background-image:none;">
-        <span class="mono text-[11px] tracking-wide" style="color:var(--text-muted);">◆ HÁ 30+ ANOS NO MERCADO</span>
+  <section id="secao-2" class="pt-14 sm:pt-20">
+    <div class="max-w-[860px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="eyebrow mb-3">[ copy sugerida ]</p>
+      <h1 class="text-[28px] sm:text-[38px] lg:text-[46px] font-semibold leading-tight mb-5">Materiais que transformam possibilidades em realidade.</h1>
+
+      <p class="eyebrow mb-2">[ subheadline — matéria-prima + tecnologia + expertise ]</p>
+      <div class="flex flex-col gap-2 items-center mb-8">
+        <div class="txt-line" style="width:min(90%,30rem);"></div>
+        <div class="txt-line" style="width:min(70%,22rem);"></div>
       </div>
 
-      <p class="mono text-[10px] tracking-widest uppercase mb-2" style="color:var(--text-faint);">[ headline — posicionamento ]</p>
-      <div class="flex flex-col gap-3 mb-6" style="max-width:34rem;">
-        <div class="txt-line" style="width:100%; height:1.6em;"></div>
-        <div class="txt-line" style="width:88%; height:1.6em;"></div>
-        <div class="txt-line" style="width:60%; height:1.6em;"></div>
-      </div>
-
-      <p class="mono text-[10px] tracking-widest uppercase mb-2" style="color:var(--text-faint);">[ subheadline — explicação de valor ]</p>
-      <div class="flex flex-col gap-2 mb-8" style="max-width:30rem;">
-        <div class="txt-line" style="width:95%;"></div>
-        <div class="txt-line" style="width:70%;"></div>
-      </div>
-
-      <div class="flex flex-col sm:flex-row gap-3">
-        <a href="#" class="btn-ph btn-primary px-6 py-3 text-[14px]">Fale com um especialista</a>
-        <a href="#" class="btn-ph btn-secondary px-6 py-3 text-[14px]">Conheça a Raw</a>
+      <div class="flex flex-col sm:flex-row gap-5 items-center justify-center mb-12">
+        <a href="#secao-11" class="btn-ph btn-primary px-6 py-3 text-[14px]">Falar com um especialista</a>
+        <a href="#secao-5" class="btn-link text-[14px]">Conhecer soluções →</a>
       </div>
     </div>
 
-    <div class="ph-box w-full" style="aspect-ratio:4/3;">
-      <span class="ph-tag mono text-[11px] text-center" style="color:var(--text-muted);">IMG · Operação industrial / planta fabril</span>
+    <div class="w-full px-4 sm:px-6 lg:px-8 pb-4">
+      <div class="ph-box w-full" style="aspect-ratio:21/9;">
+        <span class="ph-tag mono text-[11px] text-center px-3" style="color:var(--text-muted);">IMG/VÍDEO · Matéria-prima → processo → aplicação</span>
+      </div>
     </div>
   </section>
-  <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2 -mt-px" style="color:var(--text-muted);">
-    <span class="wf-chip mono text-[10px] font-semibold rounded px-1.5 py-0.5">02</span>
-    <span><strong style="color:var(--text);">Hero</strong> — selo de credibilidade, headline e subheadline de posicionamento, dois CTAs (primário e secundário) e imagem de operação/indústria.</span>
+  <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
+    <span class="wf-chip mono text-[10px] font-semibold px-1.5 py-0.5">02</span>
+    <span><strong style="color:var(--text);">Hero</strong> — objetivo: posicionamento; vender percepção de valor, não explicar a empresa. Headline + subheadline + imagem/vídeo full-bleed grande. CTA principal "Falar com um especialista" e exploratório "Conhecer soluções".</span>
   </p>
 
   <!-- ============================================================
-       3. BARRA DE CREDIBILIDADE
+       3. NECESSIDADES — identificação por intenção (grid de cards)
   ============================================================ -->
   <section id="secao-3" style="background:var(--surface-alt);">
-    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <p class="mono text-[11px] tracking-widest uppercase text-center mb-6" style="color:var(--text-muted);">Distribuição e representação exclusiva das marcas</p>
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-        <div class="ph-box h-16"><span class="mono text-[11px]" style="color:var(--text-faint);">LOGO · Alcoa</span></div>
-        <div class="ph-box h-16"><span class="mono text-[11px]" style="color:var(--text-faint);">LOGO · Covestro</span></div>
-        <div class="ph-box h-16"><span class="mono text-[11px]" style="color:var(--text-faint);">LOGO · Nalco</span></div>
-        <div class="ph-box h-16"><span class="mono text-[11px]" style="color:var(--text-faint);">LOGO · 3M</span></div>
-        <div class="ph-box h-16 col-span-2 sm:col-span-1"><span class="mono text-[11px] text-center px-1" style="color:var(--text-faint);">LOGO · + outras marcas</span></div>
+    <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <p class="eyebrow mb-2">[ copy sugerida ]</p>
+      <h2 class="text-[22px] sm:text-[28px] font-semibold mb-8">O que você precisa desenvolver?</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <a href="#secao-5" class="card-ph flex items-center gap-4 p-4 hover:opacity-90">
+          <div class="icon-ph w-11 h-11"><span class="mono text-[9px]">ícone</span></div>
+          <span class="text-[14px] font-medium flex-1">Desenvolver um produto</span>
+          <span class="mono text-[13px]" style="color:var(--text-faint);">→</span>
+        </a>
+        <a href="#secao-5" class="card-ph flex items-center gap-4 p-4 hover:opacity-90">
+          <div class="icon-ph w-11 h-11"><span class="mono text-[9px]">ícone</span></div>
+          <span class="text-[14px] font-medium flex-1">Encontrar um material</span>
+          <span class="mono text-[13px]" style="color:var(--text-faint);">→</span>
+        </a>
+        <a href="#secao-9" class="card-ph flex items-center gap-4 p-4 hover:opacity-90">
+          <div class="icon-ph w-11 h-11"><span class="mono text-[9px]">ícone</span></div>
+          <span class="text-[14px] font-medium flex-1">Melhorar performance</span>
+          <span class="mono text-[13px]" style="color:var(--text-faint);">→</span>
+        </a>
+        <a href="#secao-5" class="card-ph flex items-center gap-4 p-4 hover:opacity-90">
+          <div class="icon-ph w-11 h-11"><span class="mono text-[9px]">ícone</span></div>
+          <span class="text-[14px] font-medium flex-1">Substituir matéria-prima</span>
+          <span class="mono text-[13px]" style="color:var(--text-faint);">→</span>
+        </a>
+        <a href="#secao-8" class="card-ph flex items-center gap-4 p-4 hover:opacity-90">
+          <div class="icon-ph w-11 h-11"><span class="mono text-[9px]">ícone</span></div>
+          <span class="text-[14px] font-medium flex-1">Resolver um desafio técnico</span>
+          <span class="mono text-[13px]" style="color:var(--text-faint);">→</span>
+        </a>
+        <a href="#secao-11" class="card-ph flex items-center gap-4 p-4 hover:opacity-90">
+          <div class="icon-ph w-11 h-11"><span class="mono text-[9px]">ícone</span></div>
+          <span class="text-[14px] font-medium flex-1">Falar com um especialista</span>
+          <span class="mono text-[13px]" style="color:var(--text-faint);">→</span>
+        </a>
       </div>
     </div>
   </section>
   <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
-    <span class="wf-chip mono text-[10px] font-semibold rounded px-1.5 py-0.5">03</span>
-    <span><strong style="color:var(--text);">Barra de credibilidade</strong> — grid de 5 logos placeholder das multinacionais que a Raw representa oficialmente no Brasil e América do Sul.</span>
+    <span class="wf-chip mono text-[10px] font-semibold px-1.5 py-0.5">03</span>
+    <span><strong style="color:var(--text);">Necessidades</strong> — objetivo: identificação; navegar por intenção, não por estrutura interna. 6 cards de entrada, cada um leva a uma jornada própria.</span>
   </p>
 
   <!-- ============================================================
-       4. NÚMEROS DE AUTORIDADE
+       4. APLICAÇÕES — relevância (mosaico de imagens)
   ============================================================ -->
-  <section id="secao-4" class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-      <div class="card-ph px-4 py-7">
-        <p class="mono font-semibold" style="font-size:2.25rem; color:var(--text);">30+</p>
-        <p class="mono text-[11px] mt-2" style="color:var(--text-muted);">anos de mercado (desde 1992)</p>
-      </div>
-      <div class="card-ph px-4 py-7">
-        <p class="mono font-semibold" style="font-size:2.25rem; color:var(--text);">3ª</p>
-        <p class="mono text-[11px] mt-2" style="color:var(--text-muted);">geração à frente do negócio</p>
-      </div>
-      <div class="card-ph px-4 py-7">
-        <p class="mono font-semibold" style="font-size:2.25rem; color:var(--text-faint);">0X</p>
-        <p class="mono text-[11px] mt-2" style="color:var(--text-muted);">países atendidos <span style="color:var(--text-faint);">(confirmar c/ cliente)</span></p>
-      </div>
-      <div class="card-ph px-4 py-7">
-        <p class="mono font-semibold" style="font-size:2.25rem; color:var(--text);">6</p>
-        <p class="mono text-[11px] mt-2" style="color:var(--text-muted);">segmentos industriais atendidos</p>
-      </div>
-    </div>
-  </section>
-  <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
-    <span class="wf-chip mono text-[10px] font-semibold rounded px-1.5 py-0.5">04</span>
-    <span><strong style="color:var(--text);">Números de autoridade</strong> — 4 métricas em destaque para reforçar tradição e escala: anos de mercado, geração familiar, países e segmentos atendidos.</span>
-  </p>
+  <section id="secao-4" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <p class="eyebrow mb-2">[ copy sugerida ]</p>
+    <h2 class="text-[22px] sm:text-[28px] font-semibold mb-8">Soluções para diferentes desafios industriais.</h2>
 
-  <!-- ============================================================
-       5. QUEM SOMOS
-  ============================================================ -->
-  <section id="secao-5" style="background:var(--surface-alt);">
-    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12 grid lg:grid-cols-2 gap-10 items-center">
-      <div class="ph-box w-full order-1 lg:order-none" style="aspect-ratio:4/3;">
-        <span class="ph-tag mono text-[11px] text-center" style="color:var(--text-muted);">IMG · Equipe / fábrica Raw</span>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-5">
+      <div>
+        <div class="ph-box w-full" style="aspect-ratio:4/5;"><span class="ph-tag mono text-[10px] text-center px-2" style="color:var(--text-muted);">IMG · material em uso</span></div>
+        <p class="text-[13px] font-medium mt-3">Automotivo</p>
       </div>
       <div>
-        <h2 class="mono text-[12px] tracking-widest uppercase mb-4" style="color:var(--text-muted);">Quem somos</h2>
-        <p class="mono text-[10px] tracking-widest uppercase mb-2" style="color:var(--text-faint);">[ texto — trajetória desde 1992 e DNA da empresa ]</p>
-        <div class="flex flex-col gap-2">
-          <div class="txt-line" style="width:100%;"></div>
-          <div class="txt-line" style="width:96%;"></div>
-          <div class="txt-line" style="width:92%;"></div>
-          <div class="txt-line" style="width:70%;"></div>
-        </div>
+        <div class="ph-box w-full" style="aspect-ratio:4/5;"><span class="ph-tag mono text-[10px] text-center px-2" style="color:var(--text-muted);">IMG · material em uso</span></div>
+        <p class="text-[13px] font-medium mt-3">Construção</p>
       </div>
+      <div>
+        <div class="ph-box w-full" style="aspect-ratio:4/5;"><span class="ph-tag mono text-[10px] text-center px-2" style="color:var(--text-muted);">IMG · material em uso</span></div>
+        <p class="text-[13px] font-medium mt-3">Eletrônicos</p>
+      </div>
+      <div>
+        <div class="ph-box w-full" style="aspect-ratio:4/5;"><span class="ph-tag mono text-[10px] text-center px-2" style="color:var(--text-muted);">IMG · material em uso</span></div>
+        <p class="text-[13px] font-medium mt-3">Calçados</p>
+      </div>
+    </div>
+
+    <div class="text-right mt-8">
+      <a href="#" class="btn-link text-[13px]">Explorar todas as aplicações →</a>
     </div>
   </section>
   <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
-    <span class="wf-chip mono text-[10px] font-semibold rounded px-1.5 py-0.5">05</span>
-    <span><strong style="color:var(--text);">Quem somos</strong> — imagem institucional (equipe/fábrica) + texto sobre a trajetória desde 1992 e o DNA de terceira geração da empresa.</span>
+    <span class="wf-chip mono text-[10px] font-semibold px-1.5 py-0.5">04</span>
+    <span><strong style="color:var(--text);">Aplicações</strong> — objetivo: relevância; mostrar que a Raw entende onde os materiais são usados. Grid de aplicações (automotivo, construção, eletrônicos, calçados) com imagem em contexto.</span>
   </p>
 
   <!-- ============================================================
-       6. SEGMENTOS ATENDIDOS
+       5. PORTFÓLIO — intenção comercial (busca + lista)
   ============================================================ -->
-  <section id="secao-6" class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <h2 class="mono text-[12px] tracking-widest uppercase mb-6" style="color:var(--text-muted);">Segmentos atendidos</h2>
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-      <div class="card-ph px-3 py-6 flex flex-col items-center gap-3 text-center">
-        <div class="icon-ph w-11 h-11"><span class="mono text-[9px]">ícone</span></div>
-        <p class="text-[13px] font-medium">Automotivo</p>
+  <section id="secao-5" style="background:var(--surface-alt);">
+    <div class="max-w-[860px] mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <p class="eyebrow mb-2">[ copy sugerida ]</p>
+      <h2 class="text-[22px] sm:text-[28px] font-semibold mb-8">O material certo começa com a aplicação certa.</h2>
+
+      <div class="card-ph flex items-center gap-3 px-4 py-3 mb-8" style="background:var(--surface);">
+        <span class="mono text-[13px]" style="color:var(--text-faint);">🔍</span>
+        <span class="mono text-[13px]" style="color:var(--text-faint);">Buscar por material, aplicação ou norma técnica…</span>
       </div>
-      <div class="card-ph px-3 py-6 flex flex-col items-center gap-3 text-center">
-        <div class="icon-ph w-11 h-11"><span class="mono text-[9px]">ícone</span></div>
-        <p class="text-[13px] font-medium">Agronegócio</p>
+
+      <div>
+        <div class="list-row flex items-center justify-between py-3"><span class="text-[14px]">Polímeros</span><span class="mono text-[13px]" style="color:var(--text-faint);">›</span></div>
+        <div class="list-row flex items-center justify-between py-3"><span class="text-[14px]">Resinas</span><span class="mono text-[13px]" style="color:var(--text-faint);">›</span></div>
+        <div class="list-row flex items-center justify-between py-3"><span class="text-[14px]">Elastômeros</span><span class="mono text-[13px]" style="color:var(--text-faint);">›</span></div>
+        <div class="list-row flex items-center justify-between py-3"><span class="text-[14px]">Poliuretanos</span><span class="mono text-[13px]" style="color:var(--text-faint);">›</span></div>
+        <div class="list-row flex items-center justify-between py-3"><span class="text-[14px]">Aditivos</span><span class="mono text-[13px]" style="color:var(--text-faint);">›</span></div>
+        <div class="list-row flex items-center justify-between py-3"><span class="text-[14px]">Cerâmicas</span><span class="mono text-[13px]" style="color:var(--text-faint);">›</span></div>
+        <div class="list-row flex items-center justify-between py-3"><span class="text-[14px]">Equipamentos</span><span class="mono text-[13px]" style="color:var(--text-faint);">›</span></div>
       </div>
-      <div class="card-ph px-3 py-6 flex flex-col items-center gap-3 text-center">
-        <div class="icon-ph w-11 h-11"><span class="mono text-[9px]">ícone</span></div>
-        <p class="text-[13px] font-medium">Cerâmica</p>
-      </div>
-      <div class="card-ph px-3 py-6 flex flex-col items-center gap-3 text-center">
-        <div class="icon-ph w-11 h-11"><span class="mono text-[9px]">ícone</span></div>
-        <p class="text-[13px] font-medium">Metalurgia</p>
-      </div>
-      <div class="card-ph px-3 py-6 flex flex-col items-center gap-3 text-center">
-        <div class="icon-ph w-11 h-11"><span class="mono text-[9px]">ícone</span></div>
-        <p class="text-[13px] font-medium">Mineração</p>
-      </div>
-      <div class="card-ph px-3 py-6 flex flex-col items-center gap-3 text-center">
-        <div class="icon-ph w-11 h-11"><span class="mono text-[9px]">ícone</span></div>
-        <p class="text-[13px] font-medium">Polímeros</p>
+
+      <div class="text-right mt-8">
+        <a href="#" class="btn-link text-[13px]">Explorar portfólio →</a>
       </div>
     </div>
   </section>
   <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
-    <span class="wf-chip mono text-[10px] font-semibold rounded px-1.5 py-0.5">06</span>
-    <span><strong style="color:var(--text);">Segmentos atendidos</strong> — grid de 6 cards (ícone + label) com as indústrias em que a Raw atua como parceira técnica: automotivo, agro, cerâmica, metalurgia, mineração e polímeros.</span>
+    <span class="wf-chip mono text-[10px] font-semibold px-1.5 py-0.5">05</span>
+    <span><strong style="color:var(--text);">Portfólio</strong> — objetivo: intenção comercial; usuário precisa encontrar, não ser impressionado. Busca + lista de categorias (polímeros, resinas, elastômeros, poliuretanos, aditivos, cerâmicas, equipamentos).</span>
   </p>
 
   <!-- ============================================================
-       7. LINHAS DE PRODUTOS
+       6. MARCAS — credibilidade (grid enxuto)
+  ============================================================ -->
+  <section id="secao-6" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+    <p class="eyebrow mb-2">[ copy sugerida ]</p>
+    <h2 class="text-[22px] sm:text-[28px] font-semibold mb-10">Tecnologia global. Conhecimento local.</h2>
+
+    <div class="grid grid-cols-2 sm:grid-cols-5 gap-x-8 gap-y-10 max-w-[760px] mx-auto">
+      <div class="ph-box h-14"><span class="mono text-[10px]" style="color:var(--text-faint);">Alcoa</span></div>
+      <div class="ph-box h-14"><span class="mono text-[10px]" style="color:var(--text-faint);">Covestro</span></div>
+      <div class="ph-box h-14"><span class="mono text-[10px]" style="color:var(--text-faint);">Nalco</span></div>
+      <div class="ph-box h-14"><span class="mono text-[10px]" style="color:var(--text-faint);">3M</span></div>
+      <div class="ph-box h-14 col-span-2 sm:col-span-1"><span class="mono text-[10px] text-center px-1" style="color:var(--text-faint);">+ outras</span></div>
+    </div>
+
+    <a href="#" class="btn-link text-[13px] inline-block mt-10">Conheça nossas marcas →</a>
+  </section>
+  <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
+    <span class="wf-chip mono text-[10px] font-semibold px-1.5 py-0.5">06</span>
+    <span><strong style="color:var(--text);">Marcas</strong> — objetivo: credibilidade; fornecedor como prova social B2B. Grid enxuto de logos (Alcoa, Covestro, Nalco, 3M) com bastante espaço negativo.</span>
+  </p>
+
+  <!-- ============================================================
+       7. DIFERENCIAL — valor (editorial: imagem + texto)
   ============================================================ -->
   <section id="secao-7" style="background:var(--surface-alt);">
-    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h2 class="mono text-[12px] tracking-widest uppercase mb-6" style="color:var(--text-muted);">Linhas de produtos</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="card-ph p-5">
-          <div class="icon-ph w-10 h-10 mb-4"><span class="mono text-[9px]">ícone</span></div>
-          <p class="text-[14px] font-semibold mb-2">Aluminas</p>
-          <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:90%;"></div><div class="txt-line" style="width:60%;"></div></div>
-        </div>
-        <div class="card-ph p-5">
-          <div class="icon-ph w-10 h-10 mb-4"><span class="mono text-[9px]">ícone</span></div>
-          <p class="text-[14px] font-semibold mb-2">Matérias-primas</p>
-          <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:90%;"></div><div class="txt-line" style="width:60%;"></div></div>
-        </div>
-        <div class="card-ph p-5">
-          <div class="icon-ph w-10 h-10 mb-4"><span class="mono text-[9px]">ícone</span></div>
-          <p class="text-[14px] font-semibold mb-2">Poliuretanos</p>
-          <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:90%;"></div><div class="txt-line" style="width:60%;"></div></div>
-        </div>
-        <div class="card-ph p-5">
-          <div class="icon-ph w-10 h-10 mb-4"><span class="mono text-[9px]">ícone</span></div>
-          <p class="text-[14px] font-semibold mb-2">Equipamentos</p>
-          <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:90%;"></div><div class="txt-line" style="width:60%;"></div></div>
+    <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16 grid lg:grid-cols-2 gap-12 items-start">
+      <div class="ph-box w-full order-1 lg:order-none" style="aspect-ratio:4/5;">
+        <span class="ph-tag mono text-[11px] text-center px-3" style="color:var(--text-muted);">IMG · equipe técnica em campo</span>
+      </div>
+
+      <div>
+        <p class="eyebrow mb-2">[ copy sugerida ]</p>
+        <h2 class="text-[22px] sm:text-[28px] font-semibold mb-8">Mais do que distribuição.</h2>
+
+        <div>
+          <div class="pt-4 pb-4" style="border-top:1px solid var(--border);">
+            <p class="text-[14px] font-semibold mb-2">Expertise</p>
+            <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:92%;"></div><div class="txt-line" style="width:65%;"></div></div>
+          </div>
+          <div class="pt-4 pb-4" style="border-top:1px solid var(--border);">
+            <p class="text-[14px] font-semibold mb-2">Tecnologia</p>
+            <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:88%;"></div><div class="txt-line" style="width:60%;"></div></div>
+          </div>
+          <div class="pt-4 pb-4" style="border-top:1px solid var(--border);">
+            <p class="text-[14px] font-semibold mb-2">Desenvolvimento</p>
+            <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:90%;"></div><div class="txt-line" style="width:70%;"></div></div>
+          </div>
+          <div class="py-4" style="border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+            <p class="text-[14px] font-semibold mb-2">Estrutura</p>
+            <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:85%;"></div><div class="txt-line" style="width:55%;"></div></div>
+          </div>
         </div>
       </div>
     </div>
   </section>
   <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
-    <span class="wf-chip mono text-[10px] font-semibold rounded px-1.5 py-0.5">07</span>
-    <span><strong style="color:var(--text);">Linhas de produtos</strong> — grid de 4 cards com as categorias distribuídas: aluminas, matérias-primas, poliuretanos e equipamentos.</span>
+    <span class="wf-chip mono text-[10px] font-semibold px-1.5 py-0.5">07</span>
+    <span><strong style="color:var(--text);">Diferencial</strong> — objetivo: valor; por que comprar da Raw e não direto de outro distribuidor. Layout editorial (foto grande + texto), 4 pilares: expertise, tecnologia, desenvolvimento, estrutura.</span>
   </p>
 
   <!-- ============================================================
-       8. DIFERENCIAIS
+       8. PROCESSO — diferenciação (diagrama linear)
   ============================================================ -->
-  <section id="secao-8" class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <h2 class="mono text-[12px] tracking-widest uppercase mb-6" style="color:var(--text-muted);">Diferenciais</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-      <div class="card-ph p-6">
-        <div class="icon-ph w-10 h-10 mb-4"><span class="mono text-[9px]">ícone</span></div>
-        <p class="text-[14px] font-semibold mb-2">Assistência técnica</p>
-        <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:95%;"></div><div class="txt-line" style="width:80%;"></div></div>
+  <section id="secao-8" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <p class="eyebrow mb-2 text-center">[ copy sugerida ]</p>
+    <h2 class="text-[22px] sm:text-[28px] font-semibold mb-12 text-center">Do desafio à solução.</h2>
+
+    <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-6 max-w-[980px] mx-auto">
+      <div class="flex flex-col items-center text-center gap-3 md:w-1/5">
+        <div class="step-num">1</div>
+        <p class="text-[13px] font-medium">Desafio</p>
       </div>
-      <div class="card-ph p-6">
-        <div class="icon-ph w-10 h-10 mb-4"><span class="mono text-[9px]">ícone</span></div>
-        <p class="text-[14px] font-semibold mb-2">Equipe multidisciplinar</p>
-        <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:95%;"></div><div class="txt-line" style="width:80%;"></div></div>
+      <span class="mono text-[16px] shrink-0" style="color:var(--text-faint);"><span class="hidden md:inline">→</span><span class="md:hidden">↓</span></span>
+      <div class="flex flex-col items-center text-center gap-3 md:w-1/5">
+        <div class="step-num">2</div>
+        <p class="text-[13px] font-medium">Análise</p>
       </div>
-      <div class="card-ph p-6">
-        <div class="icon-ph w-10 h-10 mb-4"><span class="mono text-[9px]">ícone</span></div>
-        <p class="text-[14px] font-semibold mb-2">Presença regional</p>
-        <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:95%;"></div><div class="txt-line" style="width:80%;"></div></div>
+      <span class="mono text-[16px] shrink-0" style="color:var(--text-faint);"><span class="hidden md:inline">→</span><span class="md:hidden">↓</span></span>
+      <div class="flex flex-col items-center text-center gap-3 md:w-1/5">
+        <div class="step-num">3</div>
+        <p class="text-[13px] font-medium">Material</p>
+      </div>
+      <span class="mono text-[16px] shrink-0" style="color:var(--text-faint);"><span class="hidden md:inline">→</span><span class="md:hidden">↓</span></span>
+      <div class="flex flex-col items-center text-center gap-3 md:w-1/5">
+        <div class="step-num">4</div>
+        <p class="text-[13px] font-medium">Desenvolvimento</p>
+      </div>
+      <span class="mono text-[16px] shrink-0" style="color:var(--text-faint);"><span class="hidden md:inline">→</span><span class="md:hidden">↓</span></span>
+      <div class="flex flex-col items-center text-center gap-3 md:w-1/5">
+        <div class="step-num">5</div>
+        <p class="text-[13px] font-medium">Aplicação</p>
       </div>
     </div>
   </section>
   <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
-    <span class="wf-chip mono text-[10px] font-semibold rounded px-1.5 py-0.5">08</span>
-    <span><strong style="color:var(--text);">Diferenciais</strong> — 3 cards curtos com os argumentos de autoridade e confiança: assistência técnica, equipe multidisciplinar e presença regional.</span>
+    <span class="wf-chip mono text-[10px] font-semibold px-1.5 py-0.5">08</span>
+    <span><strong style="color:var(--text);">Processo</strong> — objetivo: diferenciação; mostrar que a Raw participa antes da venda. Diagrama linear de 5 etapas: desafio → análise → material → desenvolvimento → aplicação.</span>
   </p>
 
   <!-- ============================================================
-       9. MAPA DE ABRANGÊNCIA
+       9. CASES — prova (cards editoriais)
   ============================================================ -->
   <section id="secao-9" style="background:var(--surface-alt);">
-    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h2 class="mono text-[12px] tracking-widest uppercase mb-6 text-center" style="color:var(--text-muted);">Mapa de abrangência</h2>
-      <div class="ph-box mx-auto" style="width:100%; max-width:640px; aspect-ratio:3/4;">
-        <span class="ph-tag mono text-[11px] text-center px-3" style="color:var(--text-muted);">MAPA · Cobertura Brasil + América do Sul</span>
+    <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <p class="eyebrow mb-2">[ copy sugerida ]</p>
+      <h2 class="text-[22px] sm:text-[28px] font-semibold mb-8">Desafios reais. Soluções aplicadas.</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div>
+          <div class="ph-box w-full mb-4" style="aspect-ratio:3/2;"><span class="ph-tag mono text-[10px] text-center px-2" style="color:var(--text-muted);">IMG · case (aguardando material real)</span></div>
+          <span class="tag-ph mono text-[10px] inline-block px-2 py-1 mb-3">Automotivo</span>
+          <div class="flex flex-col gap-1.5 mb-3"><div class="txt-line" style="width:95%;"></div><div class="txt-line" style="width:80%;"></div></div>
+          <a href="#" class="btn-link text-[13px]">Conheça o projeto →</a>
+        </div>
+        <div>
+          <div class="ph-box w-full mb-4" style="aspect-ratio:3/2;"><span class="ph-tag mono text-[10px] text-center px-2" style="color:var(--text-muted);">IMG · case (aguardando material real)</span></div>
+          <span class="tag-ph mono text-[10px] inline-block px-2 py-1 mb-3">Agronegócio</span>
+          <div class="flex flex-col gap-1.5 mb-3"><div class="txt-line" style="width:95%;"></div><div class="txt-line" style="width:80%;"></div></div>
+          <a href="#" class="btn-link text-[13px]">Conheça o projeto →</a>
+        </div>
+        <div>
+          <div class="ph-box w-full mb-4" style="aspect-ratio:3/2;"><span class="ph-tag mono text-[10px] text-center px-2" style="color:var(--text-muted);">IMG · case (aguardando material real)</span></div>
+          <span class="tag-ph mono text-[10px] inline-block px-2 py-1 mb-3">Cerâmica</span>
+          <div class="flex flex-col gap-1.5 mb-3"><div class="txt-line" style="width:95%;"></div><div class="txt-line" style="width:80%;"></div></div>
+          <a href="#" class="btn-link text-[13px]">Conheça o projeto →</a>
+        </div>
       </div>
+      <p class="mono text-[10px] mt-6" style="color:var(--text-faint);">* sem cases reais disponíveis no briefing — resumo e resultado são placeholders neutros, não inventar números.</p>
     </div>
   </section>
   <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
-    <span class="wf-chip mono text-[10px] font-semibold rounded px-1.5 py-0.5">09</span>
-    <span><strong style="color:var(--text);">Mapa de abrangência</strong> — placeholder de mapa ilustrando a cobertura da operação Raw no Brasil e na América do Sul.</span>
+    <span class="wf-chip mono text-[10px] font-semibold px-1.5 py-0.5">09</span>
+    <span><strong style="color:var(--text);">Cases</strong> — objetivo: prova; mostrar, não afirmar. 3 cards editoriais (foto + segmento + resumo), placeholder neutro por falta de case real.</span>
   </p>
 
   <!-- ============================================================
-       10. CTA FINAL
+       10. CONHECIMENTO — autoridade técnica (cards de conteúdo)
   ============================================================ -->
-  <section id="secao-10" class="px-4 sm:px-6 lg:px-8 py-8">
-    <div class="max-w-[1200px] mx-auto text-center py-14 px-6" style="background:var(--invert-bg); color:var(--invert-text); border:2px solid var(--border-strong); border-radius:4px;">
-      <p class="mono text-[10px] tracking-widest uppercase mb-3" style="opacity:.6;">[ headline curta de conversão ]</p>
-      <div class="flex flex-col gap-2 items-center mb-7">
-        <div class="txt-line" style="width:min(90%,26rem); height:1.5em; background:color-mix(in srgb, var(--invert-text) 30%, transparent);"></div>
+  <section id="secao-10" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <p class="eyebrow mb-2">[ copy sugerida ]</p>
+    <h2 class="text-[22px] sm:text-[28px] font-semibold mb-8">Conhecimento que move a indústria.</h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div class="card-ph p-5">
+        <span class="tag-ph mono text-[10px] inline-block px-2 py-1 mb-4">Artigo técnico</span>
+        <div class="flex flex-col gap-1.5 mb-4"><div class="txt-line" style="width:100%; height:.7em;"></div><div class="txt-line" style="width:70%; height:.7em;"></div></div>
+        <p class="mono text-[10px]" style="color:var(--text-faint);">[ autor · data ]</p>
       </div>
-      <a href="#" class="btn-ph inline-block px-7 py-3 text-[14px]" style="background:var(--invert-text); color:var(--invert-bg); border:1px solid var(--invert-text);">Fale com um especialista</a>
+      <div class="card-ph p-5">
+        <span class="tag-ph mono text-[10px] inline-block px-2 py-1 mb-4">Tendência de mercado</span>
+        <div class="flex flex-col gap-1.5 mb-4"><div class="txt-line" style="width:100%; height:.7em;"></div><div class="txt-line" style="width:60%; height:.7em;"></div></div>
+        <p class="mono text-[10px]" style="color:var(--text-faint);">[ autor · data ]</p>
+      </div>
+      <div class="card-ph p-5">
+        <span class="tag-ph mono text-[10px] inline-block px-2 py-1 mb-4">Nota técnica</span>
+        <div class="flex flex-col gap-1.5 mb-4"><div class="txt-line" style="width:100%; height:.7em;"></div><div class="txt-line" style="width:80%; height:.7em;"></div></div>
+        <p class="mono text-[10px]" style="color:var(--text-faint);">[ autor · data ]</p>
+      </div>
+    </div>
+
+    <div class="text-right mt-8">
+      <a href="#" class="btn-link text-[13px]">Explorar conhecimento →</a>
+    </div>
+  </section>
+  <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
+    <span class="wf-chip mono text-[10px] font-semibold px-1.5 py-0.5">10</span>
+    <span><strong style="color:var(--text);">Conhecimento</strong> — objetivo: SEO + autoridade técnica. 3 cards de conteúdo (artigo, tendência, nota técnica) — tratado como acervo técnico, não como blog/notícias.</span>
+  </p>
+
+  <!-- ============================================================
+       11. CTA FINAL — conversão (full-bleed de contraste)
+  ============================================================ -->
+  <section id="secao-11" class="px-4 sm:px-6 lg:px-8 py-8">
+    <div class="max-w-[1280px] mx-auto text-center py-16 px-6" style="background:var(--invert-bg); color:var(--invert-text); border:2px solid var(--border-strong);">
+      <p class="mono text-[10px] tracking-widest uppercase mb-3" style="opacity:.6;">[ copy sugerida ]</p>
+      <h2 class="text-[24px] sm:text-[32px] font-semibold mb-9">Tem um desafio? Vamos encontrar o caminho.</h2>
+      <div class="flex flex-col sm:flex-row gap-4 items-center justify-center">
+        <a href="#" class="btn-ph inline-block px-7 py-3 text-[14px]" style="background:var(--invert-text); color:var(--invert-bg); border:1.5px solid var(--invert-text);">Falar com um especialista</a>
+        <a href="#" class="btn-ph inline-block px-7 py-3 text-[14px]" style="background:transparent; color:var(--invert-text); border:1.5px solid var(--invert-text);">Solicitar cotação</a>
+      </div>
     </div>
   </section>
   <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2 -mt-8" style="color:var(--text-muted);">
-    <span class="wf-chip mono text-[10px] font-semibold rounded px-1.5 py-0.5">10</span>
-    <span><strong style="color:var(--text);">CTA final</strong> — bloco de alto contraste com borda reforçada, headline curta e botão único para conversão antes do rodapé.</span>
+    <span class="wf-chip mono text-[10px] font-semibold px-1.5 py-0.5">11</span>
+    <span><strong style="color:var(--text);">CTA final</strong> — objetivo: conversão. Bloco de alto contraste com borda reforçada; CTA principal "Falar com um especialista" + secundário comercial "Solicitar cotação".</span>
   </p>
 
   <!-- ============================================================
-       11. FOOTER
+       12. FOOTER
   ============================================================ -->
-  <footer id="secao-11" style="background:var(--surface-alt); border-top:1px solid var(--border);">
-    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+  <footer id="secao-12" style="background:var(--surface-alt); border-top:1.5px solid var(--border);">
+    <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
       <div>
         <div class="ph-box mb-3" style="width:76px; height:34px;">
           <span class="mono text-[11px] text-center px-1" style="color:var(--text-faint);">LOGO<br>RAW</span>
         </div>
-        <p class="mono text-[11px]" style="color:var(--text-muted);">Distribuidora e representante de multinacionais desde 1992.</p>
+        <p class="mono text-[11px]" style="color:var(--text-muted);">Materiais que transformam possibilidades em realidade — desde 1992.</p>
       </div>
       <div>
-        <p class="mono text-[11px] tracking-widest uppercase mb-3" style="color:var(--text-faint);">Institucional</p>
+        <p class="mono text-[11px] tracking-widest uppercase mb-3" style="color:var(--text-faint);">Produtos</p>
         <ul class="flex flex-col gap-2 text-[13px]" style="color:var(--text-muted);">
-          <li><a href="#">Sobre a Raw</a></li>
-          <li><a href="#">Centro técnico</a></li>
-          <li><a href="#">Trabalhe conosco</a></li>
+          <li><a href="#secao-5">Portfólio</a></li>
+          <li><a href="#secao-4">Aplicações</a></li>
+          <li><a href="#secao-6">Marcas</a></li>
         </ul>
       </div>
       <div>
-        <p class="mono text-[11px] tracking-widest uppercase mb-3" style="color:var(--text-faint);">Produtos &amp; segmentos</p>
+        <p class="mono text-[11px] tracking-widest uppercase mb-3" style="color:var(--text-faint);">Empresa</p>
         <ul class="flex flex-col gap-2 text-[13px]" style="color:var(--text-muted);">
-          <li><a href="#">Linhas de produtos</a></li>
-          <li><a href="#">Segmentos atendidos</a></li>
-          <li><a href="#">Marcas representadas</a></li>
+          <li><a href="#secao-7">Sobre a Raw</a></li>
+          <li><a href="#secao-10">Conhecimento</a></li>
+          <li><a href="#">Trabalhe conosco</a></li>
         </ul>
       </div>
       <div>
         <p class="mono text-[11px] tracking-widest uppercase mb-3" style="color:var(--text-faint);">Contato</p>
         <ul class="flex flex-col gap-2 text-[13px]" style="color:var(--text-muted);">
-          <li><a href="#">Fale conosco</a></li>
+          <li><a href="#secao-11">Falar com um especialista</a></li>
+          <li><a href="#secao-11">Solicitar cotação</a></li>
           <li><a href="#">Unidades regionais</a></li>
-          <li><a href="#">Imprensa</a></li>
         </ul>
       </div>
     </div>
 
-    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mono text-[11px]" style="border-top:1px solid var(--border); color:var(--text-faint);">
+    <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mono text-[11px]" style="border-top:1px solid var(--border); color:var(--text-faint);">
       <p>© Raw — [ endereço institucional · telefone · e-mail ]</p>
       <div class="flex items-center gap-4">
         <a href="#">Política de privacidade</a>
@@ -495,8 +572,8 @@
     </div>
   </footer>
   <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
-    <span class="wf-chip mono text-[10px] font-semibold rounded px-1.5 py-0.5">11</span>
-    <span><strong style="color:var(--text);">Footer</strong> — logo, 3 colunas de links institucionais/produtos/contato, e linha inferior com política de privacidade, redes sociais, endereço e contato.</span>
+    <span class="wf-chip mono text-[10px] font-semibold px-1.5 py-0.5">12</span>
+    <span><strong style="color:var(--text);">Footer</strong> — logo + tagline, colunas de links (Produtos, Empresa, Contato), redes sociais, endereço/contato, copyright e política de privacidade.</span>
   </p>
 
   <script>
