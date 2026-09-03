@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raw Home Wireframe</title>
+<meta name="description" content="Wireframe de baixa fidelidade da home institucional da Raw, para validar estrutura e hierarquia de conteúdo antes da definição visual.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  /* ============================================================
+     DESIGN TOKENS
+     Wireframe em escala de cinza — sem cores de marca.
+     Light definido em :root; dark redefine só os tokens.
+  ============================================================ */
+  :root{
+    --bg: #F2F3F5;
+    --surface: #FFFFFF;
+    --surface-alt: #E8EAED;
+    --surface-sunken: #D7DADF;
+    --border: #9BA3AE;
+    --border-strong: #454B54;
+    --dash: #9BA3AE;
+    --text: #23272E;
+    --text-muted: #5B6270;
+    --text-faint: #8B93A0;
+    --chip-bg: #23272E;
+    --chip-text: #F2F3F5;
+    --invert-bg: #23272E;
+    --invert-text: #F5F6F7;
+    --banner-bg: #23272E;
+    --banner-text: #E8EAED;
+    --focus: #23272E;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #16181C;
+      --surface: #1D2025;
+      --surface-alt: #24282E;
+      --surface-sunken: #323740;
+      --border: #565D68;
+      --border-strong: #A7AEB9;
+      --dash: #565D68;
+      --text: #E7E9EC;
+      --text-muted: #A0A7B2;
+      --text-faint: #6E7581;
+      --chip-bg: #E7E9EC;
+      --chip-text: #16181C;
+      --invert-bg: #E7E9EC;
+      --invert-text: #16181C;
+      --banner-bg: #E7E9EC;
+      --banner-text: #16181C;
+      --focus: #E7E9EC;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #16181C;
+    --surface: #1D2025;
+    --surface-alt: #24282E;
+    --surface-sunken: #323740;
+    --border: #565D68;
+    --border-strong: #A7AEB9;
+    --dash: #565D68;
+    --text: #E7E9EC;
+    --text-muted: #A0A7B2;
+    --text-faint: #6E7581;
+    --chip-bg: #E7E9EC;
+    --chip-text: #16181C;
+    --invert-bg: #E7E9EC;
+    --invert-text: #16181C;
+    --banner-bg: #E7E9EC;
+    --banner-text: #16181C;
+    --focus: #E7E9EC;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ background: var(--bg); }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3{ text-wrap: balance; }
+  .mono{ font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace; }
+  a, button{ font-family: inherit; }
+  :focus-visible{ outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition: none !important; animation: none !important; }
+  }
+
+  /* Bloco cinza no lugar de texto real (linha de "greeking") */
+  .txt-line{
+    height: .8em;
+    border-radius: 3px;
+    background: var(--surface-sunken);
+  }
+
+  /* Caixa com borda tracejada no lugar de imagem/mapa */
+  .ph-box{
+    border: 1.5px dashed var(--dash);
+    border-radius: 4px;
+    background-color: var(--surface-alt);
+    background-image:
+      linear-gradient(to bottom right, transparent calc(50% - 1px), var(--dash) 50%, transparent calc(50% + 1px)),
+      linear-gradient(to top right, transparent calc(50% - 1px), var(--dash) 50%, transparent calc(50% + 1px));
+    background-repeat: no-repeat;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .ph-tag{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: .35rem .6rem;
+  }
+
+  /* Legenda de anotação de wireframe, ao final de cada seção */
+  .wf-note{
+    border-top: 1px dashed var(--dash);
+    background: var(--surface-alt);
+  }
+  .wf-chip{
+    background: var(--chip-bg);
+    color: var(--chip-text);
+    flex: none;
+  }
+
+  .card-ph{ border: 1px solid var(--border); border-radius: 4px; background: var(--surface); }
+  .icon-ph{
+    border: 1.5px dashed var(--dash);
+    border-radius: 4px;
+    display:flex; align-items:center; justify-content:center;
+    color: var(--text-faint);
+  }
+  .btn-ph{
+    border-radius: 3px;
+    font-weight: 600;
+    text-align:center;
+    white-space: nowrap;
+  }
+  .btn-primary{ background: var(--invert-bg); color: var(--invert-text); border: 1px solid var(--invert-bg); }
+  .btn-secondary{ background: transparent; color: var(--text); border: 1.5px solid var(--border-strong); }
+</style>
+</head>
+<body class="mx-auto max-w-[1440px]">
+
+  <!-- Faixa de status do documento — não é uma das 11 seções, é meta-informação do artefato -->
+  <div class="mono text-[11px] tracking-wide text-center py-1.5 px-3" style="background:var(--banner-bg); color:var(--banner-text);">
+    WIREFRAME · BAIXA FIDELIDADE — RAW / HOME INSTITUCIONAL — v0.1 (estrutura, não visual)
+  </div>
+
+  <!-- ============================================================
+       1. HEADER / NAVEGAÇÃO
+  ============================================================ -->
+  <header id="secao-1">
+    <div class="max-w-[1200px] mx-auto flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 py-3" style="border-bottom:1px solid var(--border);">
+      <!-- Logo -->
+      <div class="ph-box shrink-0" style="width:76px; height:34px;">
+        <span class="mono text-[11px] text-center px-1" style="color:var(--text-faint);">LOGO<br>RAW</span>
+      </div>
+
+      <!-- Menu desktop -->
+      <nav aria-label="Navegação principal" class="hidden md:flex items-center gap-7 mono text-[13px]" style="color:var(--text-muted);">
+        <a href="#" class="hover:opacity-100" style="color:var(--text);">Empresa</a>
+        <a href="#" class="hover:opacity-100" style="color:var(--text);">Produtos</a>
+        <a href="#" class="hover:opacity-100" style="color:var(--text);">Segmentos</a>
+        <a href="#" class="hover:opacity-100" style="color:var(--text);">Centro técnico</a>
+        <a href="#" class="hover:opacity-100" style="color:var(--text);">Contato</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="#" class="btn-ph btn-primary hidden sm:block px-4 py-2 text-[13px]">Fale conosco</a>
+        <!-- Botão de menu mobile -->
+        <button id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu"
+          class="md:hidden ph-box" style="width:38px; height:34px;">
+          <span class="mono text-[10px]" style="color:var(--text-faint);">MENU</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Menu mobile -->
+    <nav id="mobileMenu" aria-label="Navegação principal (mobile)" hidden
+      class="md:hidden max-w-[1200px] mx-auto px-4 sm:px-6 py-3 flex flex-col gap-3 mono text-[13px]" style="border-bottom:1px solid var(--border); color:var(--text);">
+      <a href="#">Empresa</a>
+      <a href="#">Produtos</a>
+      <a href="#">Segmentos</a>
+      <a href="#">Centro técnico</a>
+      <a href="#">Contato</a>
+      <a href="#" class="btn-ph btn-primary px-4 py-2 text-center mt-1">Fale conosco</a>
+    </nav>
+
+    <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
+      <span class="wf-chip mono text-[10px] font-semibold rounded px-1.5 py-0.5">01</span>
+      <span><strong style="color:var(--text);">Header / navegação</strong> — logotipo, menu institucional (Empresa, Produtos, Segmentos, Centro técnico, Contato) e CTA de contato sempre visíveis; colapsa em menu mobile abaixo de md.</span>
+    </p>
+  </header>
+
+  <!-- ============================================================
+       2. HERO
+  ============================================================ -->
+  <section id="secao-2" class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 grid lg:grid-cols-2 gap-10 items-center">
+    <div>
+      <div class="ph-box inline-flex px-3 py-1.5 mb-6" style="background-image:none;">
+        <span class="mono text-[11px] tracking-wide" style="color:var(--text-muted);">◆ HÁ 30+ ANOS NO MERCADO</span>
+      </div>
+
+      <p class="mono text-[10px] tracking-widest uppercase mb-2" style="color:var(--text-faint);">[ headline — posicionamento ]</p>
+      <div class="flex flex-col gap-3 mb-6" style="max-width:34rem;">
+        <div class="txt-line" style="width:100%; height:1.6em;"></div>
+        <div class="txt-line" style="width:88%; height:1.6em;"></div>
+        <div class="txt-line" style="width:60%; height:1.6em;"></div>
+      </div>
+
+      <p class="mono text-[10px] tracking-widest uppercase mb-2" style="color:var(--text-faint);">[ subheadline — explicação de valor ]</p>
+      <div class="flex flex-col gap-2 mb-8" style="max-width:30rem;">
+        <div class="txt-line" style="width:95%;"></div>
+        <div class="txt-line" style="width:70%;"></div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3">
+        <a href="#" class="btn-ph btn-primary px-6 py-3 text-[14px]">Fale com um especialista</a>
+        <a href="#" class="btn-ph btn-secondary px-6 py-3 text-[14px]">Conheça a Raw</a>
+      </div>
+    </div>
+
+    <div class="ph-box w-full" style="aspect-ratio:4/3;">
+      <span class="ph-tag mono text-[11px] text-center" style="color:var(--text-muted);">IMG · Operação industrial / planta fabril</span>
+    </div>
+  </section>
+  <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2 -mt-px" style="color:var(--text-muted);">
+    <span class="wf-chip mono text-[10px] font-semibold rounded px-1.5 py-0.5">02</span>
+    <span><strong style="color:var(--text);">Hero</strong> — selo de credibilidade, headline e subheadline de posicionamento, dois CTAs (primário e secundário) e imagem de operação/indústria.</span>
+  </p>
+
+  <!-- ============================================================
+       3. BARRA DE CREDIBILIDADE
+  ============================================================ -->
+  <section id="secao-3" style="background:var(--surface-alt);">
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <p class="mono text-[11px] tracking-widest uppercase text-center mb-6" style="color:var(--text-muted);">Distribuição e representação exclusiva das marcas</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div class="ph-box h-16"><span class="mono text-[11px]" style="color:var(--text-faint);">LOGO · Alcoa</span></div>
+        <div class="ph-box h-16"><span class="mono text-[11px]" style="color:var(--text-faint);">LOGO · Covestro</span></div>
+        <div class="ph-box h-16"><span class="mono text-[11px]" style="color:var(--text-faint);">LOGO · Nalco</span></div>
+        <div class="ph-box h-16"><span class="mono text-[11px]" style="color:var(--text-faint);">LOGO · 3M</span></div>
+        <div class="ph-box h-16 col-span-2 sm:col-span-1"><span class="mono text-[11px] text-center px-1" style="color:var(--text-faint);">LOGO · + outras marcas</span></div>
+      </div>
+    </div>
+  </section>
+  <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
+    <span class="wf-chip mono text-[10px] font-semibold rounded px-1.5 py-0.5">03</span>
+    <span><strong style="color:var(--text);">Barra de credibilidade</strong> — grid de 5 logos placeholder das multinacionais que a Raw representa oficialmente no Brasil e América do Sul.</span>
+  </p>
+
+  <!-- ============================================================
+       4. NÚMEROS DE AUTORIDADE
+  ============================================================ -->
+  <section id="secao-4" class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+      <div class="card-ph px-4 py-7">
+        <p class="mono font-semibold" style="font-size:2.25rem; color:var(--text);">30+</p>
+        <p class="mono text-[11px] mt-2" style="color:var(--text-muted);">anos de mercado (desde 1992)</p>
+      </div>
+      <div class="card-ph px-4 py-7">
+        <p class="mono font-semibold" style="font-size:2.25rem; color:var(--text);">3ª</p>
+        <p class="mono text-[11px] mt-2" style="color:var(--text-muted);">geração à frente do negócio</p>
+      </div>
+      <div class="card-ph px-4 py-7">
+        <p class="mono font-semibold" style="font-size:2.25rem; color:var(--text-faint);">0X</p>
+        <p class="mono text-[11px] mt-2" style="color:var(--text-muted);">países atendidos <span style="color:var(--text-faint);">(confirmar c/ cliente)</span></p>
+      </div>
+      <div class="card-ph px-4 py-7">
+        <p class="mono font-semibold" style="font-size:2.25rem; color:var(--text);">6</p>
+        <p class="mono text-[11px] mt-2" style="color:var(--text-muted);">segmentos industriais atendidos</p>
+      </div>
+    </div>
+  </section>
+  <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
+    <span class="wf-chip mono text-[10px] font-semibold rounded px-1.5 py-0.5">04</span>
+    <span><strong style="color:var(--text);">Números de autoridade</strong> — 4 métricas em destaque para reforçar tradição e escala: anos de mercado, geração familiar, países e segmentos atendidos.</span>
+  </p>
+
+  <!-- ============================================================
+       5. QUEM SOMOS
+  ============================================================ -->
+  <section id="secao-5" style="background:var(--surface-alt);">
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12 grid lg:grid-cols-2 gap-10 items-center">
+      <div class="ph-box w-full order-1 lg:order-none" style="aspect-ratio:4/3;">
+        <span class="ph-tag mono text-[11px] text-center" style="color:var(--text-muted);">IMG · Equipe / fábrica Raw</span>
+      </div>
+      <div>
+        <h2 class="mono text-[12px] tracking-widest uppercase mb-4" style="color:var(--text-muted);">Quem somos</h2>
+        <p class="mono text-[10px] tracking-widest uppercase mb-2" style="color:var(--text-faint);">[ texto — trajetória desde 1992 e DNA da empresa ]</p>
+        <div class="flex flex-col gap-2">
+          <div class="txt-line" style="width:100%;"></div>
+          <div class="txt-line" style="width:96%;"></div>
+          <div class="txt-line" style="width:92%;"></div>
+          <div class="txt-line" style="width:70%;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
+    <span class="wf-chip mono text-[10px] font-semibold rounded px-1.5 py-0.5">05</span>
+    <span><strong style="color:var(--text);">Quem somos</strong> — imagem institucional (equipe/fábrica) + texto sobre a trajetória desde 1992 e o DNA de terceira geração da empresa.</span>
+  </p>
+
+  <!-- ============================================================
+       6. SEGMENTOS ATENDIDOS
+  ============================================================ -->
+  <section id="secao-6" class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h2 class="mono text-[12px] tracking-widest uppercase mb-6" style="color:var(--text-muted);">Segmentos atendidos</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+      <div class="card-ph px-3 py-6 flex flex-col items-center gap-3 text-center">
+        <div class="icon-ph w-11 h-11"><span class="mono text-[9px]">ícone</span></div>
+        <p class="text-[13px] font-medium">Automotivo</p>
+      </div>
+      <div class="card-ph px-3 py-6 flex flex-col items-center gap-3 text-center">
+        <div class="icon-ph w-11 h-11"><span class="mono text-[9px]">ícone</span></div>
+        <p class="text-[13px] font-medium">Agronegócio</p>
+      </div>
+      <div class="card-ph px-3 py-6 flex flex-col items-center gap-3 text-center">
+        <div class="icon-ph w-11 h-11"><span class="mono text-[9px]">ícone</span></div>
+        <p class="text-[13px] font-medium">Cerâmica</p>
+      </div>
+      <div class="card-ph px-3 py-6 flex flex-col items-center gap-3 text-center">
+        <div class="icon-ph w-11 h-11"><span class="mono text-[9px]">ícone</span></div>
+        <p class="text-[13px] font-medium">Metalurgia</p>
+      </div>
+      <div class="card-ph px-3 py-6 flex flex-col items-center gap-3 text-center">
+        <div class="icon-ph w-11 h-11"><span class="mono text-[9px]">ícone</span></div>
+        <p class="text-[13px] font-medium">Mineração</p>
+      </div>
+      <div class="card-ph px-3 py-6 flex flex-col items-center gap-3 text-center">
+        <div class="icon-ph w-11 h-11"><span class="mono text-[9px]">ícone</span></div>
+        <p class="text-[13px] font-medium">Polímeros</p>
+      </div>
+    </div>
+  </section>
+  <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
+    <span class="wf-chip mono text-[10px] font-semibold rounded px-1.5 py-0.5">06</span>
+    <span><strong style="color:var(--text);">Segmentos atendidos</strong> — grid de 6 cards (ícone + label) com as indústrias em que a Raw atua como parceira técnica: automotivo, agro, cerâmica, metalurgia, mineração e polímeros.</span>
+  </p>
+
+  <!-- ============================================================
+       7. LINHAS DE PRODUTOS
+  ============================================================ -->
+  <section id="secao-7" style="background:var(--surface-alt);">
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <h2 class="mono text-[12px] tracking-widest uppercase mb-6" style="color:var(--text-muted);">Linhas de produtos</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="card-ph p-5">
+          <div class="icon-ph w-10 h-10 mb-4"><span class="mono text-[9px]">ícone</span></div>
+          <p class="text-[14px] font-semibold mb-2">Aluminas</p>
+          <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:90%;"></div><div class="txt-line" style="width:60%;"></div></div>
+        </div>
+        <div class="card-ph p-5">
+          <div class="icon-ph w-10 h-10 mb-4"><span class="mono text-[9px]">ícone</span></div>
+          <p class="text-[14px] font-semibold mb-2">Matérias-primas</p>
+          <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:90%;"></div><div class="txt-line" style="width:60%;"></div></div>
+        </div>
+        <div class="card-ph p-5">
+          <div class="icon-ph w-10 h-10 mb-4"><span class="mono text-[9px]">ícone</span></div>
+          <p class="text-[14px] font-semibold mb-2">Poliuretanos</p>
+          <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:90%;"></div><div class="txt-line" style="width:60%;"></div></div>
+        </div>
+        <div class="card-ph p-5">
+          <div class="icon-ph w-10 h-10 mb-4"><span class="mono text-[9px]">ícone</span></div>
+          <p class="text-[14px] font-semibold mb-2">Equipamentos</p>
+          <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:90%;"></div><div class="txt-line" style="width:60%;"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
+    <span class="wf-chip mono text-[10px] font-semibold rounded px-1.5 py-0.5">07</span>
+    <span><strong style="color:var(--text);">Linhas de produtos</strong> — grid de 4 cards com as categorias distribuídas: aluminas, matérias-primas, poliuretanos e equipamentos.</span>
+  </p>
+
+  <!-- ============================================================
+       8. DIFERENCIAIS
+  ============================================================ -->
+  <section id="secao-8" class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h2 class="mono text-[12px] tracking-widest uppercase mb-6" style="color:var(--text-muted);">Diferenciais</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+      <div class="card-ph p-6">
+        <div class="icon-ph w-10 h-10 mb-4"><span class="mono text-[9px]">ícone</span></div>
+        <p class="text-[14px] font-semibold mb-2">Assistência técnica</p>
+        <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:95%;"></div><div class="txt-line" style="width:80%;"></div></div>
+      </div>
+      <div class="card-ph p-6">
+        <div class="icon-ph w-10 h-10 mb-4"><span class="mono text-[9px]">ícone</span></div>
+        <p class="text-[14px] font-semibold mb-2">Equipe multidisciplinar</p>
+        <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:95%;"></div><div class="txt-line" style="width:80%;"></div></div>
+      </div>
+      <div class="card-ph p-6">
+        <div class="icon-ph w-10 h-10 mb-4"><span class="mono text-[9px]">ícone</span></div>
+        <p class="text-[14px] font-semibold mb-2">Presença regional</p>
+        <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:95%;"></div><div class="txt-line" style="width:80%;"></div></div>
+      </div>
+    </div>
+  </section>
+  <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
+    <span class="wf-chip mono text-[10px] font-semibold rounded px-1.5 py-0.5">08</span>
+    <span><strong style="color:var(--text);">Diferenciais</strong> — 3 cards curtos com os argumentos de autoridade e confiança: assistência técnica, equipe multidisciplinar e presença regional.</span>
+  </p>
+
+  <!-- ============================================================
+       9. MAPA DE ABRANGÊNCIA
+  ============================================================ -->
+  <section id="secao-9" style="background:var(--surface-alt);">
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <h2 class="mono text-[12px] tracking-widest uppercase mb-6 text-center" style="color:var(--text-muted);">Mapa de abrangência</h2>
+      <div class="ph-box mx-auto" style="width:100%; max-width:640px; aspect-ratio:3/4;">
+        <span class="ph-tag mono text-[11px] text-center px-3" style="color:var(--text-muted);">MAPA · Cobertura Brasil + América do Sul</span>
+      </div>
+    </div>
+  </section>
+  <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
+    <span class="wf-chip mono text-[10px] font-semibold rounded px-1.5 py-0.5">09</span>
+    <span><strong style="color:var(--text);">Mapa de abrangência</strong> — placeholder de mapa ilustrando a cobertura da operação Raw no Brasil e na América do Sul.</span>
+  </p>
+
+  <!-- ============================================================
+       10. CTA FINAL
+  ============================================================ -->
+  <section id="secao-10" class="px-4 sm:px-6 lg:px-8 py-8">
+    <div class="max-w-[1200px] mx-auto text-center py-14 px-6" style="background:var(--invert-bg); color:var(--invert-text); border:2px solid var(--border-strong); border-radius:4px;">
+      <p class="mono text-[10px] tracking-widest uppercase mb-3" style="opacity:.6;">[ headline curta de conversão ]</p>
+      <div class="flex flex-col gap-2 items-center mb-7">
+        <div class="txt-line" style="width:min(90%,26rem); height:1.5em; background:color-mix(in srgb, var(--invert-text) 30%, transparent);"></div>
+      </div>
+      <a href="#" class="btn-ph inline-block px-7 py-3 text-[14px]" style="background:var(--invert-text); color:var(--invert-bg); border:1px solid var(--invert-text);">Fale com um especialista</a>
+    </div>
+  </section>
+  <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2 -mt-8" style="color:var(--text-muted);">
+    <span class="wf-chip mono text-[10px] font-semibold rounded px-1.5 py-0.5">10</span>
+    <span><strong style="color:var(--text);">CTA final</strong> — bloco de alto contraste com borda reforçada, headline curta e botão único para conversão antes do rodapé.</span>
+  </p>
+
+  <!-- ============================================================
+       11. FOOTER
+  ============================================================ -->
+  <footer id="secao-11" style="background:var(--surface-alt); border-top:1px solid var(--border);">
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div>
+        <div class="ph-box mb-3" style="width:76px; height:34px;">
+          <span class="mono text-[11px] text-center px-1" style="color:var(--text-faint);">LOGO<br>RAW</span>
+        </div>
+        <p class="mono text-[11px]" style="color:var(--text-muted);">Distribuidora e representante de multinacionais desde 1992.</p>
+      </div>
+      <div>
+        <p class="mono text-[11px] tracking-widest uppercase mb-3" style="color:var(--text-faint);">Institucional</p>
+        <ul class="flex flex-col gap-2 text-[13px]" style="color:var(--text-muted);">
+          <li><a href="#">Sobre a Raw</a></li>
+          <li><a href="#">Centro técnico</a></li>
+          <li><a href="#">Trabalhe conosco</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="mono text-[11px] tracking-widest uppercase mb-3" style="color:var(--text-faint);">Produtos &amp; segmentos</p>
+        <ul class="flex flex-col gap-2 text-[13px]" style="color:var(--text-muted);">
+          <li><a href="#">Linhas de produtos</a></li>
+          <li><a href="#">Segmentos atendidos</a></li>
+          <li><a href="#">Marcas representadas</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="mono text-[11px] tracking-widest uppercase mb-3" style="color:var(--text-faint);">Contato</p>
+        <ul class="flex flex-col gap-2 text-[13px]" style="color:var(--text-muted);">
+          <li><a href="#">Fale conosco</a></li>
+          <li><a href="#">Unidades regionais</a></li>
+          <li><a href="#">Imprensa</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mono text-[11px]" style="border-top:1px solid var(--border); color:var(--text-faint);">
+      <p>© Raw — [ endereço institucional · telefone · e-mail ]</p>
+      <div class="flex items-center gap-4">
+        <a href="#">Política de privacidade</a>
+        <span class="flex items-center gap-2">
+          <span class="ph-box" style="width:24px; height:24px; background-image:none;"></span>
+          <span class="ph-box" style="width:24px; height:24px; background-image:none;"></span>
+          <span class="ph-box" style="width:24px; height:24px; background-image:none;"></span>
+        </span>
+      </div>
+    </div>
+  </footer>
+  <p class="wf-note mono text-[11px] leading-relaxed px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
+    <span class="wf-chip mono text-[10px] font-semibold rounded px-1.5 py-0.5">11</span>
+    <span><strong style="color:var(--text);">Footer</strong> — logo, 3 colunas de links institucionais/produtos/contato, e linha inferior com política de privacidade, redes sociais, endereço e contato.</span>
+  </p>
+
+  <script>
+    // Alterna o menu mobile — único comportamento interativo do wireframe.
+    (function(){
+      var toggle = document.getElementById('menuToggle');
+      var menu = document.getElementById('mobileMenu');
+      if(!toggle || !menu) return;
+      toggle.addEventListener('click', function(){
+        var isOpen = !menu.hasAttribute('hidden');
+        if(isOpen){
+          menu.setAttribute('hidden', '');
+          toggle.setAttribute('aria-expanded', 'false');
+        } else {
+          menu.removeAttribute('hidden');
+          toggle.setAttribute('aria-expanded', 'true');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
