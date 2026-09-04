@@ -7,77 +7,76 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
   :root{
-    --bg:#F1F2F4; --surface:#FFFFFF; --surface-alt:#E6E8EB; --surface-sunken:#C9CED5;
-    --border:#6B7280; --border-strong:#33383F; --dash:#7B828D;
-    --text:#1D2126; --text-muted:#565D68; --text-faint:#868D98;
-    --chip-bg:#1D2126; --chip-text:#F1F2F4; --invert-bg:#1D2126; --invert-text:#F5F6F7;
-    --banner-bg:#1D2126; --banner-text:#E6E8EB; --focus:#1D2126;
+    --bg:#FFFFFF; --surface:#FFFFFF; --surface-alt:#F7F7FA;
+    --fill:#E7E7F3; --fill-strong:#DBDBEC;
+    --border:#E4E4EA; --border-strong:#17171A;
+    --text:#17171A; --text-muted:#6E6E79; --text-faint:#9B9BA6;
+    --pill-bg:#17171A; --pill-text:#FFFFFF;
+    --btn-primary-bg:#17171A; --btn-primary-text:#FFFFFF;
+    --focus:#17171A;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --bg:#17191D; --surface:#1E2126; --surface-alt:#262A30; --surface-sunken:#383E47;
-      --border:#6A7180; --border-strong:#B7BCC5; --dash:#6A7180;
-      --text:#E7E9EC; --text-muted:#A3AAB6; --text-faint:#767E8B;
-      --chip-bg:#E7E9EC; --chip-text:#17191D; --invert-bg:#E7E9EC; --invert-text:#17191D;
-      --banner-bg:#E7E9EC; --banner-text:#17191D; --focus:#E7E9EC;
+      --bg:#131316; --surface:#1A1A1E; --surface-alt:#1F1F24;
+      --fill:#2B2B34; --fill-strong:#34343F;
+      --border:#2E2E36; --border-strong:#EDEDF0;
+      --text:#EDEDF0; --text-muted:#A6A6B0; --text-faint:#77777F;
+      --pill-bg:#EDEDF0; --pill-text:#131316;
+      --btn-primary-bg:#EDEDF0; --btn-primary-text:#131316;
+      --focus:#EDEDF0;
     }
   }
   :root[data-theme="dark"]{
-    --bg:#17191D; --surface:#1E2126; --surface-alt:#262A30; --surface-sunken:#383E47;
-    --border:#6A7180; --border-strong:#B7BCC5; --dash:#6A7180;
-    --text:#E7E9EC; --text-muted:#A3AAB6; --text-faint:#767E8B;
-    --chip-bg:#E7E9EC; --chip-text:#17191D; --invert-bg:#E7E9EC; --invert-text:#17191D;
-    --banner-bg:#E7E9EC; --banner-text:#17191D; --focus:#E7E9EC;
+    --bg:#131316; --surface:#1A1A1E; --surface-alt:#1F1F24;
+    --fill:#2B2B34; --fill-strong:#34343F;
+    --border:#2E2E36; --border-strong:#EDEDF0;
+    --text:#EDEDF0; --text-muted:#A6A6B0; --text-faint:#77777F;
+    --pill-bg:#EDEDF0; --pill-text:#131316;
+    --btn-primary-bg:#EDEDF0; --btn-primary-text:#131316;
+    --focus:#EDEDF0;
   }
   *{ box-sizing:border-box; }
   html{ background:var(--bg); }
-  body{ margin:0; background:var(--bg); color:var(--text); font-family:'IBM Plex Sans',ui-sans-serif,system-ui,-apple-system,sans-serif; -webkit-font-smoothing:antialiased; }
-  h1,h2{ text-wrap:balance; margin:0; }
-  .mono{ font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace; }
+  body{ margin:0; background:var(--bg); color:var(--text); font-family:'Inter',ui-sans-serif,system-ui,-apple-system,sans-serif; -webkit-font-smoothing:antialiased; }
+  h1,h2{ text-wrap:balance; margin:0; letter-spacing:-.01em; }
   a, button{ font-family:inherit; }
   :focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
   @media (prefers-reduced-motion: reduce){ *{ transition:none !important; animation:none !important; } }
 
-  .txt-line{ height:.5em; background:var(--surface-sunken); border-radius:1px; }
-  .ph-box{
-    border:1.5px dashed var(--dash); background-color:var(--surface-alt);
-    background-image:
-      linear-gradient(to bottom right, transparent calc(50% - 1px), var(--dash) 50%, transparent calc(50% + 1px)),
-      linear-gradient(to top right, transparent calc(50% - 1px), var(--dash) 50%, transparent calc(50% + 1px));
-    background-repeat:no-repeat; display:flex; align-items:center; justify-content:center;
-  }
-  .ph-tag{ background:var(--surface); border:1px solid var(--border); padding:.3rem .55rem; }
-  .wf-note{ border-top:1px dashed var(--dash); background:var(--surface-alt); }
-  .wf-chip{ background:var(--chip-bg); color:var(--chip-text); flex:none; }
-  .card-ph{ border:1.5px solid var(--border); background:var(--surface); }
-  .icon-ph{ border:1.5px dashed var(--dash); display:flex; align-items:center; justify-content:center; color:var(--text-faint); flex:none; }
-  .btn-ph{ font-weight:600; text-align:center; white-space:nowrap; }
-  .btn-primary{ background:var(--invert-bg); color:var(--invert-text); border:1.5px solid var(--invert-bg); }
-  .btn-secondary{ background:transparent; color:var(--text); border:1.5px solid var(--border-strong); }
-  .btn-link{ color:var(--text); border-bottom:1.5px solid var(--border-strong); padding-bottom:1px; font-weight:600; }
-  .input-ph{ border:1.5px solid var(--border); background:var(--surface); }
-  select.input-ph{ appearance:none; -webkit-appearance:none; }
-  label{ display:block; font-size:12px; font-weight:600; margin-bottom:.4rem; }
+  .txt-line{ height:.6em; background:var(--fill); border-radius:999px; }
+  .fill-box{ background:var(--fill); border-radius:1.1rem; display:flex; align-items:center; justify-content:center; position:relative; }
+  .card{ border:1.5px solid var(--border); border-radius:1rem; background:var(--surface); }
+  .icon-fill{ background:var(--fill); border-radius:.6rem; display:flex; align-items:center; justify-content:center; color:var(--text-muted); flex:none; }
+  .btn{ border-radius:.85rem; font-weight:600; text-align:center; white-space:nowrap; }
+  .btn-primary{ background:var(--btn-primary-bg); color:var(--btn-primary-text); }
+  .btn-link{ color:var(--text); font-weight:600; }
+  .btn-link .arrow{ transition:transform .15s; display:inline-block; }
+  .btn-link:hover .arrow{ transform:translateX(2px); }
+  .input-fill{ background:var(--fill); border-radius:.85rem; border:none; appearance:none; -webkit-appearance:none; width:100%; }
+  .wf-note{ border-top:1px solid var(--border); background:var(--surface-alt); }
+  .badge-num{ width:1.6rem; height:1.6rem; border-radius:999px; background:var(--fill); color:var(--text-muted); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; flex:none; }
+  .eyebrow{ font-size:12px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--text-muted); }
+  label{ display:block; font-size:13px; font-weight:600; margin-bottom:.5rem; }
 </style>
 </head>
 <body class="mx-auto max-w-[1440px]">
 
-  <div class="mono text-[11px] text-center py-1.5 px-3" style="background:var(--banner-bg); color:var(--banner-text);">
-    WIREFRAME · BAIXA FIDELIDADE — RAW · PROTÓTIPO NAVEGÁVEL — CONTATO
+  <div class="text-[11px] text-center py-1.5 px-3" style="background:var(--surface-alt); color:var(--text-muted); border-bottom:1px solid var(--border);">
+    WIREFRAME · MÉDIA FIDELIDADE — RAW · PROTÓTIPO NAVEGÁVEL — CONTATO
   </div>
 
   <!-- ============================================================
        HEADER (fixo, fora da numeração — idêntico em todas as páginas)
   ============================================================ -->
   <header>
-    <div class="max-w-[1280px] mx-auto flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 py-3" style="border-bottom:1.5px solid var(--border);">
-      <a href="index.html" class="ph-box shrink-0" style="width:70px; height:32px;"><span class="mono text-[10px] text-center px-1" style="color:var(--text-faint);">LOGO RAW</span></a>
-      <nav aria-label="Navegação principal" class="hidden md:flex items-center gap-6 mono text-[13px]" style="color:var(--text);">
+    <div class="max-w-[1280px] mx-auto flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 py-3.5" style="border-bottom:1px solid var(--border);">
+      <a href="index.html" class="fill-box shrink-0" style="width:64px; height:32px;"><span class="text-[10px] font-semibold" style="color:var(--text-muted);">RAW</span></a>
+      <nav aria-label="Navegação principal" class="hidden md:flex items-center gap-7 text-[14px] font-medium" style="color:var(--text);">
         <a href="produto.html">Produtos</a>
         <a href="index.html#solucoes">Soluções</a>
         <a href="index.html#aplicacoes">Aplicações</a>
@@ -86,31 +85,33 @@
         <a href="index.html#sobre">Sobre a Raw</a>
       </nav>
       <div class="flex items-center gap-3">
-        <a href="contato.html" class="btn-ph btn-primary hidden sm:block px-4 py-2 text-[13px]">Falar com um especialista</a>
-        <button id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu" class="md:hidden ph-box" style="width:36px; height:32px;"><span class="mono text-[10px]" style="color:var(--text-faint);">MENU</span></button>
+        <a href="contato.html" class="btn btn-primary hidden sm:block px-4 py-2.5 text-[13px]">Falar com um especialista</a>
+        <button id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu" class="md:hidden fill-box" style="width:38px; height:34px;">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--text-muted);"><path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
       </div>
     </div>
     <nav id="mobileMenu" aria-label="Navegação principal (mobile)" hidden
-      class="md:hidden max-w-[1280px] mx-auto px-4 sm:px-6 py-3 flex flex-col gap-3 mono text-[13px]" style="border-bottom:1.5px solid var(--border); color:var(--text);">
+      class="md:hidden max-w-[1280px] mx-auto px-4 sm:px-6 py-3 flex flex-col gap-3 text-[14px] font-medium" style="border-bottom:1px solid var(--border); color:var(--text);">
       <a href="produto.html">Produtos</a>
       <a href="index.html#solucoes">Soluções</a>
       <a href="index.html#aplicacoes">Aplicações</a>
       <a href="index.html#marcas">Marcas</a>
       <a href="conhecimento.html">Conhecimento</a>
       <a href="index.html#sobre">Sobre a Raw</a>
-      <a href="contato.html" class="btn-ph btn-primary px-4 py-2 text-center mt-1">Falar com um especialista</a>
+      <a href="contato.html" class="btn btn-primary px-4 py-2.5 text-center mt-1">Falar com um especialista</a>
     </nav>
   </header>
 
   <!-- ============================================================
        1. HERO DE CONTATO — orientação
   ============================================================ -->
-  <section id="secao-1" class="pt-12 sm:pt-16 pb-8 max-w-[720px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <h1 class="text-[26px] sm:text-[36px] font-semibold leading-tight mb-4">Fale com a Raw.</h1>
+  <section id="secao-1" class="pt-10 sm:pt-14 pb-8 max-w-[720px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h1 class="text-[28px] sm:text-[38px] font-bold leading-tight mb-4">Fale com a Raw.</h1>
     <div class="flex flex-col gap-2 items-center"><div class="txt-line" style="width:min(80%,26rem);"></div></div>
   </section>
-  <p class="wf-note mono text-[11px] px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
-    <span class="wf-chip mono text-[10px] font-semibold px-1.5 py-0.5">01</span>
+  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
+    <span class="badge-num">01</span>
     <span><strong style="color:var(--text);">Hero de contato</strong> — orientação: headline + subheadline.</span>
   </p>
 
@@ -118,12 +119,12 @@
        2. FORMULÁRIO SEGMENTADO — direcionar por intenção
   ============================================================ -->
   <section id="secao-2" style="background:var(--surface-alt);">
-    <div class="max-w-[640px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h2 class="mono text-[12px] tracking-widest uppercase mb-7" style="color:var(--text-muted);">Formulário</h2>
+    <div class="max-w-[640px] mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <h2 class="eyebrow mb-6">Formulário</h2>
       <form onsubmit="return false;" class="flex flex-col gap-5">
         <div>
-          <label for="motivo">Motivo do contato</label>
-          <select id="motivo" class="input-ph w-full px-3 py-2.5 text-[14px]">
+          <label for="cont-motivo">Motivo do contato</label>
+          <select id="cont-motivo" class="input-fill px-4 py-3 text-[14px]">
             <option value="cotacao">Cotação</option>
             <option value="suporte">Suporte técnico</option>
             <option value="duvida">Dúvida sobre produto</option>
@@ -132,45 +133,45 @@
           </select>
         </div>
 
-        <div><label>Nome</label><div class="input-ph px-3 py-2.5"><span class="mono text-[13px]" style="color:var(--text-faint);">[ nome completo ]</span></div></div>
-        <div><label>E-mail / telefone</label><div class="input-ph px-3 py-2.5"><span class="mono text-[13px]" style="color:var(--text-faint);">[ contato ]</span></div></div>
+        <div><label>Nome</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ nome completo ]</span></div></div>
+        <div><label>E-mail / telefone</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ contato ]</span></div></div>
 
-        <div data-motivo-group="cotacao"><label>Produto / material de interesse</label><div class="input-ph px-3 py-2.5"><span class="mono text-[13px]" style="color:var(--text-faint);">[ produto ]</span></div></div>
-        <div data-motivo-group="cotacao" class="hidden"><label>Volume estimado</label><div class="input-ph px-3 py-2.5"><span class="mono text-[13px]" style="color:var(--text-faint);">[ quantidade / periodicidade ]</span></div></div>
+        <div data-motivo-group="cotacao"><label>Produto / material de interesse</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ produto ]</span></div></div>
+        <div data-motivo-group="cotacao" hidden><label>Volume estimado</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ quantidade / periodicidade ]</span></div></div>
 
-        <div data-motivo-group="suporte" class="hidden"><label>Produto em uso</label><div class="input-ph px-3 py-2.5"><span class="mono text-[13px]" style="color:var(--text-faint);">[ produto ]</span></div></div>
-        <div data-motivo-group="suporte" class="hidden"><label>Descreva o problema técnico</label><div class="input-ph px-3 py-2.5" style="min-height:64px;"><span class="mono text-[13px]" style="color:var(--text-faint);">[ descrição ]</span></div></div>
+        <div data-motivo-group="suporte" hidden><label>Produto em uso</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ produto ]</span></div></div>
+        <div data-motivo-group="suporte" hidden><label>Descreva o problema técnico</label><div class="input-fill px-4 py-3" style="min-height:64px;"><span class="text-[14px]" style="color:var(--text-faint);">[ descrição ]</span></div></div>
 
-        <div data-motivo-group="duvida" class="hidden"><label>Produto</label><div class="input-ph px-3 py-2.5"><span class="mono text-[13px]" style="color:var(--text-faint);">[ produto ]</span></div></div>
+        <div data-motivo-group="duvida" hidden><label>Produto</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ produto ]</span></div></div>
 
-        <div data-motivo-group="trabalhe" class="hidden"><label>Currículo</label><div class="input-ph px-3 py-2.5"><span class="mono text-[13px]" style="color:var(--text-faint);">[ anexar arquivo ]</span></div></div>
+        <div data-motivo-group="trabalhe" hidden><label>Currículo</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ anexar arquivo ]</span></div></div>
 
-        <div data-motivo-group="outro" class="hidden"><label>Mensagem</label><div class="input-ph px-3 py-2.5" style="min-height:64px;"><span class="mono text-[13px]" style="color:var(--text-faint);">[ mensagem ]</span></div></div>
+        <div data-motivo-group="outro" hidden><label>Mensagem</label><div class="input-fill px-4 py-3" style="min-height:64px;"><span class="text-[14px]" style="color:var(--text-faint);">[ mensagem ]</span></div></div>
 
-        <button type="submit" class="btn-ph btn-primary px-6 py-3 text-[14px] self-start">Enviar</button>
+        <button type="submit" class="btn btn-primary px-6 py-3.5 text-[14px] self-start">Enviar</button>
       </form>
     </div>
   </section>
-  <p class="wf-note mono text-[11px] px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
-    <span class="wf-chip mono text-[10px] font-semibold px-1.5 py-0.5">02</span>
+  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
+    <span class="badge-num">02</span>
     <span><strong style="color:var(--text);">Formulário segmentado</strong> — direcionar por intenção: seletor de motivo troca os campos abaixo (JS).</span>
   </p>
 
   <!-- ============================================================
        3. CANAIS DIRETOS — alternativa ao formulário
   ============================================================ -->
-  <section id="secao-3" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <h2 class="mono text-[12px] tracking-widest uppercase mb-7" style="color:var(--text-muted);">Canais diretos</h2>
+  <section id="secao-3" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <h2 class="eyebrow mb-6">Canais diretos</h2>
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-      <a href="tel:+550000000000" class="card-ph p-5 block"><div class="icon-ph w-9 h-9 mb-3"><span class="mono text-[9px]">tel</span></div><p class="text-[13px] font-medium mb-1">Telefone</p><p class="mono text-[12px]" style="color:var(--text-faint);">[ telefone ]</p></a>
-      <a href="mailto:contato@raw.com.br" class="card-ph p-5 block"><div class="icon-ph w-9 h-9 mb-3"><span class="mono text-[9px]">@</span></div><p class="text-[13px] font-medium mb-1">E-mail</p><p class="mono text-[12px]" style="color:var(--text-faint);">[ e-mail ]</p></a>
-      <a href="https://wa.me/550000000000" class="card-ph p-5 block"><div class="icon-ph w-9 h-9 mb-3"><span class="mono text-[9px]">wa</span></div><p class="text-[13px] font-medium mb-1">WhatsApp</p><p class="mono text-[12px]" style="color:var(--text-faint);">[ número ]</p></a>
+      <a href="tel:+550000000000" class="card p-5 block"><span class="icon-fill mb-3" style="width:38px; height:38px;"></span><p class="text-[14px] font-semibold mb-1">Telefone</p><p class="text-[13px]" style="color:var(--text-faint);">[ telefone ]</p></a>
+      <a href="mailto:contato@raw.com.br" class="card p-5 block"><span class="icon-fill mb-3" style="width:38px; height:38px;"></span><p class="text-[14px] font-semibold mb-1">E-mail</p><p class="text-[13px]" style="color:var(--text-faint);">[ e-mail ]</p></a>
+      <a href="https://wa.me/550000000000" class="card p-5 block"><span class="icon-fill mb-3" style="width:38px; height:38px;"></span><p class="text-[14px] font-semibold mb-1">WhatsApp</p><p class="text-[13px]" style="color:var(--text-faint);">[ número ]</p></a>
     </div>
-    <div class="txt-line" style="width:220px; height:.6em;"></div>
-    <p class="mono text-[11px] mt-2" style="color:var(--text-faint);">[ horário de atendimento ]</p>
+    <div class="txt-line" style="width:220px;"></div>
+    <p class="text-[12px] mt-2" style="color:var(--text-faint);">[ horário de atendimento ]</p>
   </section>
-  <p class="wf-note mono text-[11px] px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
-    <span class="wf-chip mono text-[10px] font-semibold px-1.5 py-0.5">03</span>
+  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
+    <span class="badge-num">03</span>
     <span><strong style="color:var(--text);">Canais diretos</strong> — alternativa ao formulário: telefone, e-mail, WhatsApp e horário.</span>
   </p>
 
@@ -178,78 +179,78 @@
        4. LOCALIZAÇÃO — confiança + logística
   ============================================================ -->
   <section id="secao-4" style="background:var(--surface-alt);">
-    <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-12 grid lg:grid-cols-2 gap-10 items-center">
-      <div class="ph-box w-full" style="aspect-ratio:4/3;"><span class="ph-tag mono text-[11px] text-center px-3" style="color:var(--text-muted);">MAPA · sede + unidades regionais</span></div>
+    <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 grid lg:grid-cols-2 gap-10 items-center">
+      <div class="fill-box w-full" style="aspect-ratio:4/3;"><span class="fill-tag text-[12px] absolute" style="bottom:16px; left:16px; background:var(--pill-bg); color:var(--pill-text); border-radius:999px; padding:.4rem .8rem; font-weight:600;">MAPA · sede + unidades</span></div>
       <div>
-        <p class="mono text-[12px] mb-2" style="color:var(--text-faint);">[ endereço completo ]</p>
-        <p class="mono text-[12px] mb-6" style="color:var(--text-faint);">[ horário de funcionamento ]</p>
-        <a href="https://www.google.com/maps/search/?api=1&query=Raw+Distribuidora" class="btn-link text-[13px]">Ver no mapa →</a>
+        <p class="text-[13px] mb-2" style="color:var(--text-faint);">[ endereço completo ]</p>
+        <p class="text-[13px] mb-6" style="color:var(--text-faint);">[ horário de funcionamento ]</p>
+        <a href="https://www.google.com/maps/search/?api=1&query=Raw+Distribuidora" class="btn-link inline-flex items-center gap-1.5 text-[13px]">Ver no mapa <span class="arrow">→</span></a>
       </div>
     </div>
   </section>
-  <p class="wf-note mono text-[11px] px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
-    <span class="wf-chip mono text-[10px] font-semibold px-1.5 py-0.5">04</span>
+  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
+    <span class="badge-num">04</span>
     <span><strong style="color:var(--text);">Localização</strong> — confiança + logística: endereço, mapa e horário.</span>
   </p>
 
   <!-- ============================================================
        5. CENTRO TÉCNICO — canal dedicado (âncora usada por outras páginas)
   ============================================================ -->
-  <section id="centro-tecnico" class="max-w-[820px] mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center" style="scroll-margin-top:70px;">
-    <h2 class="mono text-[12px] tracking-widest uppercase mb-4" style="color:var(--text-muted);">Centro Técnico</h2>
+  <section id="centro-tecnico" class="max-w-[820px] mx-auto px-4 sm:px-6 lg:px-8 py-14 text-center">
+    <h2 class="eyebrow mb-4">Centro Técnico</h2>
     <div class="flex flex-col gap-2 items-center"><div class="txt-line" style="width:min(80%,24rem);"></div></div>
   </section>
-  <p class="wf-note mono text-[11px] px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
-    <span class="wf-chip mono text-[10px] font-semibold px-1.5 py-0.5">05</span>
-    <span><strong style="color:var(--text);">Centro Técnico</strong> — canal dedicado a suporte técnico; âncora usada pelos links "Falar com o Centro Técnico" em index.html e produto.html.</span>
+  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
+    <span class="badge-num">05</span>
+    <span><strong style="color:var(--text);">Centro Técnico</strong> — canal dedicado a suporte técnico; âncora usada por "Falar com o Centro Técnico" em index.html e produto.html.</span>
   </p>
 
   <!-- ============================================================
        6. REDES E INSTITUCIONAL — fechamento
   ============================================================ -->
   <section id="secao-6" style="background:var(--surface-alt);">
-    <div class="max-w-[820px] mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+    <div class="max-w-[820px] mx-auto px-4 sm:px-6 lg:px-8 py-14 text-center">
       <div class="flex items-center justify-center gap-4 mb-6">
-        <a href="https://linkedin.com" class="icon-ph w-10 h-10"><span class="mono text-[9px]">in</span></a>
-        <a href="https://instagram.com" class="icon-ph w-10 h-10"><span class="mono text-[9px]">ig</span></a>
+        <a href="https://linkedin.com" class="icon-fill" style="width:44px; height:44px;">in</a>
+        <a href="https://instagram.com" class="icon-fill" style="width:44px; height:44px;">ig</a>
       </div>
-      <a href="index.html#sobre" class="btn-link text-[13px]">Sobre a Raw →</a>
+      <a href="index.html#sobre" class="btn-link inline-flex items-center gap-1.5 text-[13px]">Sobre a Raw <span class="arrow">→</span></a>
     </div>
   </section>
-  <p class="wf-note mono text-[11px] px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
-    <span class="wf-chip mono text-[10px] font-semibold px-1.5 py-0.5">06</span>
+  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
+    <span class="badge-num">06</span>
     <span><strong style="color:var(--text);">Redes e institucional</strong> — fechamento: LinkedIn, Instagram e link para Sobre a Raw.</span>
   </p>
 
   <!-- ============================================================
        FOOTER (idêntico em todas as páginas)
   ============================================================ -->
-  <footer style="background:var(--surface-alt); border-top:1.5px solid var(--border);">
+  <footer style="background:var(--surface-alt); border-top:1px solid var(--border);">
     <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
       <div>
-        <a href="index.html" class="ph-box mb-3 inline-flex" style="width:70px; height:32px;"><span class="mono text-[10px] text-center px-1" style="color:var(--text-faint);">LOGO RAW</span></a>
-        <p class="mono text-[11px]" style="color:var(--text-muted);">Materiais que transformam possibilidades em realidade — desde 1992.</p>
+        <a href="index.html" class="fill-box mb-3 inline-flex" style="width:64px; height:32px;"><span class="text-[10px] font-semibold" style="color:var(--text-muted);">RAW</span></a>
+        <p class="text-[13px]" style="color:var(--text-muted);">Materiais que transformam possibilidades em realidade — desde 1992.</p>
       </div>
       <div>
-        <p class="mono text-[11px] tracking-widest uppercase mb-3" style="color:var(--text-faint);">Produtos</p>
-        <ul class="flex flex-col gap-2 text-[13px]" style="color:var(--text-muted);"><li><a href="produto.html">Produtos</a></li><li><a href="index.html#aplicacoes">Aplicações</a></li><li><a href="index.html#marcas">Marcas</a></li></ul>
+        <p class="eyebrow mb-3">Produtos</p>
+        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="produto.html">Produtos</a></li><li><a href="index.html#aplicacoes">Aplicações</a></li><li><a href="index.html#marcas">Marcas</a></li></ul>
       </div>
       <div>
-        <p class="mono text-[11px] tracking-widest uppercase mb-3" style="color:var(--text-faint);">Empresa</p>
-        <ul class="flex flex-col gap-2 text-[13px]" style="color:var(--text-muted);"><li><a href="index.html#sobre">Sobre a Raw</a></li><li><a href="conhecimento.html">Conhecimento</a></li><li><a href="contato.html#centro-tecnico">Centro Técnico</a></li></ul>
+        <p class="eyebrow mb-3">Empresa</p>
+        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="index.html#sobre">Sobre a Raw</a></li><li><a href="conhecimento.html">Conhecimento</a></li><li><a href="contato.html#centro-tecnico">Centro Técnico</a></li></ul>
       </div>
       <div>
-        <p class="mono text-[11px] tracking-widest uppercase mb-3" style="color:var(--text-faint);">Contato</p>
-        <ul class="flex flex-col gap-2 text-[13px]" style="color:var(--text-muted);"><li><a href="contato.html">Falar com um especialista</a></li><li><a href="contato.html">Solicitar cotação</a></li><li><a href="https://linkedin.com">LinkedIn</a></li><li><a href="https://instagram.com">Instagram</a></li></ul>
+        <p class="eyebrow mb-3">Contato</p>
+        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="contato.html">Falar com um especialista</a></li><li><a href="contato.html">Solicitar cotação</a></li><li><a href="https://linkedin.com">LinkedIn</a></li><li><a href="https://instagram.com">Instagram</a></li></ul>
       </div>
     </div>
-    <div id="privacidade" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 mono text-[11px]" style="border-top:1px solid var(--border); color:var(--text-faint); scroll-margin-top:70px;">
+    <div id="privacidade" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[12px]" style="border-top:1px solid var(--border); color:var(--text-faint);">
       <p>© Raw — [ endereço · telefone · e-mail ]</p>
       <a href="#privacidade">Política de privacidade</a>
     </div>
   </footer>
-  <p class="wf-note mono text-[11px] px-4 sm:px-6 lg:px-8 py-2 flex items-start gap-2" style="color:var(--text-muted);">
-    <span class="wf-chip mono text-[10px] font-semibold px-1.5 py-0.5">·</span>
+  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
+    <span class="badge-num">·</span>
     <span><strong style="color:var(--text);">Footer</strong> — logo, colunas replicando o menu, redes sociais, contato, copyright e política de privacidade.</span>
   </p>
 
@@ -268,15 +269,12 @@
 
     // Formulário segmentado: mostra só os campos do motivo selecionado.
     (function(){
-      var select = document.getElementById('motivo');
+      var select = document.getElementById('cont-motivo');
       if(!select) return;
       var groups = document.querySelectorAll('[data-motivo-group]');
       function update(){
         var motivo = select.value;
-        groups.forEach(function(g){
-          if(g.getAttribute('data-motivo-group') === motivo){ g.removeAttribute('hidden'); g.classList.remove('hidden'); }
-          else{ g.setAttribute('hidden',''); g.classList.add('hidden'); }
-        });
+        groups.forEach(function(g){ g.hidden = (g.getAttribute('data-motivo-group') !== motivo); });
       }
       select.addEventListener('change', update);
       update();
