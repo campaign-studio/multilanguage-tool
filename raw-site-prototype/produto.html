@@ -54,17 +54,18 @@
   .card{ border:1.5px solid var(--border); border-radius:1rem; background:var(--surface); }
   .chip{ border:1.5px solid var(--border); border-radius:.85rem; background:var(--surface); }
   .icon-fill{ background:var(--fill); border-radius:.6rem; display:flex; align-items:center; justify-content:center; color:var(--text-muted); flex:none; }
-  .btn{ border-radius:.85rem; font-weight:600; text-align:center; white-space:nowrap; }
+  .btn{ border-radius:.85rem; font-weight:600; text-align:center; white-space:nowrap; border:none; cursor:pointer; }
   .btn-primary{ background:var(--btn-primary-bg); color:var(--btn-primary-text); }
   .btn-secondary{ background:var(--surface); color:var(--text); border:1.5px solid var(--border-strong); }
-  .btn-link{ color:var(--text); font-weight:600; }
+  .btn-link{ color:var(--text); font-weight:600; background:none; border:none; cursor:pointer; padding:0; font-size:inherit; }
   .btn-link .arrow{ transition:transform .15s; display:inline-block; }
   .btn-link:hover .arrow{ transform:translateX(2px); }
-  .input-fill{ background:var(--fill); border-radius:.85rem; border:none; appearance:none; -webkit-appearance:none; }
+  .input-fill{ background:var(--fill); border-radius:.85rem; border:none; appearance:none; -webkit-appearance:none; width:100%; }
   .wf-note{ border-top:1px solid var(--border); background:var(--surface-alt); }
   .badge-num{ width:1.6rem; height:1.6rem; border-radius:999px; background:var(--fill); color:var(--text-muted); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; flex:none; }
   .eyebrow{ font-size:12px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--text-muted); }
   .check{ width:22px; height:22px; border-radius:999px; background:var(--fill); flex:none; display:flex; align-items:center; justify-content:center; }
+  label{ display:block; font-size:13px; font-weight:600; margin-bottom:.5rem; }
 
   details.faq{ border-bottom:1px solid var(--border); }
   details.faq:first-child{ border-top:1px solid var(--border); }
@@ -73,12 +74,20 @@
   details.faq .chev{ transition:transform .15s; flex:none; color:var(--text-faint); }
   details.faq[open] .chev{ transform:rotate(180deg); }
   details.faq p{ margin:0 0 1rem; font-size:14px; color:var(--text-muted); line-height:1.6; }
+
+  /* Pop-ups (dialog nativo) */
+  dialog.modal{ border:none; border-radius:1.25rem; padding:0; max-width:560px; width:92vw; background:var(--surface); color:var(--text); }
+  dialog.modal::backdrop{ background:rgba(0,0,0,.55); }
+  .modal-head{ display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1.25rem 1.5rem; border-bottom:1px solid var(--border); }
+  .modal-close{ width:32px; height:32px; border-radius:999px; background:var(--fill); display:flex; align-items:center; justify-content:center; flex:none; border:none; cursor:pointer; color:var(--text-muted); font-size:14px; }
+  .modal-body{ padding:1.5rem; max-height:70vh; overflow-y:auto; }
+  .brand-tile{ border:1.5px solid var(--border); border-radius:1rem; padding:1rem; display:flex; flex-direction:column; align-items:center; gap:.65rem; text-align:center; text-decoration:none; color:var(--text); }
 </style>
 </head>
 <body class="mx-auto max-w-[1440px]">
 
   <div class="text-[11px] text-center py-1.5 px-3" style="background:var(--surface-alt); color:var(--text-muted); border-bottom:1px solid var(--border);">
-    WIREFRAME · MÉDIA FIDELIDADE — RAW · PROTÓTIPO NAVEGÁVEL — PRODUTO (v2: foco em conversão)
+    WIREFRAME · MÉDIA FIDELIDADE — RAW · PROTÓTIPO NAVEGÁVEL — PRODUTO (v3: pop-ups)
   </div>
 
   <!-- ============================================================
@@ -95,7 +104,7 @@
         <a href="contato.html">Contato</a>
       </nav>
       <div class="flex items-center gap-3">
-        <a href="contato.html" class="btn btn-primary hidden sm:block px-4 py-2.5 text-[13px]">Fale com um especialista</a>
+        <button type="button" data-open-modal="modalFale" class="btn btn-primary hidden sm:block px-4 py-2.5 text-[13px]">Fale com um especialista</button>
         <button id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu" class="md:hidden fill-box" style="width:38px; height:34px;">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--text-muted);"><path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </button>
@@ -108,7 +117,7 @@
       <a href="sobre.html">Sobre nós</a>
       <a href="conhecimento.html">Conteúdo</a>
       <a href="contato.html">Contato</a>
-      <a href="contato.html" class="btn btn-primary px-4 py-2.5 text-center mt-1">Fale com um especialista</a>
+      <button type="button" data-open-modal="modalFale" class="btn btn-primary px-4 py-2.5 text-center mt-1">Fale com um especialista</button>
     </nav>
   </header>
 
@@ -121,21 +130,22 @@
       <div class="fill-box w-full" style="aspect-ratio:1/1;"><span class="fill-tag text-[11px] absolute" style="bottom:14px; left:14px;">IMG · produto em uso</span></div>
       <div>
         <h1 class="text-[28px] sm:text-[34px] font-bold mb-3">[ Nome do produto ]</h1>
-        <p class="text-[15px] mb-5" style="color:var(--text-muted); line-height:1.6;">[ frase de uma linha explicando, em português simples, para que esse material serve e o problema que resolve ]</p>
+        <p class="text-[15px] mb-5" style="color:var(--text-muted); line-height:1.6;">[ frase de uma linha explicando, em português simples, para que esse material serve ]</p>
         <div class="flex flex-wrap gap-2 mb-8">
           <span class="chip flex items-center gap-2 px-3 py-2 text-[13px] font-medium"><span class="icon-fill" style="width:20px; height:20px;"></span>Automotivo</span>
           <span class="chip flex items-center gap-2 px-3 py-2 text-[13px] font-medium"><span class="icon-fill" style="width:20px; height:20px;"></span>Construção</span>
         </div>
-        <div class="flex flex-col sm:flex-row gap-3">
+        <div class="flex flex-col sm:flex-row gap-3 mb-4">
           <a href="#secao-4" class="btn btn-primary px-6 py-3.5 text-[14px]">Peça uma cotação</a>
-          <a href="contato.html" class="btn btn-secondary px-6 py-3.5 text-[14px]">Fale com um especialista</a>
+          <button type="button" data-open-modal="modalFale" class="btn btn-secondary px-6 py-3.5 text-[14px]">Fale com um especialista</button>
         </div>
+        <button type="button" data-open-modal="modalDetalhes" class="btn-link inline-flex items-center gap-1.5 text-[13px]">Ver mais detalhes do produto <span class="arrow">→</span></button>
       </div>
     </div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">01</span>
-    <span><strong style="color:var(--text);">Hero do produto</strong> — em vez de ficha técnica, uma frase simples de "para que serve" + CTA de cotação já visível.</span>
+    <span><strong style="color:var(--text);">Hero do produto</strong> — CTA de cotação, "Fale com um especialista" abre o pop-up de WhatsApp por marca, e "Ver mais detalhes" abre um pop-up com a ficha completa.</span>
   </p>
 
   <!-- ============================================================
@@ -149,9 +159,9 @@
         <div class="flex items-start gap-3"><span class="check"></span><div class="flex-1 pt-0.5"><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:85%;"></div><div class="txt-line" style="width:55%;"></div></div></div></div>
         <div class="flex items-start gap-3"><span class="check"></span><div class="flex-1 pt-0.5"><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:92%;"></div><div class="txt-line" style="width:50%;"></div></div></div></div>
       </div>
-      <details class="card p-5" style="cursor:default;">
+      <details class="card p-5">
         <summary style="cursor:pointer; list-style:none; display:flex; align-items:center; justify-content:space-between; font-weight:600; font-size:13px; color:var(--text-muted);">Ver especificações técnicas completas
-          <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none" style="transition:transform .15s; color:var(--text-faint);"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--text-faint);"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
         <div class="mt-4 flex flex-col gap-3">
           <div class="flex items-center justify-between text-[13px]"><span class="font-medium">Densidade</span><span class="txt-line" style="width:90px;"></span></div>
@@ -159,11 +169,12 @@
           <div class="flex items-center justify-between text-[13px]"><span class="font-medium">Temperatura de uso</span><span class="txt-line" style="width:90px;"></span></div>
         </div>
       </details>
+      <div class="text-right mt-6"><button type="button" data-open-modal="modalDownload" class="btn-link inline-flex items-center gap-1.5 text-[13px]">Baixar ficha técnica <span class="arrow">→</span></button></div>
     </div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">02</span>
-    <span><strong style="color:var(--text);">Por que escolher este material</strong> — benefícios em linguagem simples primeiro; a ficha técnica vira um "ver mais" opcional, para quem realmente precisa dela.</span>
+    <span><strong style="color:var(--text);">Por que escolher este material</strong> — "Baixar ficha técnica" agora abre um pop-up de formulário (nome, empresa, e-mail, telefone) antes de liberar o material — captura de lead.</span>
   </p>
 
   <!-- ============================================================
@@ -188,7 +199,7 @@
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">03</span>
-    <span><strong style="color:var(--text);">FAQ do produto</strong> — substitui a seção de documentação/downloads: tira as dúvidas que mais geram hesitação de compra.</span>
+    <span><strong style="color:var(--text);">FAQ do produto</strong> — tira dúvidas que geram hesitação de compra.</span>
   </p>
 
   <!-- ============================================================
@@ -210,7 +221,7 @@
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">04</span>
-    <span><strong style="color:var(--text);">Peça uma cotação</strong> — conversão: formulário curto embutido na própria página do produto, sem precisar sair para outra página.</span>
+    <span><strong style="color:var(--text);">Peça uma cotação</strong> — formulário curto embutido na própria página do produto.</span>
   </p>
 
   <!-- ============================================================
@@ -249,7 +260,7 @@
       </div>
       <div>
         <p class="eyebrow mb-3">Contato</p>
-        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="contato.html">Fale com um especialista</a></li><li><a href="contato.html">Peça uma cotação</a></li></ul>
+        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><button type="button" data-open-modal="modalFale" class="btn-link">Fale com um especialista</button></li><li><a href="contato.html">Peça uma cotação</a></li></ul>
       </div>
     </div>
     <div id="privacidade" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[12px]" style="border-top:1px solid var(--border); color:var(--text-faint);">
@@ -259,8 +270,74 @@
   </footer>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">·</span>
-    <span><strong style="color:var(--text);">Footer</strong> — igual à home.</span>
+    <span><strong style="color:var(--text);">Footer</strong> — igual às demais páginas.</span>
   </p>
+
+  <!-- ============================================================
+       POP-UP 1 — "Fale com:" seletor de WhatsApp por marca
+  ============================================================ -->
+  <dialog id="modalFale" class="modal">
+    <div class="modal-head">
+      <p class="text-[16px] font-bold">Fale com:</p>
+      <button type="button" class="modal-close" data-close-modal aria-label="Fechar">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="text-[13px] mb-5" style="color:var(--text-muted);">Escolha a marca para falar direto com o time responsável no WhatsApp.</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <a href="https://wa.me/5511900000001" target="_blank" rel="noopener" class="brand-tile"><div class="fill-box w-full h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Alcoa</span></div><span class="text-[12px] font-semibold">WhatsApp Alcoa</span></a>
+        <a href="https://wa.me/5511900000002" target="_blank" rel="noopener" class="brand-tile"><div class="fill-box w-full h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Covestro</span></div><span class="text-[12px] font-semibold">WhatsApp Covestro</span></a>
+        <a href="https://wa.me/5511900000003" target="_blank" rel="noopener" class="brand-tile"><div class="fill-box w-full h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Nalco</span></div><span class="text-[12px] font-semibold">WhatsApp Nalco</span></a>
+        <a href="https://wa.me/5511900000004" target="_blank" rel="noopener" class="brand-tile"><div class="fill-box w-full h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">3M</span></div><span class="text-[12px] font-semibold">WhatsApp 3M</span></a>
+        <a href="https://wa.me/5511900000005" target="_blank" rel="noopener" class="brand-tile"><div class="fill-box w-full h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">+ Outras</span></div><span class="text-[12px] font-semibold">WhatsApp — outras marcas</span></a>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- ============================================================
+       POP-UP 2 — "Ver mais detalhes do produto"
+  ============================================================ -->
+  <dialog id="modalDetalhes" class="modal" style="max-width:720px;">
+    <div class="modal-head">
+      <p class="text-[16px] font-bold">[ Nome do produto ] — detalhes completos</p>
+      <button type="button" class="modal-close" data-close-modal aria-label="Fechar">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="grid sm:grid-cols-2 gap-3 mb-5">
+        <div class="fill-box w-full" style="aspect-ratio:4/3;"></div>
+        <div class="grid grid-cols-2 gap-2"><div class="fill-box" style="aspect-ratio:1/1;"></div><div class="fill-box" style="aspect-ratio:1/1;"></div><div class="fill-box" style="aspect-ratio:1/1;"></div><div class="fill-box" style="aspect-ratio:1/1;"></div></div>
+      </div>
+      <p class="eyebrow mb-2">Descrição completa</p>
+      <div class="flex flex-col gap-1.5 mb-5"><div class="txt-line" style="width:98%;"></div><div class="txt-line" style="width:92%;"></div><div class="txt-line" style="width:80%;"></div><div class="txt-line" style="width:60%;"></div></div>
+      <p class="eyebrow mb-2">Especificações</p>
+      <div class="flex flex-col gap-2 mb-5">
+        <div class="flex items-center justify-between text-[13px]"><span class="font-medium">Densidade</span><span class="txt-line" style="width:90px;"></span></div>
+        <div class="flex items-center justify-between text-[13px]"><span class="font-medium">Viscosidade</span><span class="txt-line" style="width:90px;"></span></div>
+        <div class="flex items-center justify-between text-[13px]"><span class="font-medium">Temperatura de uso</span><span class="txt-line" style="width:90px;"></span></div>
+        <div class="flex items-center justify-between text-[13px]"><span class="font-medium">Norma técnica</span><span class="txt-line" style="width:90px;"></span></div>
+      </div>
+      <button type="button" data-open-modal="modalDownload" class="btn-link inline-flex items-center gap-1.5 text-[13px]">Baixar ficha técnica completa <span class="arrow">→</span></button>
+    </div>
+  </dialog>
+
+  <!-- ============================================================
+       POP-UP 3 — formulário de captura de lead para baixar material
+  ============================================================ -->
+  <dialog id="modalDownload" class="modal">
+    <div class="modal-head">
+      <p class="text-[16px] font-bold">Baixar material</p>
+      <button type="button" class="modal-close" data-close-modal aria-label="Fechar">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="text-[13px] mb-5" style="color:var(--text-muted);">Preencha seus dados para receber a ficha técnica por e-mail.</p>
+      <form onsubmit="return false;" class="flex flex-col gap-3">
+        <div><label>Nome</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ nome completo ]</span></div></div>
+        <div><label>Empresa</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ nome da empresa ]</span></div></div>
+        <div><label>E-mail</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ e-mail ]</span></div></div>
+        <div><label>Telefone</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ telefone ]</span></div></div>
+        <button type="submit" class="btn btn-primary px-6 py-3.5 text-[14px] mt-1">Baixar material</button>
+      </form>
+    </div>
+  </dialog>
 
   <script>
     (function(){
@@ -271,6 +348,26 @@
         var isOpen = !menu.hasAttribute('hidden');
         if(isOpen){ menu.setAttribute('hidden',''); toggle.setAttribute('aria-expanded','false'); }
         else{ menu.removeAttribute('hidden'); toggle.setAttribute('aria-expanded','true'); }
+      });
+    })();
+
+    // Pop-ups: abre via [data-open-modal], fecha via [data-close-modal], clique fora ou Esc.
+    (function(){
+      document.querySelectorAll('[data-open-modal]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var dlg = document.getElementById(btn.getAttribute('data-open-modal'));
+          if(dlg && dlg.showModal) dlg.showModal();
+        });
+      });
+      document.querySelectorAll('dialog.modal').forEach(function(dlg){
+        dlg.querySelectorAll('[data-close-modal]').forEach(function(btn){
+          btn.addEventListener('click', function(){ dlg.close(); });
+        });
+        dlg.addEventListener('click', function(e){
+          var r = dlg.getBoundingClientRect();
+          var inside = r.top <= e.clientY && e.clientY <= r.top + r.height && r.left <= e.clientX && e.clientX <= r.left + r.width;
+          if(!inside) dlg.close();
+        });
       });
     })();
   </script>

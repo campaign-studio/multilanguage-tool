@@ -54,10 +54,10 @@
   .card{ border:1.5px solid var(--border); border-radius:1rem; background:var(--surface); }
   .chip{ border:1.5px solid var(--border); border-radius:.85rem; background:var(--surface); }
   .icon-fill{ background:var(--fill); border-radius:.6rem; display:flex; align-items:center; justify-content:center; color:var(--text-muted); flex:none; }
-  .btn{ border-radius:.85rem; font-weight:600; text-align:center; white-space:nowrap; }
+  .btn{ border-radius:.85rem; font-weight:600; text-align:center; white-space:nowrap; border:none; cursor:pointer; }
   .btn-primary{ background:var(--btn-primary-bg); color:var(--btn-primary-text); }
   .btn-secondary{ background:var(--surface); color:var(--text); border:1.5px solid var(--border-strong); }
-  .btn-link{ color:var(--text); font-weight:600; }
+  .btn-link{ color:var(--text); font-weight:600; background:none; border:none; cursor:pointer; padding:0; font-size:inherit; }
   .btn-link .arrow{ transition:transform .15s; display:inline-block; }
   .btn-link:hover .arrow{ transform:translateX(2px); }
   .wf-note{ border-top:1px solid var(--border); background:var(--surface-alt); }
@@ -69,6 +69,13 @@
   .tl-item::before{ content:""; position:absolute; left:0; top:2px; width:12px; height:12px; border-radius:999px; background:var(--border-strong); }
   .tl-item::after{ content:""; position:absolute; left:5px; top:16px; bottom:0; width:2px; background:var(--border); }
   .tl-item:last-child::after{ display:none; }
+
+  dialog.modal{ border:none; border-radius:1.25rem; padding:0; max-width:560px; width:92vw; background:var(--surface); color:var(--text); }
+  dialog.modal::backdrop{ background:rgba(0,0,0,.55); }
+  .modal-head{ display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1.25rem 1.5rem; border-bottom:1px solid var(--border); }
+  .modal-close{ width:32px; height:32px; border-radius:999px; background:var(--fill); display:flex; align-items:center; justify-content:center; flex:none; border:none; cursor:pointer; color:var(--text-muted); font-size:14px; }
+  .modal-body{ padding:1.5rem; max-height:70vh; overflow-y:auto; }
+  .brand-tile{ border:1.5px solid var(--border); border-radius:1rem; padding:1rem; display:flex; flex-direction:column; align-items:center; gap:.65rem; text-align:center; text-decoration:none; color:var(--text); }
 </style>
 </head>
 <body class="mx-auto max-w-[1440px]">
@@ -91,7 +98,7 @@
         <a href="contato.html">Contato</a>
       </nav>
       <div class="flex items-center gap-3">
-        <a href="contato.html" class="btn btn-primary hidden sm:block px-4 py-2.5 text-[13px]">Fale com um especialista</a>
+        <button type="button" data-open-modal="modalFale" class="btn btn-primary hidden sm:block px-4 py-2.5 text-[13px]">Fale com um especialista</button>
         <button id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu" class="md:hidden fill-box" style="width:38px; height:34px;">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--text-muted);"><path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </button>
@@ -104,7 +111,7 @@
       <a href="sobre.html">Sobre nós</a>
       <a href="conhecimento.html">Conteúdo</a>
       <a href="contato.html">Contato</a>
-      <a href="contato.html" class="btn btn-primary px-4 py-2.5 text-center mt-1">Fale com um especialista</a>
+      <button type="button" data-open-modal="modalFale" class="btn btn-primary px-4 py-2.5 text-center mt-1">Fale com um especialista</button>
     </nav>
   </header>
 
@@ -125,7 +132,7 @@
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">01</span>
-    <span><strong style="color:var(--text);">Hero</strong> — apresentação em tom pessoal e acessível, não institucional/corporativo.</span>
+    <span><strong style="color:var(--text);">Hero</strong> — apresentação em tom pessoal e acessível.</span>
   </p>
 
   <!-- ============================================================
@@ -135,24 +142,15 @@
     <div class="max-w-[820px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
       <h2 class="text-[22px] sm:text-[28px] font-bold mb-10">Nossa história</h2>
       <div>
-        <div class="tl-item">
-          <p class="text-[14px] font-bold mb-2">1992 — o começo</p>
-          <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:92%;"></div><div class="txt-line" style="width:70%;"></div></div>
-        </div>
-        <div class="tl-item">
-          <p class="text-[14px] font-bold mb-2">Anos seguintes — crescimento e novas parcerias</p>
-          <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:88%;"></div><div class="txt-line" style="width:60%;"></div></div>
-        </div>
-        <div class="tl-item">
-          <p class="text-[14px] font-bold mb-2">Hoje — terceira geração à frente do negócio</p>
-          <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:90%;"></div><div class="txt-line" style="width:65%;"></div></div>
-        </div>
+        <div class="tl-item"><p class="text-[14px] font-bold mb-2">1992 — o começo</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:92%;"></div><div class="txt-line" style="width:70%;"></div></div></div>
+        <div class="tl-item"><p class="text-[14px] font-bold mb-2">Anos seguintes — crescimento e novas parcerias</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:88%;"></div><div class="txt-line" style="width:60%;"></div></div></div>
+        <div class="tl-item"><p class="text-[14px] font-bold mb-2">Hoje — terceira geração à frente do negócio</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:90%;"></div><div class="txt-line" style="width:65%;"></div></div></div>
       </div>
     </div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">02</span>
-    <span><strong style="color:var(--text);">Nossa história</strong> — linha do tempo simples, com 3 marcos narrados como uma história, não como um currículo institucional.</span>
+    <span><strong style="color:var(--text);">Nossa história</strong> — linha do tempo simples, narrada como história.</span>
   </p>
 
   <!-- ============================================================
@@ -161,31 +159,15 @@
   <section id="secao-3" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <h2 class="text-[22px] sm:text-[28px] font-bold mb-10 text-center">Como pensamos</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <div class="card p-5">
-        <span class="icon-fill mb-4" style="width:44px; height:44px;"></span>
-        <p class="text-[14px] font-bold mb-2">O cliente em primeiro lugar</p>
-        <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:92%;"></div><div class="txt-line" style="width:60%;"></div></div>
-      </div>
-      <div class="card p-5">
-        <span class="icon-fill mb-4" style="width:44px; height:44px;"></span>
-        <p class="text-[14px] font-bold mb-2">Transparência em cada negociação</p>
-        <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:88%;"></div><div class="txt-line" style="width:55%;"></div></div>
-      </div>
-      <div class="card p-5">
-        <span class="icon-fill mb-4" style="width:44px; height:44px;"></span>
-        <p class="text-[14px] font-bold mb-2">Melhoria contínua</p>
-        <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:90%;"></div><div class="txt-line" style="width:65%;"></div></div>
-      </div>
-      <div class="card p-5">
-        <span class="icon-fill mb-4" style="width:44px; height:44px;"></span>
-        <p class="text-[14px] font-bold mb-2">Proximidade regional</p>
-        <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:85%;"></div><div class="txt-line" style="width:50%;"></div></div>
-      </div>
+      <div class="card p-5"><span class="icon-fill mb-4" style="width:44px; height:44px;"></span><p class="text-[14px] font-bold mb-2">O cliente em primeiro lugar</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:92%;"></div><div class="txt-line" style="width:60%;"></div></div></div>
+      <div class="card p-5"><span class="icon-fill mb-4" style="width:44px; height:44px;"></span><p class="text-[14px] font-bold mb-2">Transparência em cada negociação</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:88%;"></div><div class="txt-line" style="width:55%;"></div></div></div>
+      <div class="card p-5"><span class="icon-fill mb-4" style="width:44px; height:44px;"></span><p class="text-[14px] font-bold mb-2">Melhoria contínua</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:90%;"></div><div class="txt-line" style="width:65%;"></div></div></div>
+      <div class="card p-5"><span class="icon-fill mb-4" style="width:44px; height:44px;"></span><p class="text-[14px] font-bold mb-2">Proximidade regional</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:85%;"></div><div class="txt-line" style="width:50%;"></div></div></div>
     </div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">03</span>
-    <span><strong style="color:var(--text);">Como pensamos</strong> — valores da empresa em linguagem de cliente, não em termos corporativos abstratos.</span>
+    <span><strong style="color:var(--text);">Como pensamos</strong> — valores em linguagem de cliente.</span>
   </p>
 
   <!-- ============================================================
@@ -204,7 +186,7 @@
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">04</span>
-    <span><strong style="color:var(--text);">Equipe/liderança</strong> — humaniza a marca; mostra pessoas reais por trás do atendimento.</span>
+    <span><strong style="color:var(--text);">Equipe/liderança</strong> — humaniza a marca.</span>
   </p>
 
   <!-- ============================================================
@@ -218,18 +200,18 @@
       <div><p class="text-[30px] font-bold">6</p><p class="text-[12px]" style="color:var(--text-muted);">segmentos atendidos</p></div>
       <div><p class="text-[30px] font-bold">[ X ]</p><p class="text-[12px]" style="color:var(--text-muted);">clientes atendidos <span style="color:var(--text-faint);">(confirmar)</span></p></div>
     </div>
-    <p class="text-[12px] text-center mb-5" style="color:var(--text-faint);">Marcas que representamos oficialmente</p>
+    <p class="text-[12px] text-center mb-5" style="color:var(--text-faint);">Marcas que representamos oficialmente — clique para conhecer cada parceria</p>
     <div class="grid grid-cols-2 sm:grid-cols-5 gap-x-8 gap-y-6 max-w-[760px] mx-auto">
-      <div class="fill-box h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Alcoa</span></div>
-      <div class="fill-box h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Covestro</span></div>
-      <div class="fill-box h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Nalco</span></div>
-      <div class="fill-box h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">3M</span></div>
-      <div class="fill-box h-14 col-span-2 sm:col-span-1"><span class="text-[12px] font-semibold text-center px-1" style="color:var(--text-muted);">+ outras</span></div>
+      <a href="raw-x-alcoa.html" class="fill-box h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Alcoa</span></a>
+      <a href="raw-x-covestro.html" class="fill-box h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Covestro</span></a>
+      <a href="raw-x-nalco.html" class="fill-box h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Nalco</span></a>
+      <a href="raw-x-3m.html" class="fill-box h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">3M</span></a>
+      <a href="raw-x-outras-marcas.html" class="fill-box h-14 col-span-2 sm:col-span-1"><span class="text-[12px] font-semibold text-center px-1" style="color:var(--text-muted);">+ outras</span></a>
     </div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">05</span>
-    <span><strong style="color:var(--text);">Números + marcas</strong> — reforça credibilidade com dados e parceiros reais.</span>
+    <span><strong style="color:var(--text);">Números + marcas</strong> — cada logo leva à página dedicada da parceria.</span>
   </p>
 
   <!-- ============================================================
@@ -239,14 +221,14 @@
     <div class="max-w-[1280px] mx-auto text-center py-16 px-6" style="background:var(--btn-primary-bg); color:var(--btn-primary-text); border-radius:1.5rem;">
       <h2 class="text-[24px] sm:text-[30px] font-bold mb-9">Quer conhecer melhor como podemos ajudar sua empresa?</h2>
       <div class="flex flex-col sm:flex-row gap-3 items-center justify-center">
-        <a href="contato.html" class="btn px-7 py-3.5 text-[14px]" style="background:var(--btn-primary-text); color:var(--btn-primary-bg);">Fale com um especialista</a>
+        <button type="button" data-open-modal="modalFale" class="btn px-7 py-3.5 text-[14px]" style="background:var(--btn-primary-text); color:var(--btn-primary-bg);">Fale com um especialista</button>
         <a href="contato.html" class="btn px-7 py-3.5 text-[14px]" style="background:transparent; color:var(--btn-primary-text); border:1.5px solid var(--btn-primary-text);">Peça uma cotação</a>
       </div>
     </div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5 -mt-8" style="color:var(--text-muted);">
     <span class="badge-num">06</span>
-    <span><strong style="color:var(--text);">CTA final</strong> — conversão: leva a contato.html.</span>
+    <span><strong style="color:var(--text);">CTA final</strong> — "Fale com um especialista" abre o pop-up de WhatsApp por marca.</span>
   </p>
 
   <!-- ============================================================
@@ -268,7 +250,7 @@
       </div>
       <div>
         <p class="eyebrow mb-3">Contato</p>
-        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="contato.html">Fale com um especialista</a></li><li><a href="contato.html">Peça uma cotação</a></li></ul>
+        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><button type="button" data-open-modal="modalFale" class="btn-link">Fale com um especialista</button></li><li><a href="contato.html">Peça uma cotação</a></li></ul>
       </div>
     </div>
     <div id="privacidade" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[12px]" style="border-top:1px solid var(--border); color:var(--text-faint);">
@@ -278,8 +260,28 @@
   </footer>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">·</span>
-    <span><strong style="color:var(--text);">Footer</strong> — igual às demais páginas; coluna "Empresa" agora leva a Sobre nós.</span>
+    <span><strong style="color:var(--text);">Footer</strong> — igual às demais páginas.</span>
   </p>
+
+  <!-- ============================================================
+       POP-UP — "Fale com:" seletor de WhatsApp por marca
+  ============================================================ -->
+  <dialog id="modalFale" class="modal">
+    <div class="modal-head">
+      <p class="text-[16px] font-bold">Fale com:</p>
+      <button type="button" class="modal-close" data-close-modal aria-label="Fechar">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="text-[13px] mb-5" style="color:var(--text-muted);">Escolha a marca para falar direto com o time responsável no WhatsApp.</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <a href="https://wa.me/5511900000001" target="_blank" rel="noopener" class="brand-tile"><div class="fill-box w-full h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Alcoa</span></div><span class="text-[12px] font-semibold">WhatsApp Alcoa</span></a>
+        <a href="https://wa.me/5511900000002" target="_blank" rel="noopener" class="brand-tile"><div class="fill-box w-full h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Covestro</span></div><span class="text-[12px] font-semibold">WhatsApp Covestro</span></a>
+        <a href="https://wa.me/5511900000003" target="_blank" rel="noopener" class="brand-tile"><div class="fill-box w-full h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Nalco</span></div><span class="text-[12px] font-semibold">WhatsApp Nalco</span></a>
+        <a href="https://wa.me/5511900000004" target="_blank" rel="noopener" class="brand-tile"><div class="fill-box w-full h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">3M</span></div><span class="text-[12px] font-semibold">WhatsApp 3M</span></a>
+        <a href="https://wa.me/5511900000005" target="_blank" rel="noopener" class="brand-tile"><div class="fill-box w-full h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">+ Outras</span></div><span class="text-[12px] font-semibold">WhatsApp — outras marcas</span></a>
+      </div>
+    </div>
+  </dialog>
 
   <script>
     (function(){
@@ -290,6 +292,25 @@
         var isOpen = !menu.hasAttribute('hidden');
         if(isOpen){ menu.setAttribute('hidden',''); toggle.setAttribute('aria-expanded','false'); }
         else{ menu.removeAttribute('hidden'); toggle.setAttribute('aria-expanded','true'); }
+      });
+    })();
+
+    (function(){
+      document.querySelectorAll('[data-open-modal]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var dlg = document.getElementById(btn.getAttribute('data-open-modal'));
+          if(dlg && dlg.showModal) dlg.showModal();
+        });
+      });
+      document.querySelectorAll('dialog.modal').forEach(function(dlg){
+        dlg.querySelectorAll('[data-close-modal]').forEach(function(btn){
+          btn.addEventListener('click', function(){ dlg.close(); });
+        });
+        dlg.addEventListener('click', function(e){
+          var r = dlg.getBoundingClientRect();
+          var inside = r.top <= e.clientY && e.clientY <= r.top + r.height && r.left <= e.clientX && e.clientX <= r.left + r.width;
+          if(!inside) dlg.close();
+        });
       });
     })();
   </script>
