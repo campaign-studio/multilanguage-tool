@@ -356,9 +356,7 @@
           btn.addEventListener('click', function(){ dlg.close(); });
         });
         dlg.addEventListener('click', function(e){
-          var r = dlg.getBoundingClientRect();
-          var inside = r.top <= e.clientY && e.clientY <= r.top + r.height && r.left <= e.clientX && e.clientX <= r.left + r.width;
-          if(!inside) dlg.close();
+          if(e.target === dlg) dlg.close();
         });
       });
     })();
