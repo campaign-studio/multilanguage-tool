@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Raw — Sobre nós (wireframe)</title>
+<title>Raw — Centro Técnico (wireframe)</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -66,13 +66,8 @@
   .btn-link:hover .arrow{ transform:translateX(2px); }
   .wf-note{ border-top:1px solid var(--border); background:var(--surface-alt); }
   .badge-num{ width:1.6rem; height:1.6rem; border-radius:999px; background:var(--fill); color:var(--text-muted); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; flex:none; }
+  .step-circle{ width:2.5rem; height:2.5rem; border-radius:999px; background:var(--fill); color:var(--text-muted); display:flex; align-items:center; justify-content:center; font-weight:700; flex:none; }
   .eyebrow{ font-size:12px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--text-muted); }
-
-  .tl-item{ position:relative; padding-left:2rem; padding-bottom:2.5rem; }
-  .tl-item:last-child{ padding-bottom:0; }
-  .tl-item::before{ content:""; position:absolute; left:0; top:2px; width:12px; height:12px; border-radius:999px; background:var(--border-strong); }
-  .tl-item::after{ content:""; position:absolute; left:5px; top:16px; bottom:0; width:2px; background:var(--border); }
-  .tl-item:last-child::after{ display:none; }
 
   dialog.modal{ border:none; border-radius:1.25rem; padding:0; max-width:560px; width:92vw; background:var(--surface); color:var(--text); }
   dialog.modal::backdrop{ background:rgba(0,0,0,.55); }
@@ -85,7 +80,7 @@
 <body class="mx-auto max-w-[1440px]">
 
   <div class="text-[11px] text-center py-1.5 px-3" style="background:var(--surface-alt); color:var(--text-muted); border-bottom:1px solid var(--border);">
-    WIREFRAME · MÉDIA FIDELIDADE — RAW · PROTÓTIPO NAVEGÁVEL — SOBRE NÓS
+    WIREFRAME · MÉDIA FIDELIDADE — RAW · PROTÓTIPO NAVEGÁVEL — CENTRO TÉCNICO (página exclusiva)
   </div>
 
   <!-- ============================================================
@@ -97,9 +92,9 @@
       <nav aria-label="Navegação principal" class="hidden md:flex items-center gap-7 text-[14px] font-medium" style="color:var(--text);">
         <a href="produto.html">Produtos</a>
         <a href="equipamentos.html">Equipamentos</a>
-        <a href="centro-tecnico.html">Centro Técnico</a>
+        <a href="centro-tecnico.html" style="color:var(--text); font-weight:700;">Centro Técnico</a>
         <a href="index.html#segmentos">Segmentos</a>
-        <a href="sobre.html" style="color:var(--text); font-weight:700;">Sobre nós</a>
+        <a href="sobre.html">Sobre nós</a>
         <a href="conhecimento.html">Conteúdo</a>
         <a href="contato.html">Contato</a>
       </nav>
@@ -114,7 +109,7 @@
       class="md:hidden max-w-[1280px] mx-auto px-4 sm:px-6 py-3 flex flex-col gap-3 text-[14px] font-medium" style="border-bottom:1px solid var(--border); color:var(--text);">
       <a href="produto.html">Produtos</a>
       <a href="equipamentos.html">Equipamentos</a>
-      <a href="centro-tecnico.html">Centro Técnico</a>
+      <a href="centro-tecnico.html" style="color:var(--text); font-weight:700;">Centro Técnico</a>
       <a href="index.html#segmentos">Segmentos</a>
       <a href="sobre.html">Sobre nós</a>
       <a href="conhecimento.html">Conteúdo</a>
@@ -124,119 +119,96 @@
   </header>
 
   <!-- ============================================================
-       1. HERO — apresentação da empresa, tom pessoal
+       1. HERO — apresentação do Centro Técnico
   ============================================================ -->
   <section id="secao-1" class="pt-10 sm:pt-14">
     <div class="max-w-[820px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="text-[28px] sm:text-[38px] lg:text-[44px] font-bold leading-tight mb-4">Trinta anos ajudando empresas a encontrar o material certo.</h1>
-      <div class="flex flex-col gap-2 items-center mb-10">
-        <div class="txt-line" style="width:min(85%,30rem);"></div>
-        <div class="txt-line" style="width:min(60%,20rem);"></div>
+      <span class="chip inline-block px-3 py-1.5 text-[11px] font-semibold mb-5">Centro Técnico Raw</span>
+      <h1 class="text-[28px] sm:text-[38px] mb-4">Suporte técnico especializado para você aplicar o material certo, do jeito certo</h1>
+      <div class="flex flex-col gap-2 items-center mb-9"><div class="txt-line" style="width:min(85%,28rem);"></div><div class="txt-line" style="width:min(60%,20rem);"></div></div>
+      <div class="flex flex-col sm:flex-row gap-3 items-center justify-center">
+        <a href="contato.html" class="btn btn-primary px-6 py-3.5 text-[14px]">Agendar uma visita técnica</a>
+        <button type="button" data-open-modal="modalFale" class="btn btn-secondary px-6 py-3.5 text-[14px]">Fale com o time técnico</button>
       </div>
     </div>
-    <div class="w-full px-4 sm:px-6 lg:px-8 pb-4">
-      <div class="fill-box w-full" style="aspect-ratio:21/9;"><span class="fill-tag text-[12px] absolute" style="bottom:16px; left:16px;">IMG · equipe Raw, foto real da empresa</span></div>
+    <div class="w-full px-4 sm:px-6 lg:px-8 pb-4 pt-10">
+      <div class="fill-box w-full" style="aspect-ratio:21/9;"><span class="fill-tag text-[12px] absolute" style="bottom:16px; left:16px;">IMG · laboratório / bancada de testes do Centro Técnico</span></div>
     </div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">01</span>
-    <span><strong style="color:var(--text);">Hero</strong> — apresentação em tom pessoal e acessível.</span>
+    <span><strong style="color:var(--text);">Hero</strong> — página exclusiva do Centro Técnico, com CTA de agendamento e o pop-up "Fale com:" para o time técnico.</span>
   </p>
 
   <!-- ============================================================
-       2. NOSSA HISTÓRIA — linha do tempo simples
+       2. O QUE FAZEMOS NO CENTRO TÉCNICO
   ============================================================ -->
   <section id="secao-2" style="background:var(--surface-alt);">
-    <div class="max-w-[820px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <h2 class="text-[22px] sm:text-[28px] font-bold mb-10">Nossa história</h2>
-      <div>
-        <div class="tl-item"><p class="text-[14px] font-bold mb-2">1992 — o começo</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:92%;"></div><div class="txt-line" style="width:70%;"></div></div></div>
-        <div class="tl-item"><p class="text-[14px] font-bold mb-2">Anos seguintes — crescimento e novas parcerias</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:88%;"></div><div class="txt-line" style="width:60%;"></div></div></div>
-        <div class="tl-item"><p class="text-[14px] font-bold mb-2">Hoje — terceira geração à frente do negócio</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:90%;"></div><div class="txt-line" style="width:65%;"></div></div></div>
+    <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <h2 class="text-[22px] sm:text-[28px] font-bold mb-10 text-center">O que fazemos no Centro Técnico</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="card p-5"><span class="icon-fill mb-4" style="width:44px; height:44px;"></span><p class="text-[14px] font-bold mb-2">Ensaios e testes laboratoriais</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:90%;"></div><div class="txt-line" style="width:60%;"></div></div></div>
+        <div class="card p-5"><span class="icon-fill mb-4" style="width:44px; height:44px;"></span><p class="text-[14px] font-bold mb-2">Apoio à formulação e escolha do material</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:88%;"></div><div class="txt-line" style="width:55%;"></div></div></div>
+        <div class="card p-5"><span class="icon-fill mb-4" style="width:44px; height:44px;"></span><p class="text-[14px] font-bold mb-2">Testes de aplicação em campo</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:85%;"></div><div class="txt-line" style="width:50%;"></div></div></div>
+        <div class="card p-5"><span class="icon-fill mb-4" style="width:44px; height:44px;"></span><p class="text-[14px] font-bold mb-2">Treinamentos técnicos para a sua equipe</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:92%;"></div><div class="txt-line" style="width:65%;"></div></div></div>
       </div>
     </div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">02</span>
-    <span><strong style="color:var(--text);">Nossa história</strong> — linha do tempo simples, narrada como história.</span>
+    <span><strong style="color:var(--text);">Serviços do Centro Técnico</strong> — em linguagem simples, focada no resultado para o cliente.</span>
   </p>
 
   <!-- ============================================================
-       3. COMO PENSAMOS — valores em linguagem simples
+       3. COMO FUNCIONA — passo a passo
   ============================================================ -->
-  <section id="secao-3" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <h2 class="text-[22px] sm:text-[28px] font-bold mb-10 text-center">Como pensamos</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <div class="card p-5"><span class="icon-fill mb-4" style="width:44px; height:44px;"></span><p class="text-[14px] font-bold mb-2">O cliente em primeiro lugar</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:92%;"></div><div class="txt-line" style="width:60%;"></div></div></div>
-      <div class="card p-5"><span class="icon-fill mb-4" style="width:44px; height:44px;"></span><p class="text-[14px] font-bold mb-2">Transparência em cada negociação</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:88%;"></div><div class="txt-line" style="width:55%;"></div></div></div>
-      <div class="card p-5"><span class="icon-fill mb-4" style="width:44px; height:44px;"></span><p class="text-[14px] font-bold mb-2">Melhoria contínua</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:90%;"></div><div class="txt-line" style="width:65%;"></div></div></div>
-      <div class="card p-5"><span class="icon-fill mb-4" style="width:44px; height:44px;"></span><p class="text-[14px] font-bold mb-2">Proximidade regional</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:85%;"></div><div class="txt-line" style="width:50%;"></div></div></div>
+  <section id="secao-3" class="max-w-[860px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h2 class="text-[20px] sm:text-[24px] font-bold mb-10 text-center">Como funciona</h2>
+    <div class="flex flex-col gap-6">
+      <div class="flex items-start gap-4"><span class="step-circle">1</span><div class="flex-1 pt-1"><p class="text-[14px] font-semibold mb-1">Você entra em contato com o Centro Técnico</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:80%;"></div></div></div></div>
+      <div class="flex items-start gap-4"><span class="step-circle">2</span><div class="flex-1 pt-1"><p class="text-[14px] font-semibold mb-1">Coletamos amostras ou agendamos uma visita técnica</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:85%;"></div></div></div></div>
+      <div class="flex items-start gap-4"><span class="step-circle">3</span><div class="flex-1 pt-1"><p class="text-[14px] font-semibold mb-1">Realizamos os testes e ensaios necessários</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:78%;"></div></div></div></div>
+      <div class="flex items-start gap-4"><span class="step-circle">4</span><div class="flex-1 pt-1"><p class="text-[14px] font-semibold mb-1">Você recebe um laudo com a recomendação técnica</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:82%;"></div></div></div></div>
     </div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">03</span>
-    <span><strong style="color:var(--text);">Como pensamos</strong> — valores em linguagem de cliente.</span>
+    <span><strong style="color:var(--text);">Passo a passo</strong> — reduz a sensação de complexidade do processo técnico.</span>
   </p>
 
   <!-- ============================================================
-       4. QUEM FAZ ACONTECER — equipe/liderança, humaniza a marca
+       4. DIFERENCIAIS DO CENTRO TÉCNICO
   ============================================================ -->
   <section id="secao-4" style="background:var(--surface-alt);">
     <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <h2 class="text-[22px] sm:text-[28px] font-bold mb-10 text-center">Quem faz acontecer</h2>
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
-        <div class="text-center"><div class="fill-box mx-auto mb-3" style="width:88px; height:88px; border-radius:999px;"></div><p class="text-[13px] font-semibold">[ Nome ]</p><p class="text-[12px]" style="color:var(--text-faint);">[ cargo ]</p></div>
-        <div class="text-center"><div class="fill-box mx-auto mb-3" style="width:88px; height:88px; border-radius:999px;"></div><p class="text-[13px] font-semibold">[ Nome ]</p><p class="text-[12px]" style="color:var(--text-faint);">[ cargo ]</p></div>
-        <div class="text-center"><div class="fill-box mx-auto mb-3" style="width:88px; height:88px; border-radius:999px;"></div><p class="text-[13px] font-semibold">[ Nome ]</p><p class="text-[12px]" style="color:var(--text-faint);">[ cargo ]</p></div>
-        <div class="text-center"><div class="fill-box mx-auto mb-3" style="width:88px; height:88px; border-radius:999px;"></div><p class="text-[13px] font-semibold">[ Nome ]</p><p class="text-[12px]" style="color:var(--text-faint);">[ cargo ]</p></div>
+      <h2 class="eyebrow mb-6 text-center">Diferenciais</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="card p-5"><span class="icon-fill mb-4" style="width:44px; height:44px;"></span><p class="text-[14px] font-bold mb-2">Equipe técnica própria e especializada</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:88%;"></div></div></div>
+        <div class="card p-5"><span class="icon-fill mb-4" style="width:44px; height:44px;"></span><p class="text-[14px] font-bold mb-2">Estrutura própria de testes e ensaios</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:85%;"></div></div></div>
+        <div class="card p-5"><span class="icon-fill mb-4" style="width:44px; height:44px;"></span><p class="text-[14px] font-bold mb-2">Mais de 30 anos de experiência no mercado</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:82%;"></div></div></div>
       </div>
     </div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">04</span>
-    <span><strong style="color:var(--text);">Equipe/liderança</strong> — humaniza a marca.</span>
+    <span><strong style="color:var(--text);">Diferenciais</strong> — reforça a credibilidade do Centro Técnico como parte do posicionamento da Raw.</span>
   </p>
 
   <!-- ============================================================
-       5. NÚMEROS QUE CONTAM NOSSA HISTÓRIA — prova social
+       5. CTA FINAL — conversão
   ============================================================ -->
-  <section id="secao-5" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <h2 class="text-[22px] sm:text-[28px] font-bold mb-10 text-center">Números que contam nossa história</h2>
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center mb-14">
-      <div><p class="text-[30px] font-bold">30+</p><p class="text-[12px]" style="color:var(--text-muted);">anos de mercado</p></div>
-      <div><p class="text-[30px] font-bold">3ª</p><p class="text-[12px]" style="color:var(--text-muted);">geração da família</p></div>
-      <div><p class="text-[30px] font-bold">6</p><p class="text-[12px]" style="color:var(--text-muted);">segmentos atendidos</p></div>
-      <div><p class="text-[30px] font-bold">[ X ]</p><p class="text-[12px]" style="color:var(--text-muted);">clientes atendidos <span style="color:var(--text-faint);">(confirmar)</span></p></div>
-    </div>
-    <p class="text-[12px] text-center mb-5" style="color:var(--text-faint);">Marcas que representamos oficialmente — clique para conhecer cada parceria</p>
-    <div class="grid grid-cols-2 sm:grid-cols-5 gap-x-8 gap-y-6 max-w-[760px] mx-auto">
-      <a href="raw-x-alcoa.html" class="fill-box h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Alcoa</span></a>
-      <a href="raw-x-covestro.html" class="fill-box h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Covestro</span></a>
-      <a href="raw-x-nalco.html" class="fill-box h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Nalco</span></a>
-      <a href="raw-x-3m.html" class="fill-box h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">3M</span></a>
-      <a href="raw-x-outras-marcas.html" class="fill-box h-14 col-span-2 sm:col-span-1"><span class="text-[12px] font-semibold text-center px-1" style="color:var(--text-muted);">+ outras</span></a>
-    </div>
-  </section>
-  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
-    <span class="badge-num">05</span>
-    <span><strong style="color:var(--text);">Números + marcas</strong> — cada logo leva à página dedicada da parceria.</span>
-  </p>
-
-  <!-- ============================================================
-       6. CTA FINAL — conversão
-  ============================================================ -->
-  <section id="secao-6" class="px-4 sm:px-6 lg:px-8 py-8">
+  <section id="secao-5" class="px-4 sm:px-6 lg:px-8 py-8">
     <div class="max-w-[1280px] mx-auto text-center py-16 px-6" style="background:var(--btn-primary-bg); color:var(--btn-primary-text); border-radius:1.5rem;">
-      <h2 class="text-[24px] sm:text-[30px] font-bold mb-9">Quer conhecer melhor como podemos ajudar sua empresa?</h2>
+      <h2 class="text-[24px] sm:text-[30px] font-bold mb-9">Quer testar antes de decidir? Fale com o Centro Técnico.</h2>
       <div class="flex flex-col sm:flex-row gap-3 items-center justify-center">
-        <button type="button" data-open-modal="modalFale" class="btn px-7 py-3.5 text-[14px]" style="background:var(--btn-primary-text); color:var(--btn-primary-bg);">Fale com um especialista</button>
-        <a href="contato.html" class="btn px-7 py-3.5 text-[14px]" style="background:transparent; color:var(--btn-primary-text); border:1.5px solid var(--btn-primary-text);">Peça uma cotação</a>
+        <a href="contato.html" class="btn px-7 py-3.5 text-[14px]" style="background:var(--btn-primary-text); color:var(--btn-primary-bg);">Agendar uma visita técnica</a>
+        <button type="button" data-open-modal="modalFale" class="btn-link inline-flex items-center justify-center gap-1.5 text-[13px]" style="color:var(--btn-primary-text);">ou fale com um especialista <span class="arrow">→</span></button>
       </div>
     </div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5 -mt-8" style="color:var(--text-muted);">
-    <span class="badge-num">06</span>
-    <span><strong style="color:var(--text);">CTA final</strong> — "Fale com um especialista" abre o pop-up de WhatsApp por marca.</span>
+    <span class="badge-num">05</span>
+    <span><strong style="color:var(--text);">CTA final</strong> — agendamento de visita técnica ou pop-up de WhatsApp por marca.</span>
   </p>
 
   <!-- ============================================================
@@ -250,11 +222,11 @@
       </div>
       <div>
         <p class="eyebrow mb-3">Produtos</p>
-        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="produto.html">Ver produtos</a></li><li><a href="index.html#segmentos">Segmentos atendidos</a></li></ul>
+        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="produto.html">Ver produtos</a></li><li><a href="equipamentos.html">Equipamentos</a></li><li><a href="index.html#segmentos">Segmentos atendidos</a></li></ul>
       </div>
       <div>
         <p class="eyebrow mb-3">Empresa</p>
-        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="sobre.html">Sobre nós</a></li><li><a href="index.html#diferenciais">Por que a Raw</a></li><li><a href="conhecimento.html">Conteúdo</a></li></ul>
+        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="sobre.html">Sobre nós</a></li><li><a href="centro-tecnico.html">Centro Técnico</a></li><li><a href="conhecimento.html">Conteúdo</a></li></ul>
       </div>
       <div>
         <p class="eyebrow mb-3">Contato</p>
