@@ -58,6 +58,24 @@
   label{ display:block; font-size:13px; font-weight:600; margin-bottom:.5rem; }
   .trust-item{ display:flex; align-items:center; gap:.6rem; font-size:13px; color:var(--text-muted); }
 
+  .nav-dropdown{ position:relative; }
+  .nav-dropdown-trigger{ display:flex; align-items:center; gap:4px; background:none; border:none; cursor:pointer; font:inherit; color:inherit; padding:0; }
+  .nav-dropdown-trigger svg{ transition:transform .15s; }
+  .nav-dropdown:hover .nav-dropdown-trigger svg, .nav-dropdown:focus-within .nav-dropdown-trigger svg{ transform:rotate(180deg); }
+  .dropdown-menu{ position:absolute; top:calc(100% + 14px); left:50%; transform:translate(-50%,4px); background:var(--surface); border:1.5px solid var(--border); border-radius:.85rem; padding:.4rem; min-width:190px; box-shadow:0 12px 28px rgba(0,0,0,.1); opacity:0; visibility:hidden; transition:opacity .15s, transform .15s; z-index:50; }
+  .nav-dropdown:hover .dropdown-menu, .nav-dropdown:focus-within .dropdown-menu{ opacity:1; visibility:visible; transform:translate(-50%,0); }
+  .dropdown-menu a{ display:block; padding:.55rem .75rem; border-radius:.6rem; font-size:14px; font-weight:500; color:var(--text); text-decoration:none; }
+  .dropdown-menu a:hover{ background:var(--fill); }
+  details.mobile-dropdown summary{ cursor:pointer; list-style:none; display:flex; align-items:center; justify-content:space-between; }
+  details.mobile-dropdown summary::-webkit-details-marker{ display:none; }
+  details.mobile-dropdown summary svg{ transition:transform .15s; }
+  details.mobile-dropdown[open] summary svg{ transform:rotate(180deg); }
+  details.mobile-dropdown .mobile-dropdown-links{ display:flex; flex-direction:column; gap:.6rem; padding:.75rem 0 0 .75rem; }
+  .proto-nav{ background:var(--pill-bg); overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .proto-nav-inner{ display:flex; gap:.5rem; padding:.55rem 1rem; width:max-content; min-width:100%; }
+  .proto-nav a{ display:inline-block; padding:.35rem .85rem; border-radius:999px; background:rgba(255,255,255,.14); color:var(--pill-text); font-size:11.5px; font-weight:600; text-decoration:none; white-space:nowrap; flex:none; }
+  .proto-nav a:hover{ background:rgba(255,255,255,.26); }
+  .proto-nav a.is-current{ background:var(--btn-primary-bg); color:var(--btn-primary-text); }
   dialog.modal{ border:none; border-radius:1.25rem; padding:0; max-width:560px; width:92vw; background:var(--surface); color:var(--text); }
   dialog.modal::backdrop{ background:rgba(0,0,0,.55); }
   .modal-head{ display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1.25rem 1.5rem; border-bottom:1px solid var(--border); }
@@ -86,6 +104,39 @@
 </head>
 <body class="mx-auto max-w-[1440px]">
 
+  <!-- ============================================================
+       BARRA DE NAVEGAÇÃO DO PROTÓTIPO — atalho pra todas as páginas
+       criadas, só para revisão; não faz parte do site final.
+  ============================================================ -->
+  <nav aria-label="Navegador do protótipo" class="proto-nav">
+    <div class="proto-nav-inner">
+      <a href="index.html">Home</a>
+      <a href="produto.html">Produto</a>
+      <a href="equipamentos.html">Equipamentos</a>
+      <a href="centro-tecnico.html">Centro Técnico</a>
+      <a href="sobre.html">Sobre nós</a>
+      <a href="conhecimento.html">Conhecimento</a>
+      <a href="artigo.html">Artigo</a>
+      <a href="contato.html">Contato</a>
+      <a href="raw-x-alcoa.html">Raw × Alcoa</a>
+      <a href="raw-x-covestro.html">Raw × Covestro</a>
+      <a href="raw-x-nalco.html">Raw × Nalco</a>
+      <a href="raw-x-3m.html">Raw × 3M</a>
+      <a href="raw-x-outras-marcas.html">Raw × Outras marcas</a>
+      <a href="lp-linkedin.html">LP LinkedIn</a>
+      <a href="lp-eventos.html">LP Eventos</a>
+    </div>
+  </nav>
+  <script>
+    (function(){
+      var here = location.pathname.split('/').pop() || 'index.html';
+      document.querySelectorAll('.proto-nav a').forEach(function(a){
+        if(a.getAttribute('href') === here) a.classList.add('is-current');
+      });
+    })();
+  </script>
+
+
   <div class="text-[11px] text-center py-1.5 px-3" style="background:var(--surface-alt); color:var(--text-muted); border-bottom:1px solid var(--border);">
     WIREFRAME · MÉDIA FIDELIDADE — RAW · PROTÓTIPO NAVEGÁVEL — CONTATO
   </div>
@@ -98,6 +149,16 @@
       <a href="index.html" class="fill-box shrink-0" style="width:64px; height:32px;"><span class="text-[10px] font-semibold" style="color:var(--brand);">RAW</span></a>
       <nav aria-label="Navegação principal" class="hidden md:flex items-center gap-7 text-[14px] font-medium" style="color:var(--text);">
         <a href="produto.html">Produtos</a>
+        <div class="nav-dropdown">
+          <button type="button" class="nav-dropdown-trigger">Marcas <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="dropdown-menu">
+            <a href="raw-x-alcoa.html">Alcoa</a>
+            <a href="raw-x-covestro.html">Covestro</a>
+            <a href="raw-x-nalco.html">Nalco</a>
+            <a href="raw-x-3m.html">3M</a>
+            <a href="raw-x-outras-marcas.html">Outras marcas</a>
+          </div>
+        </div>
         <a href="equipamentos.html">Equipamentos</a>
         <a href="centro-tecnico.html">Centro Técnico</a>
         <a href="index.html#segmentos">Segmentos</a>
@@ -115,6 +176,16 @@
     <nav id="mobileMenu" aria-label="Navegação principal (mobile)" hidden
       class="md:hidden max-w-[1280px] mx-auto px-4 sm:px-6 py-3 flex flex-col gap-3 text-[14px] font-medium" style="border-bottom:1px solid var(--border); color:var(--text);">
       <a href="produto.html">Produtos</a>
+      <details class="mobile-dropdown">
+        <summary>Marcas <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="mobile-dropdown-links">
+          <a href="raw-x-alcoa.html">Alcoa</a>
+          <a href="raw-x-covestro.html">Covestro</a>
+          <a href="raw-x-nalco.html">Nalco</a>
+          <a href="raw-x-3m.html">3M</a>
+          <a href="raw-x-outras-marcas.html">Outras marcas</a>
+        </div>
+      </details>
       <a href="equipamentos.html">Equipamentos</a>
       <a href="centro-tecnico.html">Centro Técnico</a>
       <a href="index.html#segmentos">Segmentos</a>
