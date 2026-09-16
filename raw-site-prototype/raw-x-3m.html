@@ -86,6 +86,14 @@
   .chat-name{ font-size:14px; font-weight:700; display:block; }
   .chat-preview{ font-size:12.5px; color:var(--text-muted); display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .chat-time{ font-size:11px; color:var(--text-faint); flex:none; align-self:flex-start; }
+  .chat-thread{ display:flex; flex-direction:column; gap:.6rem; margin-bottom:1rem; max-height:40vh; overflow-y:auto; padding-right:2px; }
+  .chat-msg{ display:flex; }
+  .chat-msg.from-user{ justify-content:flex-end; }
+  .chat-msg .bubble{ max-width:82%; padding:.6rem .9rem; border-radius:1rem; font-size:13px; line-height:1.5; }
+  .chat-msg.from-raw .bubble{ background:var(--surface-alt); border:1.5px solid var(--border); border-bottom-left-radius:.25rem; }
+  .chat-msg.from-user .bubble{ background:var(--fill-strong); color:var(--text); border-bottom-right-radius:.25rem; }
+  .chat-input-row{ display:flex; gap:.5rem; align-items:center; }
+  .chat-input-row input{ background:none; border:none; outline:none; width:100%; font-size:14px; color:var(--text); font-family:inherit; }
 </style>
 </head>
 <body class="mx-auto max-w-[1440px]">
@@ -254,7 +262,12 @@
   </p>
 
   <!-- ============================================================
-       POP-UP — "Fale com:" seletor de WhatsApp por marca (via header/footer)
+       POP-UP — "Fale com:" chat guiado por marca.
+       Fluxo: escolhe marca -> chat pede nome/telefone/cargo -> escolhe
+       "aguardar o time" ou "entrar em contato agora" (abre o WhatsApp
+       já com os dados preenchidos). Em produção, "aguardar o time"
+       precisa enviar esses dados pra algum lugar real (CRM, planilha,
+       notificação interna) — aqui é só a interface, sem back-end.
   ============================================================ -->
   <dialog id="modalFale" class="modal">
     <div class="modal-head">
@@ -262,40 +275,60 @@
       <button type="button" class="modal-close" data-close-modal aria-label="Fechar">✕</button>
     </div>
     <div class="modal-body">
-      <p class="text-[13px] mb-4" style="color:var(--text-muted);">Escolha a marca. Vamos abrir o WhatsApp com esta mensagem pronta pra enviar:</p>
-      <div class="chat-bubble-wrap">
-        <div>
-          <div class="chat-bubble">Oi! Tenho uma breve pergunta.<br><br>Nome:<br>Telefone:<br>Cargo:</div>
-          <p class="chat-bubble-time">Preenchemos nome, telefone e cargo pra equipe conseguir retornar caso não consiga responder na hora.</p>
+
+      <div data-fale-step="marca">
+        <p class="text-[13px] mb-4" style="color:var(--text-muted);">Escolha a marca pra começar a conversa.</p>
+        <div class="chat-list">
+        <button type="button" class="chat-row" style="width:100%; text-align:left; background:none; border:none; cursor:pointer; font-family:inherit;" data-fale-brand="Alcoa" data-fale-wa="5511900000001">
+          <span class="chat-avatar fill-box"><span class="text-[11px] font-semibold" style="color:var(--text-muted);">Alcoa</span><span class="chat-avatar-badge"><svg width="9" height="9" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v8H6l-3 3V11H2V3z" fill="var(--btn-primary-text)"/></svg></span></span>
+          <span class="chat-meta"><span class="chat-name">Alcoa</span><span class="chat-preview">Toque para começar o chat</span></span>
+          <span class="chat-time">agora</span>
+        </button>
+        <button type="button" class="chat-row" style="width:100%; text-align:left; background:none; border:none; cursor:pointer; font-family:inherit;" data-fale-brand="Covestro" data-fale-wa="5511900000002">
+          <span class="chat-avatar fill-box"><span class="text-[11px] font-semibold" style="color:var(--text-muted);">Covestro</span><span class="chat-avatar-badge"><svg width="9" height="9" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v8H6l-3 3V11H2V3z" fill="var(--btn-primary-text)"/></svg></span></span>
+          <span class="chat-meta"><span class="chat-name">Covestro</span><span class="chat-preview">Toque para começar o chat</span></span>
+          <span class="chat-time">agora</span>
+        </button>
+        <button type="button" class="chat-row" style="width:100%; text-align:left; background:none; border:none; cursor:pointer; font-family:inherit;" data-fale-brand="Nalco" data-fale-wa="5511900000003">
+          <span class="chat-avatar fill-box"><span class="text-[11px] font-semibold" style="color:var(--text-muted);">Nalco</span><span class="chat-avatar-badge"><svg width="9" height="9" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v8H6l-3 3V11H2V3z" fill="var(--btn-primary-text)"/></svg></span></span>
+          <span class="chat-meta"><span class="chat-name">Nalco</span><span class="chat-preview">Toque para começar o chat</span></span>
+          <span class="chat-time">agora</span>
+        </button>
+        <button type="button" class="chat-row" style="width:100%; text-align:left; background:none; border:none; cursor:pointer; font-family:inherit;" data-fale-brand="3M" data-fale-wa="5511900000004">
+          <span class="chat-avatar fill-box"><span class="text-[11px] font-semibold" style="color:var(--text-muted);">3M</span><span class="chat-avatar-badge"><svg width="9" height="9" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v8H6l-3 3V11H2V3z" fill="var(--btn-primary-text)"/></svg></span></span>
+          <span class="chat-meta"><span class="chat-name">3M</span><span class="chat-preview">Toque para começar o chat</span></span>
+          <span class="chat-time">agora</span>
+        </button>
+        <button type="button" class="chat-row" style="width:100%; text-align:left; background:none; border:none; cursor:pointer; font-family:inherit;" data-fale-brand="+ Outras" data-fale-wa="5511900000005">
+          <span class="chat-avatar fill-box"><span class="text-[11px] font-semibold" style="color:var(--text-muted);">+ Outras</span><span class="chat-avatar-badge"><svg width="9" height="9" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v8H6l-3 3V11H2V3z" fill="var(--btn-primary-text)"/></svg></span></span>
+          <span class="chat-meta"><span class="chat-name">+ Outras</span><span class="chat-preview">Toque para começar o chat</span></span>
+          <span class="chat-time">agora</span>
+        </button>
         </div>
       </div>
-      <div class="chat-list">
-        <a href="https://wa.me/5511900000001?text=Oi!%20Tenho%20uma%20breve%20pergunta.%0A%0ANome:%0ATelefone:%0ACargo:" target="_blank" rel="noopener" class="chat-row">
-          <span class="chat-avatar fill-box"><span class="text-[11px] font-semibold" style="color:var(--text-muted);">Alcoa</span><span class="chat-avatar-badge"><svg width="9" height="9" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v8H6l-3 3V11H2V3z" fill="var(--btn-primary-text)"/></svg></span></span>
-          <span class="chat-meta"><span class="chat-name">Alcoa</span><span class="chat-preview">Oi! Tenho uma breve pergunta...</span></span>
-          <span class="chat-time">agora</span>
-        </a>
-        <a href="https://wa.me/5511900000002?text=Oi!%20Tenho%20uma%20breve%20pergunta.%0A%0ANome:%0ATelefone:%0ACargo:" target="_blank" rel="noopener" class="chat-row">
-          <span class="chat-avatar fill-box"><span class="text-[11px] font-semibold" style="color:var(--text-muted);">Covestro</span><span class="chat-avatar-badge"><svg width="9" height="9" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v8H6l-3 3V11H2V3z" fill="var(--btn-primary-text)"/></svg></span></span>
-          <span class="chat-meta"><span class="chat-name">Covestro</span><span class="chat-preview">Oi! Tenho uma breve pergunta...</span></span>
-          <span class="chat-time">agora</span>
-        </a>
-        <a href="https://wa.me/5511900000003?text=Oi!%20Tenho%20uma%20breve%20pergunta.%0A%0ANome:%0ATelefone:%0ACargo:" target="_blank" rel="noopener" class="chat-row">
-          <span class="chat-avatar fill-box"><span class="text-[11px] font-semibold" style="color:var(--text-muted);">Nalco</span><span class="chat-avatar-badge"><svg width="9" height="9" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v8H6l-3 3V11H2V3z" fill="var(--btn-primary-text)"/></svg></span></span>
-          <span class="chat-meta"><span class="chat-name">Nalco</span><span class="chat-preview">Oi! Tenho uma breve pergunta...</span></span>
-          <span class="chat-time">agora</span>
-        </a>
-        <a href="https://wa.me/5511900000004?text=Oi!%20Tenho%20uma%20breve%20pergunta.%0A%0ANome:%0ATelefone:%0ACargo:" target="_blank" rel="noopener" class="chat-row">
-          <span class="chat-avatar fill-box"><span class="text-[11px] font-semibold" style="color:var(--text-muted);">3M</span><span class="chat-avatar-badge"><svg width="9" height="9" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v8H6l-3 3V11H2V3z" fill="var(--btn-primary-text)"/></svg></span></span>
-          <span class="chat-meta"><span class="chat-name">3M</span><span class="chat-preview">Oi! Tenho uma breve pergunta...</span></span>
-          <span class="chat-time">agora</span>
-        </a>
-        <a href="https://wa.me/5511900000005?text=Oi!%20Tenho%20uma%20breve%20pergunta.%0A%0ANome:%0ATelefone:%0ACargo:" target="_blank" rel="noopener" class="chat-row">
-          <span class="chat-avatar fill-box"><span class="text-[11px] font-semibold" style="color:var(--text-muted);">+ Outras</span><span class="chat-avatar-badge"><svg width="9" height="9" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v8H6l-3 3V11H2V3z" fill="var(--btn-primary-text)"/></svg></span></span>
-          <span class="chat-meta"><span class="chat-name">+ Outras</span><span class="chat-preview">Oi! Tenho uma breve pergunta...</span></span>
-          <span class="chat-time">agora</span>
-        </a>
+
+      <div data-fale-step="chat" hidden>
+        <button type="button" class="btn-link text-[12px] mb-4" data-fale-back>← voltar</button>
+        <div class="chat-thread" id="faleThread"></div>
+        <div class="chat-input-row">
+          <div class="input-fill px-4 py-3" style="flex:1;"><input id="faleInput" type="text" placeholder="Digite aqui..."></div>
+          <button type="button" class="btn btn-primary px-4 py-3 text-[13px]" id="faleSend">Enviar</button>
+        </div>
       </div>
+
+      <div data-fale-step="final" hidden>
+        <div class="chat-thread" id="faleFinalThread"></div>
+        <div class="flex flex-col gap-3 mt-1">
+          <button type="button" class="btn btn-primary px-6 py-3.5 text-[14px]" id="faleWaitBtn">Aguardar o time falar comigo</button>
+          <button type="button" class="btn btn-secondary px-6 py-3.5 text-[14px]" id="faleNowBtn">Entrar em contato agora</button>
+        </div>
+      </div>
+
+      <div data-fale-step="done" hidden>
+        <div class="chat-thread" id="faleDoneThread"></div>
+        <button type="button" class="btn btn-secondary px-6 py-3.5 text-[14px] w-full" data-close-modal>Fechar</button>
+      </div>
+
     </div>
   </dialog>
 
@@ -328,6 +361,110 @@
           if(!inside) dlg.close();
         });
       });
+    })();
+
+    // Chat guiado do pop-up "Fale com:" — qualifica o lead (nome, telefone, cargo)
+    // antes de oferecer WhatsApp imediato ou retorno do time.
+    (function(){
+      var dlg = document.getElementById('modalFale');
+      if(!dlg) return;
+      var questions = [
+        { key:'nome', text:'Oi! Pra te atender melhor, qual é o seu nome?' },
+        { key:'telefone', text:'Perfeito! E um telefone ou WhatsApp pra contato?' },
+        { key:'cargo', text:'Só mais uma: qual o seu cargo na empresa?' }
+      ];
+      var state = { brand:null, wa:null, qIndex:0, answers:{} };
+
+      function showStep(step){
+        dlg.querySelectorAll('[data-fale-step]').forEach(function(el){
+          el.hidden = el.getAttribute('data-fale-step') !== step;
+        });
+      }
+      function addBubble(threadId, text, from){
+        var thread = document.getElementById(threadId);
+        if(!thread) return;
+        var msg = document.createElement('div');
+        msg.className = 'chat-msg from-' + from;
+        var bubble = document.createElement('div');
+        bubble.className = 'bubble';
+        bubble.textContent = text;
+        msg.appendChild(bubble);
+        thread.appendChild(msg);
+        thread.scrollTop = thread.scrollHeight;
+      }
+      function askNext(){
+        if(state.qIndex < questions.length){
+          addBubble('faleThread', questions[state.qIndex].text, 'raw');
+        } else {
+          showStep('final');
+          var finalThread = document.getElementById('faleFinalThread');
+          if(finalThread) finalThread.innerHTML = '';
+          addBubble('faleFinalThread', 'Perfeito, ' + (state.answers.nome || 'tudo certo') + '! Como prefere seguir?', 'raw');
+        }
+      }
+      function resetFlow(){
+        state = { brand:null, wa:null, qIndex:0, answers:{} };
+        var thread = document.getElementById('faleThread');
+        if(thread) thread.innerHTML = '';
+        showStep('marca');
+      }
+
+      dlg.querySelectorAll('[data-fale-brand]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          state.brand = btn.getAttribute('data-fale-brand');
+          state.wa = btn.getAttribute('data-fale-wa');
+          state.qIndex = 0;
+          state.answers = {};
+          var thread = document.getElementById('faleThread');
+          if(thread) thread.innerHTML = '';
+          showStep('chat');
+          addBubble('faleThread', 'Oi! Você está no chat do time ' + state.brand + ' da Raw.', 'raw');
+          askNext();
+        });
+      });
+
+      dlg.querySelectorAll('[data-fale-back]').forEach(function(btn){
+        btn.addEventListener('click', resetFlow);
+      });
+
+      var sendBtn = document.getElementById('faleSend');
+      var input = document.getElementById('faleInput');
+      if(sendBtn && input){
+        sendBtn.addEventListener('click', function(){
+          var val = input.value.trim();
+          if(!val) return;
+          addBubble('faleThread', val, 'user');
+          var current = questions[state.qIndex];
+          if(current) state.answers[current.key] = val;
+          state.qIndex++;
+          input.value = '';
+          askNext();
+        });
+        input.addEventListener('keydown', function(e){
+          if(e.key === 'Enter'){ e.preventDefault(); sendBtn.click(); }
+        });
+      }
+
+      var waitBtn = document.getElementById('faleWaitBtn');
+      if(waitBtn){
+        waitBtn.addEventListener('click', function(){
+          showStep('done');
+          var doneThread = document.getElementById('faleDoneThread');
+          if(doneThread) doneThread.innerHTML = '';
+          addBubble('faleDoneThread', 'Obrigado' + (state.answers.nome ? ', ' + state.answers.nome : '') + '! Recebemos seus dados — o time ' + state.brand + ' vai falar com você em breve.', 'raw');
+        });
+      }
+      var nowBtn = document.getElementById('faleNowBtn');
+      if(nowBtn){
+        nowBtn.addEventListener('click', function(){
+          var msg = 'Oi! Tenho uma breve pergunta.%0A%0ANome: ' + encodeURIComponent(state.answers.nome || '') +
+                     '%0ATelefone: ' + encodeURIComponent(state.answers.telefone || '') +
+                     '%0ACargo: ' + encodeURIComponent(state.answers.cargo || '');
+          window.open('https://wa.me/' + state.wa + '?text=' + msg, '_blank', 'noopener');
+        });
+      }
+
+      dlg.addEventListener('close', resetFlow);
     })();
   </script>
 </body>
