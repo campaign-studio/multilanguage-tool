@@ -151,13 +151,16 @@
           <a href="#secao-4" class="btn btn-primary px-6 py-3.5 text-[14px]">Peça uma cotação</a>
           <button type="button" data-open-modal="modalFale" class="btn btn-secondary px-6 py-3.5 text-[14px]">Fale com um especialista</button>
         </div>
-        <button type="button" data-open-modal="modalDetalhes" class="btn-link inline-flex items-center gap-1.5 text-[13px]">Ver mais detalhes do produto <span class="arrow">→</span></button>
+        <div class="flex flex-wrap gap-x-5 gap-y-2">
+          <button type="button" data-open-modal="modalDetalhes" class="btn-link inline-flex items-center gap-1.5 text-[13px]">Ver mais detalhes do produto <span class="arrow">→</span></button>
+          <button type="button" data-open-modal="modalDownload" class="btn-link inline-flex items-center gap-1.5 text-[13px]">Baixar material técnico <span class="arrow">→</span></button>
+        </div>
       </div>
     </div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">01</span>
-    <span><strong style="color:var(--text);">Hero do produto</strong> — "Produto da marca [logo]" identifica de qual marca é o item antes do título; CTA de cotação, "Fale com um especialista" abre o pop-up de WhatsApp por marca, e "Ver mais detalhes" abre um pop-up com a ficha completa.</span>
+    <span><strong style="color:var(--text);">Hero do produto</strong> — "Produto da marca [logo]" identifica de qual marca é o item antes do título (a Raw distribui e dá suporte, o produto é do fabricante); CTA de cotação, "Fale com um especialista" abre o pop-up de WhatsApp por marca, "Ver mais detalhes" abre a ficha completa e "Baixar material técnico" já fica visível aqui na própria página — não só dentro do pop-up de detalhes — abrindo direto o formulário de captura de lead.</span>
   </p>
 
   <!-- ============================================================
@@ -242,15 +245,15 @@
   <section id="secao-5" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14">
     <h2 class="eyebrow mb-6">Você também pode se interessar</h2>
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-      <a href="produto.html" class="card p-3 block"><div class="fill-box w-full mb-3" style="aspect-ratio:1/1;"></div><p class="text-[13px] font-semibold">[ Nome do produto ]</p></a>
-      <a href="produto.html" class="card p-3 block"><div class="fill-box w-full mb-3" style="aspect-ratio:1/1;"></div><p class="text-[13px] font-semibold">[ Nome do produto ]</p></a>
-      <a href="produto.html" class="card p-3 block"><div class="fill-box w-full mb-3" style="aspect-ratio:1/1;"></div><p class="text-[13px] font-semibold">[ Nome do produto ]</p></a>
-      <a href="produto.html" class="card p-3 block"><div class="fill-box w-full mb-3" style="aspect-ratio:1/1;"></div><p class="text-[13px] font-semibold">[ Nome do produto ]</p></a>
+      <a href="produto.html" class="card p-3 block"><div class="fill-box w-full mb-3" style="aspect-ratio:1/1;"><span class="fill-tag text-[10px] absolute" style="top:8px; left:8px;">Marca: [logo]</span></div><p class="text-[13px] font-semibold">[ Nome do produto ]</p></a>
+      <a href="produto.html" class="card p-3 block"><div class="fill-box w-full mb-3" style="aspect-ratio:1/1;"><span class="fill-tag text-[10px] absolute" style="top:8px; left:8px;">Marca: [logo]</span></div><p class="text-[13px] font-semibold">[ Nome do produto ]</p></a>
+      <a href="produto.html" class="card p-3 block"><div class="fill-box w-full mb-3" style="aspect-ratio:1/1;"><span class="fill-tag text-[10px] absolute" style="top:8px; left:8px;">Marca: [logo]</span></div><p class="text-[13px] font-semibold">[ Nome do produto ]</p></a>
+      <a href="produto.html" class="card p-3 block"><div class="fill-box w-full mb-3" style="aspect-ratio:1/1;"><span class="fill-tag text-[10px] absolute" style="top:8px; left:8px;">Marca: [logo]</span></div><p class="text-[13px] font-semibold">[ Nome do produto ]</p></a>
     </div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">05</span>
-    <span><strong style="color:var(--text);">Produtos relacionados</strong> — cross-sell: cada card volta para produto.html (simula outro produto).</span>
+    <span><strong style="color:var(--text);">Produtos relacionados</strong> — cross-sell: cada card volta para produto.html (simula outro produto). A etiqueta "Marca: [logo]" em cada card deixa claro que o produto pertence ao fabricante, e a Raw é quem distribui e dá suporte.</span>
   </p>
 
   <!-- ============================================================
@@ -260,7 +263,7 @@
     <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
       <div>
         <a href="index.html" class="fill-box mb-3 inline-flex" style="width:64px; height:32px;"><span class="text-[10px] font-semibold" style="color:var(--brand);">RAW</span></a>
-        <p class="text-[13px]" style="color:var(--text-muted);">O material certo para o seu produto — desde 1992.</p>
+        <p class="text-[13px]" style="color:var(--text-muted);">Distribuidora oficial de marcas líderes — desde 1992.</p>
       </div>
       <div>
         <p class="eyebrow mb-3">Produtos</p>

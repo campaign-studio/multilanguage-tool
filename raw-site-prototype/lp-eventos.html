@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raw — Landing Page Eventos (wireframe)</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  :root{
+    --bg:#FFFFFF; --surface:#FFFFFF; --surface-alt:#F2FAF9;
+    --fill:#DFF3F0; --fill-strong:#C7EAE4;
+    --border:#E1EAE9; --border-strong:#0E1613;
+    --text:#0E1613; --text-muted:#5C6E6C; --text-faint:#93A5A3;
+    --pill-bg:#0E1613; --pill-text:#FFFFFF;
+    --btn-primary-bg:#1FAE9C; --btn-primary-text:#FFFFFF;
+    --brand:#1FAE9C; --brand-dark:#0E1613;
+    --focus:#1FAE9C;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0E1613; --surface:#132420; --surface-alt:#0B1210;
+      --fill:#1C3E38; --fill-strong:#245049;
+      --border:#24413B; --border-strong:#EAF6F4;
+      --text:#EAF6F4; --text-muted:#9FC2BC; --text-faint:#6C8A85;
+      --pill-bg:#EAF6F4; --pill-text:#0E1613;
+      --btn-primary-bg:#1FAE9C; --btn-primary-text:#FFFFFF;
+      --brand:#3FD6C2; --brand-dark:#EAF6F4;
+      --focus:#3FD6C2;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0E1613; --surface:#132420; --surface-alt:#0B1210;
+    --fill:#1C3E38; --fill-strong:#245049;
+    --border:#24413B; --border-strong:#EAF6F4;
+    --text:#EAF6F4; --text-muted:#9FC2BC; --text-faint:#6C8A85;
+    --pill-bg:#EAF6F4; --pill-text:#0E1613;
+    --btn-primary-bg:#1FAE9C; --btn-primary-text:#FFFFFF;
+    --brand:#3FD6C2; --brand-dark:#EAF6F4;
+    --focus:#3FD6C2;
+  }
+  *{ box-sizing:border-box; }
+  html{ background:var(--bg); }
+  body{ margin:0; background:var(--bg); color:var(--text); font-family:'Roboto',ui-sans-serif,system-ui,-apple-system,sans-serif; -webkit-font-smoothing:antialiased; }
+  h1{ text-wrap:balance; margin:0; font-family:'Roboto',ui-sans-serif,system-ui,sans-serif; text-transform:uppercase; letter-spacing:.01em; font-weight:900; }
+  h2{ text-wrap:balance; margin:0; letter-spacing:-.01em; }
+  a, button{ font-family:inherit; }
+  :focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
+  @media (prefers-reduced-motion: reduce){ *{ transition:none !important; animation:none !important; } }
+
+  .txt-line{ height:.6em; background:var(--fill); border-radius:999px; }
+  .fill-box{ background:var(--fill); border-radius:1.1rem; display:flex; align-items:center; justify-content:center; position:relative; }
+  .fill-tag{ background:var(--pill-bg); color:var(--pill-text); border-radius:999px; padding:.4rem .8rem; font-weight:600; }
+  .card{ border:1.5px solid var(--border); border-radius:1rem; background:var(--surface); }
+  .chip{ border:1.5px solid var(--border); border-radius:.85rem; background:var(--surface); }
+  .icon-fill{ background:var(--fill); border-radius:.6rem; display:flex; align-items:center; justify-content:center; color:var(--text-muted); flex:none; }
+  .btn{ border-radius:.85rem; font-weight:600; text-align:center; white-space:nowrap; border:none; cursor:pointer; }
+  .btn-primary{ background:var(--btn-primary-bg); color:var(--btn-primary-text); }
+  .btn-secondary{ background:var(--surface); color:var(--text); border:1.5px solid var(--border-strong); }
+  .btn-link{ color:var(--text); font-weight:600; background:none; border:none; cursor:pointer; padding:0; font-size:inherit; }
+  .btn-link .arrow{ transition:transform .15s; display:inline-block; }
+  .btn-link:hover .arrow{ transform:translateX(2px); }
+  .input-fill{ background:var(--fill); border-radius:.85rem; border:none; appearance:none; -webkit-appearance:none; width:100%; }
+  .wf-note{ border-top:1px solid var(--border); background:var(--surface-alt); }
+  .badge-num{ width:1.6rem; height:1.6rem; border-radius:999px; background:var(--fill); color:var(--text-muted); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; flex:none; }
+  .step-circle{ width:2.5rem; height:2.5rem; border-radius:999px; background:var(--fill); color:var(--text-muted); display:flex; align-items:center; justify-content:center; font-weight:700; flex:none; }
+  .eyebrow{ font-size:12px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--text-muted); }
+  label{ display:block; font-size:13px; font-weight:600; margin-bottom:.4rem; }
+
+  details.faq{ border-bottom:1px solid var(--border); }
+  details.faq:first-child{ border-top:1px solid var(--border); }
+  details.faq summary{ cursor:pointer; list-style:none; padding:1rem 0; display:flex; align-items:center; justify-content:space-between; gap:1rem; font-weight:600; font-size:14px; }
+  details.faq summary::-webkit-details-marker{ display:none; }
+  details.faq .chev{ transition:transform .15s; flex:none; color:var(--text-faint); }
+  details.faq[open] .chev{ transform:rotate(180deg); }
+  details.faq p{ margin:0 0 1rem; font-size:14px; color:var(--text-muted); line-height:1.6; }
+
+  dialog.modal{ border:none; border-radius:1.25rem; padding:0; max-width:560px; width:92vw; background:var(--surface); color:var(--text); }
+  dialog.modal::backdrop{ background:rgba(0,0,0,.55); }
+  .modal-head{ display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1.25rem 1.5rem; border-bottom:1px solid var(--border); }
+  .modal-close{ width:32px; height:32px; border-radius:999px; background:var(--fill); display:flex; align-items:center; justify-content:center; flex:none; border:none; cursor:pointer; color:var(--text-muted); font-size:14px; }
+  .modal-body{ padding:1.5rem; max-height:70vh; overflow-y:auto; }
+  .brand-tile{ border:1.5px solid var(--border); border-radius:1rem; padding:1rem; display:flex; flex-direction:column; align-items:center; gap:.65rem; text-align:center; text-decoration:none; color:var(--text); }
+</style>
+</head>
+<body class="mx-auto max-w-[1440px]">
+
+  <div class="text-[11px] text-center py-1.5 px-3" style="background:var(--surface-alt); color:var(--text-muted); border-bottom:1px solid var(--border);">
+    WIREFRAME · MÉDIA FIDELIDADE — RAW · LANDING PAGE — CAPTAÇÃO DE LEADS EM EVENTOS / FEIRAS
+  </div>
+
+  <!-- ============================================================
+       HEADER — enxuto, sem menu de navegação (mesma lógica da LP de LinkedIn)
+  ============================================================ -->
+  <header>
+    <div class="max-w-[1280px] mx-auto flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 py-3.5" style="border-bottom:1px solid var(--border);">
+      <div class="fill-box shrink-0" style="width:64px; height:32px;"><span class="text-[10px] font-semibold" style="color:var(--brand);">RAW</span></div>
+      <a href="#form-evento" class="btn btn-primary px-4 py-2.5 text-[13px]">Cadastre-se</a>
+    </div>
+  </header>
+  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
+    <span class="badge-num">·</span>
+    <span><strong style="color:var(--text);">Header sem menu</strong> — pensado para ser acessado por QR code no estande; o único caminho é rolar até o cadastro.</span>
+  </p>
+
+  <!-- ============================================================
+       1. HERO DO EVENTO
+  ============================================================ -->
+  <section id="secao-1" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-10">
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+      <div>
+        <span class="chip inline-block px-3 py-1.5 text-[11px] font-semibold mb-5">[ Nome da feira/evento ] · [ Data ] · [ Cidade ]</span>
+        <h1 class="text-[26px] sm:text-[36px] mb-4">Vem conhecer as novidades da Raw no estande [ nº ]</h1>
+        <div class="flex flex-col gap-2 mb-9"><div class="txt-line" style="width:90%;"></div><div class="txt-line" style="width:65%;"></div></div>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a href="#form-evento" class="btn btn-primary px-6 py-3.5 text-[14px]">Quero agendar uma visita</a>
+          <button type="button" data-open-modal="modalFale" class="btn btn-secondary px-6 py-3.5 text-[14px]">Fale com um especialista</button>
+        </div>
+      </div>
+      <div class="fill-box w-full" style="aspect-ratio:4/3;"><span class="fill-tag text-[12px] absolute" style="bottom:14px; left:14px;">IMG · estande Raw no evento</span></div>
+    </div>
+  </section>
+  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
+    <span class="badge-num">01</span>
+    <span><strong style="color:var(--text);">Hero do evento</strong> — nome, data e local do evento entram no chip de destaque; o CTA principal rola até o formulário de cadastro no estande.</span>
+  </p>
+
+  <!-- ============================================================
+       2. POR QUE VISITAR O NOSSO ESTANDE
+  ============================================================ -->
+  <section id="secao-2" style="background:var(--surface-alt);">
+    <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <h2 class="text-[22px] sm:text-[28px] font-bold mb-10 text-center">Por que visitar o nosso estande</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="card p-5"><span class="icon-fill mb-4" style="width:44px; height:44px;"></span><p class="text-[14px] font-bold mb-2">Lançamentos em primeira mão</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:88%;"></div><div class="txt-line" style="width:55%;"></div></div></div>
+        <div class="card p-5"><span class="icon-fill mb-4" style="width:44px; height:44px;"></span><p class="text-[14px] font-bold mb-2">Demonstração de equipamentos ao vivo</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:90%;"></div><div class="txt-line" style="width:60%;"></div></div></div>
+        <div class="card p-5"><span class="icon-fill mb-4" style="width:44px; height:44px;"></span><p class="text-[14px] font-bold mb-2">Mesa técnica com especialistas Raw</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:85%;"></div><div class="txt-line" style="width:50%;"></div></div></div>
+      </div>
+    </div>
+  </section>
+  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
+    <span class="badge-num">02</span>
+    <span><strong style="color:var(--text);">Motivos para visitar</strong> — dá um motivo concreto para reservar um horário, além de "conhecer a empresa".</span>
+  </p>
+
+  <!-- ============================================================
+       3. AGENDA NO ESTANDE
+  ============================================================ -->
+  <section id="secao-3" class="max-w-[860px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h2 class="text-[20px] sm:text-[24px] font-bold mb-10 text-center">Agenda no estande</h2>
+    <div class="flex flex-col gap-6">
+      <div class="flex items-start gap-4"><span class="step-circle">[ 10h ]</span><div class="flex-1 pt-1"><p class="text-[14px] font-semibold mb-1">Abertura do estande</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:75%;"></div></div></div></div>
+      <div class="flex items-start gap-4"><span class="step-circle">[ 13h ]</span><div class="flex-1 pt-1"><p class="text-[14px] font-semibold mb-1">Demonstração de equipamentos</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:80%;"></div></div></div></div>
+      <div class="flex items-start gap-4"><span class="step-circle">[ 15h ]</span><div class="flex-1 pt-1"><p class="text-[14px] font-semibold mb-1">Mesa técnica com especialistas Raw</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:78%;"></div></div></div></div>
+      <div class="flex items-start gap-4"><span class="step-circle">[ 17h ]</span><div class="flex-1 pt-1"><p class="text-[14px] font-semibold mb-1">Coquetel de encerramento</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:70%;"></div></div></div></div>
+    </div>
+  </section>
+  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
+    <span class="badge-num">03</span>
+    <span><strong style="color:var(--text);">Agenda</strong> — dá um motivo para o visitante voltar ao estande em um horário específico, aumentando o tempo de exposição à marca.</span>
+  </p>
+
+  <!-- ============================================================
+       4. CADASTRE-SE PARA O EVENTO — formulário de captura
+  ============================================================ -->
+  <section id="form-evento" style="background:var(--surface-alt);">
+    <div class="max-w-[620px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="card p-6 sm:p-8">
+        <p class="text-[16px] font-bold mb-1">Cadastre-se e agende sua visita</p>
+        <p class="text-[13px] mb-5" style="color:var(--text-muted);">Reserve um horário no estande e receba as novidades do evento em primeira mão.</p>
+        <form onsubmit="return false;" class="flex flex-col gap-4">
+          <div><label>Nome</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ nome completo ]</span></div></div>
+          <div><label>Empresa</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ nome da empresa ]</span></div></div>
+          <div><label>Cargo</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ seu cargo ]</span></div></div>
+          <div><label>E-mail</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ e-mail ]</span></div></div>
+          <div><label>Telefone / WhatsApp</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ telefone ]</span></div></div>
+          <div>
+            <label for="lp-horario">Horário de preferência no estande</label>
+            <select id="lp-horario" class="input-fill px-4 py-3 text-[14px]" style="color:var(--text-faint);">
+              <option>[ selecione um horário ]</option>
+              <option>10h — Abertura</option>
+              <option>13h — Demonstração de equipamentos</option>
+              <option>15h — Mesa técnica</option>
+              <option>17h — Coquetel de encerramento</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary px-6 py-3.5 text-[14px]">Quero agendar minha visita</button>
+          <p class="text-[11px] text-center" style="color:var(--text-faint);">Ao enviar, você concorda com nossa <a href="#privacidade" style="color:var(--text-muted); text-decoration:underline;">política de privacidade</a>.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
+    <span class="badge-num">04</span>
+    <span><strong style="color:var(--text);">Formulário de cadastro</strong> — o campo de horário funciona como agenda de atendimento no estande, ajudando a organizar o fluxo de visitantes durante o evento.</span>
+  </p>
+
+  <!-- ============================================================
+       5. MARCAS PRESENTES NO ESTANDE
+  ============================================================ -->
+  <section id="secao-5" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <p class="eyebrow text-center mb-6">Marcas presentes no nosso estande</p>
+    <div class="grid grid-cols-2 sm:grid-cols-5 gap-4">
+      <div class="fill-box h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Alcoa</span></div>
+      <div class="fill-box h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Covestro</span></div>
+      <div class="fill-box h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Nalco</span></div>
+      <div class="fill-box h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">3M</span></div>
+      <div class="fill-box h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">+ Outras</span></div>
+    </div>
+  </section>
+  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
+    <span class="badge-num">05</span>
+    <span><strong style="color:var(--text);">Marcas no estande</strong> — mostra a amplitude do portfólio sem repetir o formulário; os produtos expostos são dos fabricantes, a Raw representa e atende.</span>
+  </p>
+
+  <!-- ============================================================
+       6. FAQ DO EVENTO
+  ============================================================ -->
+  <section id="secao-6" style="background:var(--surface-alt);">
+    <div class="max-w-[720px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <h2 class="text-[20px] sm:text-[24px] font-bold mb-8 text-center">Perguntas frequentes</h2>
+      <details class="faq" open>
+        <summary>Onde fica o estande da Raw? <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <p>[ resposta com localização do estande dentro do evento ]</p>
+      </details>
+      <details class="faq">
+        <summary>Preciso me cadastrar antes de visitar? <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <p>[ resposta — cadastro recomendado para garantir horário, mas não obrigatório ]</p>
+      </details>
+      <details class="faq">
+        <summary>Terei acesso a algum material técnico no local? <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <p>[ resposta sobre fichas técnicas e materiais disponíveis no estande ]</p>
+      </details>
+    </div>
+  </section>
+  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
+    <span class="badge-num">06</span>
+    <span><strong style="color:var(--text);">FAQ</strong> — resolve as dúvidas logísticas mais comuns de quem vai visitar o estande.</span>
+  </p>
+
+  <!-- ============================================================
+       7. CTA FINAL
+  ============================================================ -->
+  <section id="secao-7" class="px-4 sm:px-6 lg:px-8 py-8">
+    <div class="max-w-[1280px] mx-auto text-center py-16 px-6" style="background:var(--btn-primary-bg); color:var(--btn-primary-text); border-radius:1.5rem;">
+      <h2 class="text-[24px] sm:text-[30px] font-bold mb-9">Nos vemos no estande [ nº ]?</h2>
+      <div class="flex flex-col sm:flex-row gap-3 items-center justify-center">
+        <a href="#form-evento" class="btn px-7 py-3.5 text-[14px]" style="background:var(--btn-primary-text); color:var(--btn-primary-bg);">Quero agendar minha visita</a>
+        <button type="button" data-open-modal="modalFale" class="btn-link inline-flex items-center justify-center gap-1.5 text-[13px]" style="color:var(--btn-primary-text);">ou fale com um especialista <span class="arrow">→</span></button>
+      </div>
+    </div>
+  </section>
+  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5 -mt-8" style="color:var(--text-muted);">
+    <span class="badge-num">07</span>
+    <span><strong style="color:var(--text);">CTA final</strong> — reforça o convite antes do rodapé, com WhatsApp por marca como alternativa.</span>
+  </p>
+
+  <!-- ============================================================
+       FOOTER MINIMALISTA
+  ============================================================ -->
+  <footer style="background:var(--surface-alt); border-top:1px solid var(--border);">
+    <div id="privacidade" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center md:items-center justify-between gap-4">
+      <div class="fill-box" style="width:64px; height:32px;"><span class="text-[10px] font-semibold" style="color:var(--brand);">RAW</span></div>
+      <p class="text-[12px] text-center" style="color:var(--text-faint);">© Raw — [ endereço · telefone · e-mail ] · <a href="#privacidade">Política de privacidade</a></p>
+    </div>
+  </footer>
+  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
+    <span class="badge-num">·</span>
+    <span><strong style="color:var(--text);">Footer minimalista</strong> — mesma lógica da LP de LinkedIn: sem sitemap, foco total no cadastro.</span>
+  </p>
+
+  <!-- ============================================================
+       POP-UP — "Fale com:" seletor de WhatsApp por marca
+  ============================================================ -->
+  <dialog id="modalFale" class="modal">
+    <div class="modal-head">
+      <p class="text-[16px] font-bold">Fale com:</p>
+      <button type="button" class="modal-close" data-close-modal aria-label="Fechar">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="text-[13px] mb-5" style="color:var(--text-muted);">Escolha a marca para falar direto com o time responsável no WhatsApp.</p>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        <a href="https://wa.me/5511900000001" target="_blank" rel="noopener" class="brand-tile"><div class="fill-box w-full h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Alcoa</span></div><span class="text-[12px] font-semibold">WhatsApp Alcoa</span></a>
+        <a href="https://wa.me/5511900000002" target="_blank" rel="noopener" class="brand-tile"><div class="fill-box w-full h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Covestro</span></div><span class="text-[12px] font-semibold">WhatsApp Covestro</span></a>
+        <a href="https://wa.me/5511900000003" target="_blank" rel="noopener" class="brand-tile"><div class="fill-box w-full h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Nalco</span></div><span class="text-[12px] font-semibold">WhatsApp Nalco</span></a>
+        <a href="https://wa.me/5511900000004" target="_blank" rel="noopener" class="brand-tile"><div class="fill-box w-full h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">3M</span></div><span class="text-[12px] font-semibold">WhatsApp 3M</span></a>
+        <a href="https://wa.me/5511900000005" target="_blank" rel="noopener" class="brand-tile"><div class="fill-box w-full h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">+ Outras</span></div><span class="text-[12px] font-semibold">WhatsApp — outras marcas</span></a>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    (function(){
+      document.querySelectorAll('[data-open-modal]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var dlg = document.getElementById(btn.getAttribute('data-open-modal'));
+          if(dlg && dlg.showModal) dlg.showModal();
+        });
+      });
+      document.querySelectorAll('dialog.modal').forEach(function(dlg){
+        dlg.querySelectorAll('[data-close-modal]').forEach(function(btn){
+          btn.addEventListener('click', function(){ dlg.close(); });
+        });
+        dlg.addEventListener('click', function(e){
+          var r = dlg.getBoundingClientRect();
+          var inside = r.top <= e.clientY && e.clientY <= r.top + r.height && r.left <= e.clientX && e.clientX <= r.left + r.width;
+          if(!inside) dlg.close();
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
