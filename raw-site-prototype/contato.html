@@ -62,12 +62,13 @@
   .badge-num{ width:1.6rem; height:1.6rem; border-radius:999px; background:var(--fill); color:var(--text-muted); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; flex:none; }
   .eyebrow{ font-size:12px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--text-muted); }
   label{ display:block; font-size:13px; font-weight:600; margin-bottom:.5rem; }
+  .trust-item{ display:flex; align-items:center; gap:.6rem; font-size:13px; color:var(--text-muted); }
 </style>
 </head>
 <body class="mx-auto max-w-[1440px]">
 
   <div class="text-[11px] text-center py-1.5 px-3" style="background:var(--surface-alt); color:var(--text-muted); border-bottom:1px solid var(--border);">
-    WIREFRAME · MÉDIA FIDELIDADE — RAW · PROTÓTIPO NAVEGÁVEL — CONTATO
+    WIREFRAME · MÉDIA FIDELIDADE — RAW · PROTÓTIPO NAVEGÁVEL — CONTATO (v2: foco em conversão)
   </div>
 
   <!-- ============================================================
@@ -78,14 +79,13 @@
       <a href="index.html" class="fill-box shrink-0" style="width:64px; height:32px;"><span class="text-[10px] font-semibold" style="color:var(--text-muted);">RAW</span></a>
       <nav aria-label="Navegação principal" class="hidden md:flex items-center gap-7 text-[14px] font-medium" style="color:var(--text);">
         <a href="produto.html">Produtos</a>
-        <a href="index.html#solucoes">Soluções</a>
-        <a href="index.html#aplicacoes">Aplicações</a>
-        <a href="index.html#marcas">Marcas</a>
-        <a href="conhecimento.html">Conhecimento</a>
-        <a href="index.html#sobre">Sobre a Raw</a>
+        <a href="index.html#segmentos">Segmentos</a>
+        <a href="index.html#diferenciais">Por que a Raw</a>
+        <a href="conhecimento.html">Conteúdo</a>
+        <a href="contato.html">Contato</a>
       </nav>
       <div class="flex items-center gap-3">
-        <a href="contato.html" class="btn btn-primary hidden sm:block px-4 py-2.5 text-[13px]">Falar com um especialista</a>
+        <a href="contato.html" class="btn btn-primary hidden sm:block px-4 py-2.5 text-[13px]">Fale com um especialista</a>
         <button id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu" class="md:hidden fill-box" style="width:38px; height:34px;">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--text-muted);"><path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </button>
@@ -94,132 +94,108 @@
     <nav id="mobileMenu" aria-label="Navegação principal (mobile)" hidden
       class="md:hidden max-w-[1280px] mx-auto px-4 sm:px-6 py-3 flex flex-col gap-3 text-[14px] font-medium" style="border-bottom:1px solid var(--border); color:var(--text);">
       <a href="produto.html">Produtos</a>
-      <a href="index.html#solucoes">Soluções</a>
-      <a href="index.html#aplicacoes">Aplicações</a>
-      <a href="index.html#marcas">Marcas</a>
-      <a href="conhecimento.html">Conhecimento</a>
-      <a href="index.html#sobre">Sobre a Raw</a>
-      <a href="contato.html" class="btn btn-primary px-4 py-2.5 text-center mt-1">Falar com um especialista</a>
+      <a href="index.html#segmentos">Segmentos</a>
+      <a href="index.html#diferenciais">Por que a Raw</a>
+      <a href="conhecimento.html">Conteúdo</a>
+      <a href="contato.html">Contato</a>
+      <a href="contato.html" class="btn btn-primary px-4 py-2.5 text-center mt-1">Fale com um especialista</a>
     </nav>
   </header>
 
   <!-- ============================================================
-       1. HERO DE CONTATO — orientação
+       1. HERO DE CONTATO + FORMULÁRIO — direto ao ponto, sem rolagem
   ============================================================ -->
-  <section id="secao-1" class="pt-10 sm:pt-14 pb-8 max-w-[720px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <h1 class="text-[28px] sm:text-[38px] font-bold leading-tight mb-4">Fale com a Raw.</h1>
-    <div class="flex flex-col gap-2 items-center"><div class="txt-line" style="width:min(80%,26rem);"></div></div>
-  </section>
-  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
-    <span class="badge-num">01</span>
-    <span><strong style="color:var(--text);">Hero de contato</strong> — orientação: headline + subheadline.</span>
-  </p>
+  <section id="secao-1" class="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-16 grid lg:grid-cols-2 gap-12 items-start">
+    <div>
+      <h1 class="text-[28px] sm:text-[36px] font-bold leading-tight mb-4">Vamos conversar sobre o seu material.</h1>
+      <div class="flex flex-col gap-2 mb-8"><div class="txt-line" style="width:95%;"></div><div class="txt-line" style="width:70%;"></div></div>
 
-  <!-- ============================================================
-       2. FORMULÁRIO SEGMENTADO — direcionar por intenção
-  ============================================================ -->
-  <section id="secao-2" style="background:var(--surface-alt);">
-    <div class="max-w-[640px] mx-auto px-4 sm:px-6 lg:px-8 py-14">
-      <h2 class="eyebrow mb-6">Formulário</h2>
-      <form onsubmit="return false;" class="flex flex-col gap-5">
-        <div>
-          <label for="cont-motivo">Motivo do contato</label>
-          <select id="cont-motivo" class="input-fill px-4 py-3 text-[14px]">
-            <option value="cotacao">Cotação</option>
-            <option value="suporte">Suporte técnico</option>
-            <option value="duvida">Dúvida sobre produto</option>
-            <option value="trabalhe">Trabalhe conosco</option>
-            <option value="outro">Outro</option>
-          </select>
-        </div>
+      <div class="flex flex-col gap-3">
+        <div class="trust-item"><span class="icon-fill" style="width:28px; height:28px;"></span>Respondemos em até 1 dia útil</div>
+        <div class="trust-item"><span class="icon-fill" style="width:28px; height:28px;"></span>Sem compromisso de compra</div>
+        <div class="trust-item"><span class="icon-fill" style="width:28px; height:28px;"></span>Atendimento com especialista, não robô</div>
+      </div>
+    </div>
 
+    <div class="card p-6 sm:p-8">
+      <label for="cont-motivo">Motivo do contato</label>
+      <select id="cont-motivo" class="input-fill px-4 py-3 text-[14px] mb-5">
+        <option value="cotacao">Peça uma cotação</option>
+        <option value="suporte">Suporte técnico</option>
+        <option value="duvida">Dúvida sobre produto</option>
+        <option value="trabalhe">Trabalhe conosco</option>
+        <option value="outro">Outro assunto</option>
+      </select>
+
+      <form onsubmit="return false;" class="flex flex-col gap-4">
         <div><label>Nome</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ nome completo ]</span></div></div>
-        <div><label>E-mail / telefone</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ contato ]</span></div></div>
+        <div><label>E-mail ou telefone</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ contato ]</span></div></div>
 
-        <div data-motivo-group="cotacao"><label>Produto / material de interesse</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ produto ]</span></div></div>
-        <div data-motivo-group="cotacao" hidden><label>Volume estimado</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ quantidade / periodicidade ]</span></div></div>
-
-        <div data-motivo-group="suporte" hidden><label>Produto em uso</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ produto ]</span></div></div>
+        <div data-motivo-group="cotacao"><label>O que você precisa?</label><div class="input-fill px-4 py-3" style="min-height:64px;"><span class="text-[14px]" style="color:var(--text-faint);">[ produto / quantidade aproximada ]</span></div></div>
         <div data-motivo-group="suporte" hidden><label>Descreva o problema técnico</label><div class="input-fill px-4 py-3" style="min-height:64px;"><span class="text-[14px]" style="color:var(--text-faint);">[ descrição ]</span></div></div>
-
-        <div data-motivo-group="duvida" hidden><label>Produto</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ produto ]</span></div></div>
-
+        <div data-motivo-group="duvida" hidden><label>Sua dúvida</label><div class="input-fill px-4 py-3" style="min-height:64px;"><span class="text-[14px]" style="color:var(--text-faint);">[ descrição ]</span></div></div>
         <div data-motivo-group="trabalhe" hidden><label>Currículo</label><div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ anexar arquivo ]</span></div></div>
-
         <div data-motivo-group="outro" hidden><label>Mensagem</label><div class="input-fill px-4 py-3" style="min-height:64px;"><span class="text-[14px]" style="color:var(--text-faint);">[ mensagem ]</span></div></div>
 
-        <button type="submit" class="btn btn-primary px-6 py-3.5 text-[14px] self-start">Enviar</button>
+        <button type="submit" class="btn btn-primary px-6 py-3.5 text-[14px]">Enviar</button>
+        <p class="text-[11px] text-center" style="color:var(--text-faint);">Seus dados não são compartilhados com terceiros.</p>
       </form>
     </div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
-    <span class="badge-num">02</span>
-    <span><strong style="color:var(--text);">Formulário segmentado</strong> — direcionar por intenção: seletor de motivo troca os campos abaixo (JS).</span>
+    <span class="badge-num">01</span>
+    <span><strong style="color:var(--text);">Hero + formulário</strong> — form já visível sem rolar, com elementos de confiança ao lado ("responde em 1 dia útil", "sem compromisso") para reduzir a fricção de preencher.</span>
   </p>
 
   <!-- ============================================================
-       3. CANAIS DIRETOS — alternativa ao formulário
+       2. CANAIS DIRETOS — alternativa ao formulário
   ============================================================ -->
-  <section id="secao-3" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14">
-    <h2 class="eyebrow mb-6">Canais diretos</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-      <a href="tel:+550000000000" class="card p-5 block"><span class="icon-fill mb-3" style="width:38px; height:38px;"></span><p class="text-[14px] font-semibold mb-1">Telefone</p><p class="text-[13px]" style="color:var(--text-faint);">[ telefone ]</p></a>
-      <a href="mailto:contato@raw.com.br" class="card p-5 block"><span class="icon-fill mb-3" style="width:38px; height:38px;"></span><p class="text-[14px] font-semibold mb-1">E-mail</p><p class="text-[13px]" style="color:var(--text-faint);">[ e-mail ]</p></a>
-      <a href="https://wa.me/550000000000" class="card p-5 block"><span class="icon-fill mb-3" style="width:38px; height:38px;"></span><p class="text-[14px] font-semibold mb-1">WhatsApp</p><p class="text-[13px]" style="color:var(--text-faint);">[ número ]</p></a>
-    </div>
-    <div class="txt-line" style="width:220px;"></div>
-    <p class="text-[12px] mt-2" style="color:var(--text-faint);">[ horário de atendimento ]</p>
-  </section>
-  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
-    <span class="badge-num">03</span>
-    <span><strong style="color:var(--text);">Canais diretos</strong> — alternativa ao formulário: telefone, e-mail, WhatsApp e horário.</span>
-  </p>
-
-  <!-- ============================================================
-       4. LOCALIZAÇÃO — confiança + logística
-  ============================================================ -->
-  <section id="secao-4" style="background:var(--surface-alt);">
-    <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 grid lg:grid-cols-2 gap-10 items-center">
-      <div class="fill-box w-full" style="aspect-ratio:4/3;"><span class="fill-tag text-[12px] absolute" style="bottom:16px; left:16px; background:var(--pill-bg); color:var(--pill-text); border-radius:999px; padding:.4rem .8rem; font-weight:600;">MAPA · sede + unidades</span></div>
-      <div>
-        <p class="text-[13px] mb-2" style="color:var(--text-faint);">[ endereço completo ]</p>
-        <p class="text-[13px] mb-6" style="color:var(--text-faint);">[ horário de funcionamento ]</p>
-        <a href="https://www.google.com/maps/search/?api=1&query=Raw+Distribuidora" class="btn-link inline-flex items-center gap-1.5 text-[13px]">Ver no mapa <span class="arrow">→</span></a>
+  <section id="secao-2" style="background:var(--surface-alt);">
+    <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <h2 class="eyebrow mb-6">Prefere outro canal?</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <a href="tel:+550000000000" class="card p-5 block"><span class="icon-fill mb-3" style="width:38px; height:38px;"></span><p class="text-[14px] font-semibold mb-1">Telefone</p><p class="text-[13px]" style="color:var(--text-faint);">[ telefone ]</p></a>
+        <a href="mailto:contato@raw.com.br" class="card p-5 block"><span class="icon-fill mb-3" style="width:38px; height:38px;"></span><p class="text-[14px] font-semibold mb-1">E-mail</p><p class="text-[13px]" style="color:var(--text-faint);">[ e-mail ]</p></a>
+        <a href="https://wa.me/550000000000" class="card p-5 block"><span class="icon-fill mb-3" style="width:38px; height:38px;"></span><p class="text-[14px] font-semibold mb-1">WhatsApp</p><p class="text-[13px]" style="color:var(--text-faint);">[ número ]</p></a>
       </div>
     </div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
-    <span class="badge-num">04</span>
+    <span class="badge-num">02</span>
+    <span><strong style="color:var(--text);">Canais diretos</strong> — alternativa ao formulário: telefone, e-mail e WhatsApp.</span>
+  </p>
+
+  <!-- ============================================================
+       3. LOCALIZAÇÃO — confiança + logística
+  ============================================================ -->
+  <section id="secao-3" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 grid lg:grid-cols-2 gap-10 items-center">
+    <div class="fill-box w-full" style="aspect-ratio:4/3;"><span class="fill-tag text-[12px] absolute" style="bottom:16px; left:16px; background:var(--pill-bg); color:var(--pill-text); border-radius:999px; padding:.4rem .8rem; font-weight:600;">MAPA · sede + unidades</span></div>
+    <div>
+      <p class="text-[13px] mb-2" style="color:var(--text-faint);">[ endereço completo ]</p>
+      <p class="text-[13px] mb-6" style="color:var(--text-faint);">[ horário de funcionamento ]</p>
+      <a href="https://www.google.com/maps/search/?api=1&query=Raw+Distribuidora" class="btn-link inline-flex items-center gap-1.5 text-[13px]">Ver no mapa <span class="arrow">→</span></a>
+    </div>
+  </section>
+  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
+    <span class="badge-num">03</span>
     <span><strong style="color:var(--text);">Localização</strong> — confiança + logística: endereço, mapa e horário.</span>
   </p>
 
   <!-- ============================================================
-       5. CENTRO TÉCNICO — canal dedicado (âncora usada por outras páginas)
+       4. REDES E INSTITUCIONAL — fechamento
   ============================================================ -->
-  <section id="centro-tecnico" class="max-w-[820px] mx-auto px-4 sm:px-6 lg:px-8 py-14 text-center">
-    <h2 class="eyebrow mb-4">Centro Técnico</h2>
-    <div class="flex flex-col gap-2 items-center"><div class="txt-line" style="width:min(80%,24rem);"></div></div>
-  </section>
-  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
-    <span class="badge-num">05</span>
-    <span><strong style="color:var(--text);">Centro Técnico</strong> — canal dedicado a suporte técnico; âncora usada por "Falar com o Centro Técnico" em index.html e produto.html.</span>
-  </p>
-
-  <!-- ============================================================
-       6. REDES E INSTITUCIONAL — fechamento
-  ============================================================ -->
-  <section id="secao-6" style="background:var(--surface-alt);">
+  <section id="secao-4" style="background:var(--surface-alt);">
     <div class="max-w-[820px] mx-auto px-4 sm:px-6 lg:px-8 py-14 text-center">
       <div class="flex items-center justify-center gap-4 mb-6">
         <a href="https://linkedin.com" class="icon-fill" style="width:44px; height:44px;">in</a>
         <a href="https://instagram.com" class="icon-fill" style="width:44px; height:44px;">ig</a>
       </div>
-      <a href="index.html#sobre" class="btn-link inline-flex items-center gap-1.5 text-[13px]">Sobre a Raw <span class="arrow">→</span></a>
+      <a href="index.html#diferenciais" class="btn-link inline-flex items-center gap-1.5 text-[13px]">Por que a Raw <span class="arrow">→</span></a>
     </div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
-    <span class="badge-num">06</span>
-    <span><strong style="color:var(--text);">Redes e institucional</strong> — fechamento: LinkedIn, Instagram e link para Sobre a Raw.</span>
+    <span class="badge-num">04</span>
+    <span><strong style="color:var(--text);">Redes e institucional</strong> — fechamento: LinkedIn, Instagram e link para "Por que a Raw".</span>
   </p>
 
   <!-- ============================================================
@@ -229,19 +205,19 @@
     <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
       <div>
         <a href="index.html" class="fill-box mb-3 inline-flex" style="width:64px; height:32px;"><span class="text-[10px] font-semibold" style="color:var(--text-muted);">RAW</span></a>
-        <p class="text-[13px]" style="color:var(--text-muted);">Materiais que transformam possibilidades em realidade — desde 1992.</p>
+        <p class="text-[13px]" style="color:var(--text-muted);">O material certo para o seu produto — desde 1992.</p>
       </div>
       <div>
         <p class="eyebrow mb-3">Produtos</p>
-        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="produto.html">Produtos</a></li><li><a href="index.html#aplicacoes">Aplicações</a></li><li><a href="index.html#marcas">Marcas</a></li></ul>
+        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="produto.html">Ver produtos</a></li><li><a href="index.html#segmentos">Segmentos atendidos</a></li></ul>
       </div>
       <div>
         <p class="eyebrow mb-3">Empresa</p>
-        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="index.html#sobre">Sobre a Raw</a></li><li><a href="conhecimento.html">Conhecimento</a></li><li><a href="contato.html#centro-tecnico">Centro Técnico</a></li></ul>
+        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="index.html#diferenciais">Por que a Raw</a></li><li><a href="conhecimento.html">Conteúdo</a></li></ul>
       </div>
       <div>
         <p class="eyebrow mb-3">Contato</p>
-        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="contato.html">Falar com um especialista</a></li><li><a href="contato.html">Solicitar cotação</a></li><li><a href="https://linkedin.com">LinkedIn</a></li><li><a href="https://instagram.com">Instagram</a></li></ul>
+        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="contato.html">Fale com um especialista</a></li><li><a href="contato.html">Peça uma cotação</a></li></ul>
       </div>
     </div>
     <div id="privacidade" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[12px]" style="border-top:1px solid var(--border); color:var(--text-faint);">
@@ -251,7 +227,7 @@
   </footer>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">·</span>
-    <span><strong style="color:var(--text);">Footer</strong> — logo, colunas replicando o menu, redes sociais, contato, copyright e política de privacidade.</span>
+    <span><strong style="color:var(--text);">Footer</strong> — igual à home.</span>
   </p>
 
   <script>
@@ -267,7 +243,6 @@
       }
     })();
 
-    // Formulário segmentado: mostra só os campos do motivo selecionado.
     (function(){
       var select = document.getElementById('cont-motivo');
       if(!select) return;

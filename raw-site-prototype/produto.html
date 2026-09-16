@@ -60,17 +60,25 @@
   .btn-link{ color:var(--text); font-weight:600; }
   .btn-link .arrow{ transition:transform .15s; display:inline-block; }
   .btn-link:hover .arrow{ transform:translateX(2px); }
-  .row{ border-bottom:1px solid var(--border); }
-  .row:first-child{ border-top:1px solid var(--border); }
+  .input-fill{ background:var(--fill); border-radius:.85rem; border:none; appearance:none; -webkit-appearance:none; }
   .wf-note{ border-top:1px solid var(--border); background:var(--surface-alt); }
   .badge-num{ width:1.6rem; height:1.6rem; border-radius:999px; background:var(--fill); color:var(--text-muted); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; flex:none; }
   .eyebrow{ font-size:12px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--text-muted); }
+  .check{ width:22px; height:22px; border-radius:999px; background:var(--fill); flex:none; display:flex; align-items:center; justify-content:center; }
+
+  details.faq{ border-bottom:1px solid var(--border); }
+  details.faq:first-child{ border-top:1px solid var(--border); }
+  details.faq summary{ cursor:pointer; list-style:none; padding:1rem 0; display:flex; align-items:center; justify-content:space-between; gap:1rem; font-weight:600; font-size:14px; }
+  details.faq summary::-webkit-details-marker{ display:none; }
+  details.faq .chev{ transition:transform .15s; flex:none; color:var(--text-faint); }
+  details.faq[open] .chev{ transform:rotate(180deg); }
+  details.faq p{ margin:0 0 1rem; font-size:14px; color:var(--text-muted); line-height:1.6; }
 </style>
 </head>
 <body class="mx-auto max-w-[1440px]">
 
   <div class="text-[11px] text-center py-1.5 px-3" style="background:var(--surface-alt); color:var(--text-muted); border-bottom:1px solid var(--border);">
-    WIREFRAME · MÉDIA FIDELIDADE — RAW · PROTÓTIPO NAVEGÁVEL — PRODUTO
+    WIREFRAME · MÉDIA FIDELIDADE — RAW · PROTÓTIPO NAVEGÁVEL — PRODUTO (v2: foco em conversão)
   </div>
 
   <!-- ============================================================
@@ -81,14 +89,13 @@
       <a href="index.html" class="fill-box shrink-0" style="width:64px; height:32px;"><span class="text-[10px] font-semibold" style="color:var(--text-muted);">RAW</span></a>
       <nav aria-label="Navegação principal" class="hidden md:flex items-center gap-7 text-[14px] font-medium" style="color:var(--text);">
         <a href="produto.html">Produtos</a>
-        <a href="index.html#solucoes">Soluções</a>
-        <a href="index.html#aplicacoes">Aplicações</a>
-        <a href="index.html#marcas">Marcas</a>
-        <a href="conhecimento.html">Conhecimento</a>
-        <a href="index.html#sobre">Sobre a Raw</a>
+        <a href="index.html#segmentos">Segmentos</a>
+        <a href="index.html#diferenciais">Por que a Raw</a>
+        <a href="conhecimento.html">Conteúdo</a>
+        <a href="contato.html">Contato</a>
       </nav>
       <div class="flex items-center gap-3">
-        <a href="contato.html" class="btn btn-primary hidden sm:block px-4 py-2.5 text-[13px]">Falar com um especialista</a>
+        <a href="contato.html" class="btn btn-primary hidden sm:block px-4 py-2.5 text-[13px]">Fale com um especialista</a>
         <button id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu" class="md:hidden fill-box" style="width:38px; height:34px;">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--text-muted);"><path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </button>
@@ -97,146 +104,130 @@
     <nav id="mobileMenu" aria-label="Navegação principal (mobile)" hidden
       class="md:hidden max-w-[1280px] mx-auto px-4 sm:px-6 py-3 flex flex-col gap-3 text-[14px] font-medium" style="border-bottom:1px solid var(--border); color:var(--text);">
       <a href="produto.html">Produtos</a>
-      <a href="index.html#solucoes">Soluções</a>
-      <a href="index.html#aplicacoes">Aplicações</a>
-      <a href="index.html#marcas">Marcas</a>
-      <a href="conhecimento.html">Conhecimento</a>
-      <a href="index.html#sobre">Sobre a Raw</a>
-      <a href="contato.html" class="btn btn-primary px-4 py-2.5 text-center mt-1">Falar com um especialista</a>
+      <a href="index.html#segmentos">Segmentos</a>
+      <a href="index.html#diferenciais">Por que a Raw</a>
+      <a href="conhecimento.html">Conteúdo</a>
+      <a href="contato.html">Contato</a>
+      <a href="contato.html" class="btn btn-primary px-4 py-2.5 text-center mt-1">Fale com um especialista</a>
     </nav>
   </header>
 
   <!-- ============================================================
-       1. HERO DO PRODUTO — identificação imediata + relevância
+       1. HERO DO PRODUTO — o que é e para que serve, em linguagem simples
   ============================================================ -->
   <section id="secao-1" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-10">
-    <p class="text-[13px] mb-6" style="color:var(--text-faint);"><a href="index.html">Home</a> <span class="mx-1">/</span> <a href="produto.html">Produtos</a> <span class="mx-1">/</span> Polímeros <span class="mx-1">/</span> <span style="color:var(--text-muted);">[ Nome do produto ]</span></p>
+    <p class="text-[13px] mb-6" style="color:var(--text-faint);"><a href="index.html">Home</a> <span class="mx-1">/</span> <a href="produto.html">Produtos</a> <span class="mx-1">/</span> <span style="color:var(--text-muted);">[ Nome do produto ]</span></p>
     <div class="grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
-      <div class="fill-box w-full" style="aspect-ratio:1/1;"><span class="fill-tag text-[11px] absolute" style="bottom:14px; left:14px;">IMG · foto do produto</span></div>
+      <div class="fill-box w-full" style="aspect-ratio:1/1;"><span class="fill-tag text-[11px] absolute" style="bottom:14px; left:14px;">IMG · produto em uso</span></div>
       <div>
-        <p class="text-[13px] font-semibold mb-2" style="color:var(--text-muted);">Marca/fabricante: [ marca ]</p>
-        <h1 class="text-[28px] sm:text-[34px] font-bold mb-4">[ Nome do produto ]</h1>
-        <div class="flex flex-col gap-2 mb-6" style="max-width:30rem;"><div class="txt-line" style="width:92%;"></div><div class="txt-line" style="width:60%;"></div></div>
+        <h1 class="text-[28px] sm:text-[34px] font-bold mb-3">[ Nome do produto ]</h1>
+        <p class="text-[15px] mb-5" style="color:var(--text-muted); line-height:1.6;">[ frase de uma linha explicando, em português simples, para que esse material serve e o problema que resolve ]</p>
         <div class="flex flex-wrap gap-2 mb-8">
           <span class="chip flex items-center gap-2 px-3 py-2 text-[13px] font-medium"><span class="icon-fill" style="width:20px; height:20px;"></span>Automotivo</span>
           <span class="chip flex items-center gap-2 px-3 py-2 text-[13px] font-medium"><span class="icon-fill" style="width:20px; height:20px;"></span>Construção</span>
         </div>
         <div class="flex flex-col sm:flex-row gap-3">
-          <a href="contato.html" class="btn btn-primary px-6 py-3.5 text-[14px]">Falar com um especialista</a>
-          <a href="contato.html" class="btn btn-secondary px-6 py-3.5 text-[14px]">Solicitar amostra</a>
+          <a href="#secao-4" class="btn btn-primary px-6 py-3.5 text-[14px]">Peça uma cotação</a>
+          <a href="contato.html" class="btn btn-secondary px-6 py-3.5 text-[14px]">Fale com um especialista</a>
         </div>
       </div>
     </div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">01</span>
-    <span><strong style="color:var(--text);">Hero do produto</strong> — identificação imediata: breadcrumb, nome, marca, imagem, posicionamento e tags de aplicação.</span>
+    <span><strong style="color:var(--text);">Hero do produto</strong> — em vez de ficha técnica, uma frase simples de "para que serve" + CTA de cotação já visível.</span>
   </p>
 
   <!-- ============================================================
-       2. APLICAÇÕES — relevância
+       2. POR QUE ESCOLHER ESTE MATERIAL — benefícios em vez de specs
   ============================================================ -->
   <section id="secao-2" style="background:var(--surface-alt);">
-    <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14">
-      <h2 class="eyebrow mb-6">Aplicações deste produto</h2>
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="card p-4"><span class="icon-fill mb-3" style="width:38px; height:38px;"></span><p class="text-[13px] font-semibold">Automotivo</p></div>
-        <div class="card p-4"><span class="icon-fill mb-3" style="width:38px; height:38px;"></span><p class="text-[13px] font-semibold">Agronegócio</p></div>
-        <div class="card p-4"><span class="icon-fill mb-3" style="width:38px; height:38px;"></span><p class="text-[13px] font-semibold">Cerâmica</p></div>
-        <div class="card p-4"><span class="icon-fill mb-3" style="width:38px; height:38px;"></span><p class="text-[13px] font-semibold">Metalurgia</p></div>
+    <div class="max-w-[860px] mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <h2 class="text-[20px] sm:text-[24px] font-bold mb-8">Por que escolher este material</h2>
+      <div class="flex flex-col gap-5 mb-8">
+        <div class="flex items-start gap-3"><span class="check"></span><div class="flex-1 pt-0.5"><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:90%;"></div><div class="txt-line" style="width:60%;"></div></div></div></div>
+        <div class="flex items-start gap-3"><span class="check"></span><div class="flex-1 pt-0.5"><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:85%;"></div><div class="txt-line" style="width:55%;"></div></div></div></div>
+        <div class="flex items-start gap-3"><span class="check"></span><div class="flex-1 pt-0.5"><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:92%;"></div><div class="txt-line" style="width:50%;"></div></div></div></div>
       </div>
-      <div class="text-right mt-8"><a href="index.html#aplicacoes" class="btn-link inline-flex items-center gap-1.5 text-[13px]">Ver aplicação completa <span class="arrow">→</span></a></div>
+      <details class="card p-5" style="cursor:default;">
+        <summary style="cursor:pointer; list-style:none; display:flex; align-items:center; justify-content:space-between; font-weight:600; font-size:13px; color:var(--text-muted);">Ver especificações técnicas completas
+          <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none" style="transition:transform .15s; color:var(--text-faint);"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="mt-4 flex flex-col gap-3">
+          <div class="flex items-center justify-between text-[13px]"><span class="font-medium">Densidade</span><span class="txt-line" style="width:90px;"></span></div>
+          <div class="flex items-center justify-between text-[13px]"><span class="font-medium">Viscosidade</span><span class="txt-line" style="width:90px;"></span></div>
+          <div class="flex items-center justify-between text-[13px]"><span class="font-medium">Temperatura de uso</span><span class="txt-line" style="width:90px;"></span></div>
+        </div>
+      </details>
     </div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">02</span>
-    <span><strong style="color:var(--text);">Aplicações</strong> — relevância: grid de aplicações específicas deste produto.</span>
+    <span><strong style="color:var(--text);">Por que escolher este material</strong> — benefícios em linguagem simples primeiro; a ficha técnica vira um "ver mais" opcional, para quem realmente precisa dela.</span>
   </p>
 
   <!-- ============================================================
-       3. BENEFÍCIOS E ESPECIFICAÇÕES — decisão técnica
+       3. PERGUNTAS FREQUENTES SOBRE ESTE PRODUTO
   ============================================================ -->
-  <section id="secao-3" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14">
-    <h2 class="eyebrow mb-6">Benefícios e especificações</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-      <div class="card p-5 text-center"><p class="font-bold mb-2" style="font-size:1.4rem; color:var(--text-faint);">[ dado ]</p><p class="text-[13px] font-semibold">Resistência mecânica</p></div>
-      <div class="card p-5 text-center"><p class="font-bold mb-2" style="font-size:1.4rem; color:var(--text-faint);">[ dado ]</p><p class="text-[13px] font-semibold">Durabilidade</p></div>
-      <div class="card p-5 text-center"><p class="font-bold mb-2" style="font-size:1.4rem; color:var(--text-faint);">[ dado ]</p><p class="text-[13px] font-semibold">Custo-benefício</p></div>
-      <div class="card p-5 text-center"><p class="font-bold mb-2" style="font-size:1.4rem; color:var(--text-faint);">[ dado ]</p><p class="text-[13px] font-semibold">Estabilidade térmica</p></div>
+  <section id="secao-3" class="max-w-[860px] mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <h2 class="text-[20px] sm:text-[24px] font-bold mb-6">Perguntas frequentes sobre este produto</h2>
+    <div>
+      <details class="faq" open>
+        <summary>Vocês enviam amostra antes da compra? <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <p>[ resposta curta — placeholder ]</p>
+      </details>
+      <details class="faq">
+        <summary>Qual o prazo de entrega? <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <p>[ resposta curta — placeholder ]</p>
+      </details>
+      <details class="faq">
+        <summary>Esse material tem certificação? <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <p>[ resposta curta — placeholder ]</p>
+      </details>
     </div>
-    <div class="max-w-[860px] card overflow-hidden">
-      <div class="row flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 px-5 py-4"><span class="text-[14px] font-semibold sm:w-48 shrink-0">Densidade</span><div class="txt-line flex-1" style="max-width:220px;"></div></div>
-      <div class="row flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 px-5 py-4"><span class="text-[14px] font-semibold sm:w-48 shrink-0">Viscosidade</span><div class="txt-line flex-1" style="max-width:220px;"></div></div>
-      <div class="row flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 px-5 py-4"><span class="text-[14px] font-semibold sm:w-48 shrink-0">Temperatura de uso</span><div class="txt-line flex-1" style="max-width:220px;"></div></div>
-      <div class="row flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 px-5 py-4"><span class="text-[14px] font-semibold sm:w-48 shrink-0">Norma técnica</span><div class="txt-line flex-1" style="max-width:220px;"></div></div>
-    </div>
-    <div class="text-right mt-8"><a href="#secao-4" class="btn-link inline-flex items-center gap-1.5 text-[13px]">Baixar ficha técnica <span class="arrow">→</span></a></div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">03</span>
-    <span><strong style="color:var(--text);">Benefícios e especificações</strong> — decisão técnica: diferenciais de performance + tabela de propriedades.</span>
+    <span><strong style="color:var(--text);">FAQ do produto</strong> — substitui a seção de documentação/downloads: tira as dúvidas que mais geram hesitação de compra.</span>
   </p>
 
   <!-- ============================================================
-       4. DOCUMENTAÇÃO E CENTRO TÉCNICO — suporte pós-decisão
+       4. PEÇA UMA COTAÇÃO — formulário embutido, conversão principal
   ============================================================ -->
   <section id="secao-4" style="background:var(--surface-alt);">
-    <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14 grid lg:grid-cols-2 gap-10">
-      <div>
-        <h2 class="eyebrow mb-6">Documentação</h2>
-        <div class="card overflow-hidden" style="background:var(--surface);">
-          <div id="doc-ficha" class="row flex items-center gap-3 px-4 py-3.5"><span class="icon-fill" style="width:32px; height:32px;"></span><span class="text-[14px] font-medium flex-1">Ficha técnica</span><a href="#doc-ficha" class="btn-link text-[13px]">Baixar ↓</a></div>
-          <div id="doc-fispq" class="row flex items-center gap-3 px-4 py-3.5"><span class="icon-fill" style="width:32px; height:32px;"></span><span class="text-[14px] font-medium flex-1">FISPQ / SDS</span><a href="#doc-fispq" class="btn-link text-[13px]">Baixar ↓</a></div>
-          <div id="doc-cert" class="row flex items-center gap-3 px-4 py-3.5"><span class="icon-fill" style="width:32px; height:32px;"></span><span class="text-[14px] font-medium flex-1">Certificados</span><a href="#doc-cert" class="btn-link text-[13px]">Baixar ↓</a></div>
-        </div>
-      </div>
-      <div>
-        <h2 class="eyebrow mb-6">Centro Técnico</h2>
-        <div class="card p-5">
-          <div class="flex flex-col gap-2 mb-6"><div class="txt-line" style="width:92%;"></div><div class="txt-line" style="width:65%;"></div></div>
-          <a href="contato.html#centro-tecnico" class="btn-link inline-flex items-center gap-1.5 text-[13px]">Falar com o Centro Técnico <span class="arrow">→</span></a>
-        </div>
+    <div class="max-w-[720px] mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <div class="card p-6 sm:p-8">
+        <h2 class="text-[20px] sm:text-[24px] font-bold mb-2">Peça uma cotação deste produto</h2>
+        <p class="text-[13px] mb-6" style="color:var(--text-muted);">Um especialista responde em até 1 dia útil.</p>
+        <form onsubmit="return false;" class="flex flex-col gap-3">
+          <div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ nome ]</span></div>
+          <div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ e-mail ou telefone ]</span></div>
+          <div class="input-fill px-4 py-3"><span class="text-[14px]" style="color:var(--text-faint);">[ quantidade aproximada ]</span></div>
+          <button type="submit" class="btn btn-primary px-6 py-3.5 text-[14px]">Solicitar cotação</button>
+        </form>
       </div>
     </div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">04</span>
-    <span><strong style="color:var(--text);">Documentação e Centro Técnico</strong> — suporte pós-decisão: downloads e apoio especializado.</span>
+    <span><strong style="color:var(--text);">Peça uma cotação</strong> — conversão: formulário curto embutido na própria página do produto, sem precisar sair para outra página.</span>
   </p>
 
   <!-- ============================================================
        5. PRODUTOS RELACIONADOS — cross-sell
   ============================================================ -->
   <section id="secao-5" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14">
-    <h2 class="eyebrow mb-6">Produtos relacionados</h2>
+    <h2 class="eyebrow mb-6">Você também pode se interessar</h2>
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-      <a href="produto.html" class="card p-3 block"><div class="fill-box w-full mb-3" style="aspect-ratio:1/1;"></div><span class="chip inline-block px-2.5 py-1 text-[11px] font-medium mb-2">Resinas</span><p class="text-[13px] font-semibold">[ Nome do produto ]</p></a>
-      <a href="produto.html" class="card p-3 block"><div class="fill-box w-full mb-3" style="aspect-ratio:1/1;"></div><span class="chip inline-block px-2.5 py-1 text-[11px] font-medium mb-2">Aditivos</span><p class="text-[13px] font-semibold">[ Nome do produto ]</p></a>
-      <a href="produto.html" class="card p-3 block"><div class="fill-box w-full mb-3" style="aspect-ratio:1/1;"></div><span class="chip inline-block px-2.5 py-1 text-[11px] font-medium mb-2">Elastômeros</span><p class="text-[13px] font-semibold">[ Nome do produto ]</p></a>
-      <a href="produto.html" class="card p-3 block"><div class="fill-box w-full mb-3" style="aspect-ratio:1/1;"></div><span class="chip inline-block px-2.5 py-1 text-[11px] font-medium mb-2">Poliuretanos</span><p class="text-[13px] font-semibold">[ Nome do produto ]</p></a>
+      <a href="produto.html" class="card p-3 block"><div class="fill-box w-full mb-3" style="aspect-ratio:1/1;"></div><p class="text-[13px] font-semibold">[ Nome do produto ]</p></a>
+      <a href="produto.html" class="card p-3 block"><div class="fill-box w-full mb-3" style="aspect-ratio:1/1;"></div><p class="text-[13px] font-semibold">[ Nome do produto ]</p></a>
+      <a href="produto.html" class="card p-3 block"><div class="fill-box w-full mb-3" style="aspect-ratio:1/1;"></div><p class="text-[13px] font-semibold">[ Nome do produto ]</p></a>
+      <a href="produto.html" class="card p-3 block"><div class="fill-box w-full mb-3" style="aspect-ratio:1/1;"></div><p class="text-[13px] font-semibold">[ Nome do produto ]</p></a>
     </div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">05</span>
     <span><strong style="color:var(--text);">Produtos relacionados</strong> — cross-sell: cada card volta para produto.html (simula outro produto).</span>
-  </p>
-
-  <!-- ============================================================
-       6. CTA COMERCIAL — conversão
-  ============================================================ -->
-  <section id="secao-6" class="px-4 sm:px-6 lg:px-8 py-8">
-    <div class="max-w-[1280px] mx-auto text-center py-16 px-6" style="background:var(--btn-primary-bg); color:var(--btn-primary-text); border-radius:1.5rem;">
-      <p class="text-[11px] font-semibold uppercase tracking-wide mb-3" style="opacity:.55;">[ headline sobre disponibilidade/cotação ]</p>
-      <div class="flex justify-center mb-8"><div style="width:min(85%,26rem); height:1.3em; border-radius:999px; background:color-mix(in srgb, var(--btn-primary-text) 25%, transparent);"></div></div>
-      <div class="flex flex-col sm:flex-row gap-3 items-center justify-center">
-        <a href="contato.html" class="btn px-7 py-3.5 text-[14px]" style="background:var(--btn-primary-text); color:var(--btn-primary-bg);">Falar com um especialista</a>
-        <a href="contato.html" class="btn px-7 py-3.5 text-[14px]" style="background:transparent; color:var(--btn-primary-text); border:1.5px solid var(--btn-primary-text);">Solicitar cotação</a>
-      </div>
-    </div>
-  </section>
-  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5 -mt-8" style="color:var(--text-muted);">
-    <span class="badge-num">06</span>
-    <span><strong style="color:var(--text);">CTA comercial</strong> — conversão: disponibilidade/cotação, ambos os botões levam a contato.html.</span>
   </p>
 
   <!-- ============================================================
@@ -246,19 +237,19 @@
     <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
       <div>
         <a href="index.html" class="fill-box mb-3 inline-flex" style="width:64px; height:32px;"><span class="text-[10px] font-semibold" style="color:var(--text-muted);">RAW</span></a>
-        <p class="text-[13px]" style="color:var(--text-muted);">Materiais que transformam possibilidades em realidade — desde 1992.</p>
+        <p class="text-[13px]" style="color:var(--text-muted);">O material certo para o seu produto — desde 1992.</p>
       </div>
       <div>
         <p class="eyebrow mb-3">Produtos</p>
-        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="produto.html">Produtos</a></li><li><a href="index.html#aplicacoes">Aplicações</a></li><li><a href="index.html#marcas">Marcas</a></li></ul>
+        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="produto.html">Ver produtos</a></li><li><a href="index.html#segmentos">Segmentos atendidos</a></li></ul>
       </div>
       <div>
         <p class="eyebrow mb-3">Empresa</p>
-        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="index.html#sobre">Sobre a Raw</a></li><li><a href="conhecimento.html">Conhecimento</a></li><li><a href="contato.html#centro-tecnico">Centro Técnico</a></li></ul>
+        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="index.html#diferenciais">Por que a Raw</a></li><li><a href="conhecimento.html">Conteúdo</a></li></ul>
       </div>
       <div>
         <p class="eyebrow mb-3">Contato</p>
-        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="contato.html">Falar com um especialista</a></li><li><a href="contato.html">Solicitar cotação</a></li><li><a href="https://linkedin.com">LinkedIn</a></li><li><a href="https://instagram.com">Instagram</a></li></ul>
+        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="contato.html">Fale com um especialista</a></li><li><a href="contato.html">Peça uma cotação</a></li></ul>
       </div>
     </div>
     <div id="privacidade" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[12px]" style="border-top:1px solid var(--border); color:var(--text-faint);">
@@ -268,7 +259,7 @@
   </footer>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">·</span>
-    <span><strong style="color:var(--text);">Footer</strong> — logo, colunas replicando o menu, redes sociais, contato, copyright e política de privacidade.</span>
+    <span><strong style="color:var(--text);">Footer</strong> — igual à home.</span>
   </p>
 
   <script>

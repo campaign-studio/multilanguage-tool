@@ -53,7 +53,6 @@
   .fill-tag{ background:var(--pill-bg); color:var(--pill-text); border-radius:999px; padding:.4rem .8rem; font-weight:600; }
   .card{ border:1.5px solid var(--border); border-radius:1rem; background:var(--surface); }
   .chip{ border:1.5px solid var(--border); border-radius:.85rem; background:var(--surface); }
-  .chip-featured{ border:1.5px solid var(--border-strong); border-radius:.85rem; background:var(--surface-alt); }
   .icon-fill{ background:var(--fill); border-radius:.6rem; display:flex; align-items:center; justify-content:center; color:var(--text-muted); flex:none; }
   .btn{ border-radius:.85rem; font-weight:600; text-align:center; white-space:nowrap; }
   .btn-primary{ background:var(--btn-primary-bg); color:var(--btn-primary-text); }
@@ -61,19 +60,25 @@
   .btn-link{ color:var(--text); font-weight:600; }
   .btn-link .arrow{ transition:transform .15s; display:inline-block; }
   .btn-link:hover .arrow{ transform:translateX(2px); }
-  .row{ border-bottom:1px solid var(--border); }
-  .row:first-child{ border-top:1px solid var(--border); }
-  .input-fill{ background:var(--fill); border-radius:.85rem; }
+  .input-fill{ background:var(--fill); border-radius:.85rem; border:none; appearance:none; -webkit-appearance:none; }
   .wf-note{ border-top:1px solid var(--border); background:var(--surface-alt); }
   .badge-num{ width:1.6rem; height:1.6rem; border-radius:999px; background:var(--fill); color:var(--text-muted); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; flex:none; }
   .step-circle{ width:2.5rem; height:2.5rem; border-radius:999px; background:var(--fill); color:var(--text-muted); display:flex; align-items:center; justify-content:center; font-weight:700; flex:none; }
   .eyebrow{ font-size:12px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--text-muted); }
+
+  details.faq{ border-bottom:1px solid var(--border); }
+  details.faq:first-child{ border-top:1px solid var(--border); }
+  details.faq summary{ cursor:pointer; list-style:none; padding:1.1rem 0; display:flex; align-items:center; justify-content:space-between; gap:1rem; font-weight:600; font-size:14px; }
+  details.faq summary::-webkit-details-marker{ display:none; }
+  details.faq .chev{ transition:transform .15s; flex:none; color:var(--text-faint); }
+  details.faq[open] .chev{ transform:rotate(180deg); }
+  details.faq p{ margin:0 0 1.1rem; font-size:14px; color:var(--text-muted); line-height:1.6; max-width:38rem; }
 </style>
 </head>
 <body class="mx-auto max-w-[1440px]">
 
   <div class="text-[11px] text-center py-1.5 px-3" style="background:var(--surface-alt); color:var(--text-muted); border-bottom:1px solid var(--border);">
-    WIREFRAME · MÉDIA FIDELIDADE — RAW · PROTÓTIPO NAVEGÁVEL — HOME
+    WIREFRAME · MÉDIA FIDELIDADE — RAW · PROTÓTIPO NAVEGÁVEL — HOME (v2: foco em conversão)
   </div>
 
   <!-- ============================================================
@@ -84,14 +89,13 @@
       <a href="index.html" class="fill-box shrink-0" style="width:64px; height:32px;"><span class="text-[10px] font-semibold" style="color:var(--text-muted);">RAW</span></a>
       <nav aria-label="Navegação principal" class="hidden md:flex items-center gap-7 text-[14px] font-medium" style="color:var(--text);">
         <a href="produto.html">Produtos</a>
-        <a href="index.html#solucoes">Soluções</a>
-        <a href="index.html#aplicacoes">Aplicações</a>
-        <a href="index.html#marcas">Marcas</a>
-        <a href="conhecimento.html">Conhecimento</a>
-        <a href="index.html#sobre">Sobre a Raw</a>
+        <a href="index.html#segmentos">Segmentos</a>
+        <a href="index.html#diferenciais">Por que a Raw</a>
+        <a href="conhecimento.html">Conteúdo</a>
+        <a href="contato.html">Contato</a>
       </nav>
       <div class="flex items-center gap-3">
-        <a href="contato.html" class="btn btn-primary hidden sm:block px-4 py-2.5 text-[13px]">Falar com um especialista</a>
+        <a href="contato.html" class="btn btn-primary hidden sm:block px-4 py-2.5 text-[13px]">Fale com um especialista</a>
         <button id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu" class="md:hidden fill-box" style="width:38px; height:34px;">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--text-muted);"><path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         </button>
@@ -100,204 +104,262 @@
     <nav id="mobileMenu" aria-label="Navegação principal (mobile)" hidden
       class="md:hidden max-w-[1280px] mx-auto px-4 sm:px-6 py-3 flex flex-col gap-3 text-[14px] font-medium" style="border-bottom:1px solid var(--border); color:var(--text);">
       <a href="produto.html">Produtos</a>
-      <a href="index.html#solucoes">Soluções</a>
-      <a href="index.html#aplicacoes">Aplicações</a>
-      <a href="index.html#marcas">Marcas</a>
-      <a href="conhecimento.html">Conhecimento</a>
-      <a href="index.html#sobre">Sobre a Raw</a>
-      <a href="contato.html" class="btn btn-primary px-4 py-2.5 text-center mt-1">Falar com um especialista</a>
+      <a href="index.html#segmentos">Segmentos</a>
+      <a href="index.html#diferenciais">Por que a Raw</a>
+      <a href="conhecimento.html">Conteúdo</a>
+      <a href="contato.html">Contato</a>
+      <a href="contato.html" class="btn btn-primary px-4 py-2.5 text-center mt-1">Fale com um especialista</a>
     </nav>
   </header>
 
   <!-- ============================================================
-       1. HERO — posicionamento
+       1. HERO — benefício claro, sem jargão
   ============================================================ -->
   <section id="secao-1" class="pt-10 sm:pt-14">
     <div class="max-w-[820px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="text-[28px] sm:text-[38px] lg:text-[46px] font-bold leading-tight mb-4">Materiais que transformam possibilidades em realidade.</h1>
-      <div class="flex flex-col gap-2 items-center mb-7"><div class="txt-line" style="width:min(85%,28rem);"></div><div class="txt-line" style="width:min(65%,20rem);"></div></div>
+      <h1 class="text-[28px] sm:text-[38px] lg:text-[46px] font-bold leading-tight mb-4">O material certo para o seu produto, com quem entende do seu negócio.</h1>
+      <div class="flex flex-col gap-2 items-center mb-7">
+        <div class="txt-line" style="width:min(85%,30rem);"></div>
+        <div class="txt-line" style="width:min(65%,22rem);"></div>
+      </div>
       <div class="flex flex-col sm:flex-row gap-3 items-center justify-center mb-10">
-        <a href="contato.html" class="btn btn-primary px-6 py-3.5 text-[14px]">Falar com um especialista</a>
-        <a href="#solucoes" class="btn-link inline-flex items-center gap-1.5 text-[14px]">Conheça nossas soluções <span class="arrow">→</span></a>
+        <a href="#secao-9" class="btn btn-primary px-6 py-3.5 text-[14px]">Peça uma cotação</a>
+        <a href="contato.html" class="btn btn-secondary px-6 py-3.5 text-[14px]">Fale com um especialista</a>
       </div>
     </div>
     <div class="w-full px-4 sm:px-6 lg:px-8 pb-4">
-      <div class="fill-box w-full" style="aspect-ratio:21/9;"><span class="fill-tag text-[12px] absolute" style="bottom:16px; left:16px;">IMG/VÍDEO · Matéria-prima → processo → aplicação</span></div>
+      <div class="fill-box w-full" style="aspect-ratio:21/9;"><span class="fill-tag text-[12px] absolute" style="bottom:16px; left:16px;">IMG/VÍDEO · cliente usando o material no dia a dia</span></div>
     </div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">01</span>
-    <span><strong style="color:var(--text);">Hero</strong> — posicionamento: vender percepção de valor, não explicar a empresa.</span>
+    <span><strong style="color:var(--text);">Hero</strong> — benefício em linguagem simples (não posicionamento técnico), dois CTAs de conversão logo de cara.</span>
   </p>
 
   <!-- ============================================================
-       2. DESAFIO E APLICAÇÃO — identificação + relevância
+       2. BARRA DE CONFIANÇA — prova social imediata
   ============================================================ -->
   <section id="secao-2" style="background:var(--surface-alt);">
-    <div id="solucoes" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-14">
-      <h2 class="text-[22px] sm:text-[28px] font-bold mb-8">O que você precisa desenvolver?</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-        <a href="produto.html" class="card flex items-center gap-3 p-4"><span class="icon-fill" style="width:38px; height:38px;"></span><span class="text-[14px] font-medium flex-1">Desenvolver produto</span></a>
-        <a href="produto.html" class="card flex items-center gap-3 p-4"><span class="icon-fill" style="width:38px; height:38px;"></span><span class="text-[14px] font-medium flex-1">Encontrar material</span></a>
-        <a href="produto.html" class="card flex items-center gap-3 p-4"><span class="icon-fill" style="width:38px; height:38px;"></span><span class="text-[14px] font-medium flex-1">Melhorar performance</span></a>
-        <a href="#secao-6" class="card flex items-center gap-3 p-4"><span class="icon-fill" style="width:38px; height:38px;"></span><span class="text-[14px] font-medium flex-1">Resolver desafio técnico</span></a>
+    <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center mb-10">
+        <div><p class="text-[26px] font-bold">30+</p><p class="text-[12px]" style="color:var(--text-muted);">anos de mercado</p></div>
+        <div><p class="text-[26px] font-bold">3ª</p><p class="text-[12px]" style="color:var(--text-muted);">geração da empresa</p></div>
+        <div><p class="text-[26px] font-bold">6</p><p class="text-[12px]" style="color:var(--text-muted);">segmentos atendidos</p></div>
+        <div><p class="text-[26px] font-bold">[ X ]</p><p class="text-[12px]" style="color:var(--text-muted);">clientes atendidos <span style="color:var(--text-faint);">(confirmar)</span></p></div>
       </div>
-
-      <h2 id="aplicacoes" class="eyebrow mb-6">Aplicações</h2>
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-5">
-        <a href="produto.html"><div class="fill-box w-full" style="aspect-ratio:4/5;"><span class="fill-tag text-[10px] absolute" style="bottom:10px; left:10px;">IMG</span></div><p class="text-[13px] font-semibold mt-3">Automotivo</p></a>
-        <a href="produto.html"><div class="fill-box w-full" style="aspect-ratio:4/5;"><span class="fill-tag text-[10px] absolute" style="bottom:10px; left:10px;">IMG</span></div><p class="text-[13px] font-semibold mt-3">Agronegócio</p></a>
-        <a href="produto.html"><div class="fill-box w-full" style="aspect-ratio:4/5;"><span class="fill-tag text-[10px] absolute" style="bottom:10px; left:10px;">IMG</span></div><p class="text-[13px] font-semibold mt-3">Cerâmica</p></a>
-        <a href="produto.html"><div class="fill-box w-full" style="aspect-ratio:4/5;"><span class="fill-tag text-[10px] absolute" style="bottom:10px; left:10px;">IMG</span></div><p class="text-[13px] font-semibold mt-3">Metalurgia</p></a>
+      <p class="text-[12px] text-center mb-5" style="color:var(--text-faint);">Marcas que representamos oficialmente</p>
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-x-8 gap-y-6 max-w-[760px] mx-auto">
+        <div class="fill-box h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Alcoa</span></div>
+        <div class="fill-box h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Covestro</span></div>
+        <div class="fill-box h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Nalco</span></div>
+        <div class="fill-box h-14"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">3M</span></div>
+        <div class="fill-box h-14 col-span-2 sm:col-span-1"><span class="text-[12px] font-semibold text-center px-1" style="color:var(--text-muted);">+ outras</span></div>
       </div>
     </div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">02</span>
-    <span><strong style="color:var(--text);">Desafio e aplicação</strong> — identificação + relevância: cards de intenção e aplicações (linkam para produto.html).</span>
+    <span><strong style="color:var(--text);">Barra de confiança</strong> — prova social imediata: números da empresa + marcas representadas, antes de qualquer explicação.</span>
   </p>
 
   <!-- ============================================================
-       3. PORTFÓLIO — intenção comercial
+       3. O QUE FAZEMOS — informativo, sem jargão de catálogo
   ============================================================ -->
-  <section id="secao-3" class="max-w-[820px] mx-auto px-4 sm:px-6 lg:px-8 py-14">
-    <h2 class="eyebrow mb-6">Portfólio</h2>
-    <div class="input-fill flex items-center gap-3 px-4 py-3.5 mb-8"><span class="text-[13px]" style="color:var(--text-faint);">🔍</span><span class="text-[14px]" style="color:var(--text-faint);">Buscar por material, aplicação ou norma técnica…</span></div>
-    <div>
-      <a href="produto.html" class="row flex items-center justify-between py-3.5"><span class="text-[14px] font-medium">Polímeros</span><span style="color:var(--text-faint);">›</span></a>
-      <a href="produto.html" class="row flex items-center justify-between py-3.5"><span class="text-[14px] font-medium">Resinas</span><span style="color:var(--text-faint);">›</span></a>
-      <a href="produto.html" class="row flex items-center justify-between py-3.5"><span class="text-[14px] font-medium">Elastômeros</span><span style="color:var(--text-faint);">›</span></a>
-      <a href="produto.html" class="row flex items-center justify-between py-3.5"><span class="text-[14px] font-medium">Poliuretanos</span><span style="color:var(--text-faint);">›</span></a>
-      <a href="produto.html" class="row flex items-center justify-between py-3.5"><span class="text-[14px] font-medium">Aditivos</span><span style="color:var(--text-faint);">›</span></a>
-      <a href="produto.html" class="row flex items-center justify-between py-3.5"><span class="text-[14px] font-medium">Cerâmicas</span><span style="color:var(--text-faint);">›</span></a>
-      <a href="produto.html" class="row flex items-center justify-between py-3.5"><span class="text-[14px] font-medium">Equipamentos</span><span style="color:var(--text-faint);">›</span></a>
+  <section id="secao-3" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h2 class="text-[22px] sm:text-[28px] font-bold mb-3 text-center">O que a Raw faz por você</h2>
+    <p class="text-[14px] text-center mb-10" style="color:var(--text-muted); max-width:36rem; margin-left:auto; margin-right:auto;">Em vez de você procurar fornecedor por fornecedor, a Raw resolve isso por completo.</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="card p-5">
+        <span class="icon-fill mb-4" style="width:44px; height:44px;"></span>
+        <p class="text-[14px] font-bold mb-2">Encontramos o material ideal</p>
+        <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:95%;"></div><div class="txt-line" style="width:70%;"></div></div>
+      </div>
+      <div class="card p-5">
+        <span class="icon-fill mb-4" style="width:44px; height:44px;"></span>
+        <p class="text-[14px] font-bold mb-2">Importamos com agilidade</p>
+        <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:92%;"></div><div class="txt-line" style="width:65%;"></div></div>
+      </div>
+      <div class="card p-5">
+        <span class="icon-fill mb-4" style="width:44px; height:44px;"></span>
+        <p class="text-[14px] font-bold mb-2">Damos suporte técnico sem custo extra</p>
+        <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:96%;"></div><div class="txt-line" style="width:60%;"></div></div>
+      </div>
+      <div class="card p-5">
+        <span class="icon-fill mb-4" style="width:44px; height:44px;"></span>
+        <p class="text-[14px] font-bold mb-2">Entregamos em todo o Brasil</p>
+        <div class="flex flex-col gap-1.5"><div class="txt-line" style="width:90%;"></div><div class="txt-line" style="width:55%;"></div></div>
+      </div>
     </div>
-    <div class="text-right mt-8"><a href="produto.html" class="btn-link inline-flex items-center gap-1.5 text-[13px]">Explorar portfólio <span class="arrow">→</span></a></div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">03</span>
-    <span><strong style="color:var(--text);">Portfólio</strong> — intenção comercial: busca e categorias, cada uma leva a produto.html.</span>
+    <span><strong style="color:var(--text);">O que fazemos</strong> — informativo: substitui "cards de intenção" por benefícios diretos, em linguagem de cliente, não de UX/produto.</span>
   </p>
 
   <!-- ============================================================
-       4. MARCAS — credibilidade
+       4. SEGMENTOS ATENDIDOS — visual e direto
   ============================================================ -->
-  <section id="marcas" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-    <h2 class="text-[22px] sm:text-[28px] font-bold mb-10">Tecnologia global. Conhecimento local.</h2>
-    <div class="grid grid-cols-2 sm:grid-cols-5 gap-x-8 gap-y-8 max-w-[760px] mx-auto">
-      <div class="fill-box h-16"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Alcoa</span></div>
-      <div class="fill-box h-16"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Covestro</span></div>
-      <div class="fill-box h-16"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">Nalco</span></div>
-      <div class="fill-box h-16"><span class="text-[12px] font-semibold" style="color:var(--text-muted);">3M</span></div>
-      <div class="fill-box h-16 col-span-2 sm:col-span-1"><span class="text-[12px] font-semibold text-center px-1" style="color:var(--text-muted);">+ outras</span></div>
+  <section id="segmentos" style="background:var(--surface-alt);">
+    <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <h2 class="text-[22px] sm:text-[28px] font-bold mb-8 text-center">Sua indústria também é a nossa</h2>
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-5">
+        <a href="produto.html"><div class="fill-box w-full" style="aspect-ratio:4/3;"><span class="fill-tag text-[10px] absolute" style="bottom:10px; left:10px;">IMG</span></div><p class="text-[13px] font-semibold mt-3 text-center">Automotivo</p></a>
+        <a href="produto.html"><div class="fill-box w-full" style="aspect-ratio:4/3;"><span class="fill-tag text-[10px] absolute" style="bottom:10px; left:10px;">IMG</span></div><p class="text-[13px] font-semibold mt-3 text-center">Agronegócio</p></a>
+        <a href="produto.html"><div class="fill-box w-full" style="aspect-ratio:4/3;"><span class="fill-tag text-[10px] absolute" style="bottom:10px; left:10px;">IMG</span></div><p class="text-[13px] font-semibold mt-3 text-center">Cerâmica</p></a>
+        <a href="produto.html"><div class="fill-box w-full" style="aspect-ratio:4/3;"><span class="fill-tag text-[10px] absolute" style="bottom:10px; left:10px;">IMG</span></div><p class="text-[13px] font-semibold mt-3 text-center">Metalurgia</p></a>
+        <a href="produto.html"><div class="fill-box w-full" style="aspect-ratio:4/3;"><span class="fill-tag text-[10px] absolute" style="bottom:10px; left:10px;">IMG</span></div><p class="text-[13px] font-semibold mt-3 text-center">Mineração</p></a>
+        <a href="produto.html"><div class="fill-box w-full" style="aspect-ratio:4/3;"><span class="fill-tag text-[10px] absolute" style="bottom:10px; left:10px;">IMG</span></div><p class="text-[13px] font-semibold mt-3 text-center">Polímeros</p></a>
+      </div>
+      <div class="text-center mt-8"><a href="produto.html" class="btn-link inline-flex items-center gap-1.5 text-[13px]">Ver produtos para o seu segmento <span class="arrow">→</span></a></div>
     </div>
-    <a href="produto.html" class="btn-link inline-flex items-center gap-1.5 text-[13px] mt-10">Conheça nossas marcas <span class="arrow">→</span></a>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">04</span>
-    <span><strong style="color:var(--text);">Marcas</strong> — credibilidade: tecnologia global representada com exclusividade.</span>
+    <span><strong style="color:var(--text);">Segmentos atendidos</strong> — mostra abrangência de forma visual e direta, sem terminologia técnica.</span>
   </p>
 
   <!-- ============================================================
-       5. MAIS DO QUE DISTRIBUIÇÃO — diferenciais (editorial)
+       5. POR QUE A RAW — diferenciais em linguagem de benefício
   ============================================================ -->
-  <section id="sobre" style="background:var(--surface-alt);">
-    <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16 grid lg:grid-cols-2 gap-12 items-start">
-      <div class="fill-box w-full order-1 lg:order-none" style="aspect-ratio:4/5;"><span class="fill-tag text-[12px] absolute" style="bottom:16px; left:16px;">IMG · equipe técnica</span></div>
+  <section id="diferenciais" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16 grid lg:grid-cols-2 gap-12 items-start">
+    <div class="fill-box w-full order-1 lg:order-none" style="aspect-ratio:4/5;"><span class="fill-tag text-[12px] absolute" style="bottom:16px; left:16px;">IMG · equipe Raw atendendo cliente</span></div>
+    <div>
+      <h2 class="text-[22px] sm:text-[28px] font-bold mb-8">Por que empresas escolhem a Raw</h2>
       <div>
-        <h2 class="text-[22px] sm:text-[28px] font-bold mb-8">Mais do que distribuição.</h2>
-        <div class="pt-5 pb-5" style="border-top:1px solid var(--border);"><p class="text-[14px] font-bold mb-2">Expertise</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:90%;"></div><div class="txt-line" style="width:60%;"></div></div></div>
-        <div class="pt-5 pb-5" style="border-top:1px solid var(--border);"><p class="text-[14px] font-bold mb-2">Tecnologia</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:85%;"></div><div class="txt-line" style="width:58%;"></div></div></div>
-        <div class="pt-5 pb-5" style="border-top:1px solid var(--border);"><p class="text-[14px] font-bold mb-2">Desenvolvimento</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:88%;"></div><div class="txt-line" style="width:65%;"></div></div></div>
-        <div class="py-5" style="border-top:1px solid var(--border); border-bottom:1px solid var(--border);"><p class="text-[14px] font-bold mb-2">Estrutura</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:82%;"></div><div class="txt-line" style="width:50%;"></div></div></div>
+        <div class="pt-5 pb-5" style="border-top:1px solid var(--border);"><p class="text-[14px] font-bold mb-2">Atendimento com especialista dedicado</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:92%;"></div><div class="txt-line" style="width:65%;"></div></div></div>
+        <div class="pt-5 pb-5" style="border-top:1px solid var(--border);"><p class="text-[14px] font-bold mb-2">Suporte técnico incluso, sem custo extra</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:88%;"></div><div class="txt-line" style="width:60%;"></div></div></div>
+        <div class="pt-5 pb-5" style="border-top:1px solid var(--border);"><p class="text-[14px] font-bold mb-2">30 anos de relacionamento com as maiores marcas do mundo</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:90%;"></div><div class="txt-line" style="width:70%;"></div></div></div>
+        <div class="py-5" style="border-top:1px solid var(--border); border-bottom:1px solid var(--border);"><p class="text-[14px] font-bold mb-2">Entrega rápida em todo o país</p><div class="flex flex-col gap-1.5"><div class="txt-line" style="width:85%;"></div><div class="txt-line" style="width:55%;"></div></div></div>
       </div>
     </div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">05</span>
-    <span><strong style="color:var(--text);">Mais do que distribuição</strong> — diferenciais: por que comprar da Raw e não direto de outro distribuidor.</span>
+    <span><strong style="color:var(--text);">Por que a Raw</strong> — diferenciais reescritos como benefícios concretos ao cliente, não conceitos abstratos (ex: "Expertise", "Estrutura").</span>
   </p>
 
   <!-- ============================================================
-       6. CENTRO TÉCNICO + PROCESSO — capacidade técnica
+       6. COMO FUNCIONA — 3 passos simples
   ============================================================ -->
-  <section id="secao-6" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <h2 class="text-[22px] sm:text-[28px] font-bold mb-3 text-center">Do desafio à solução.</h2>
-    <p class="text-[13px] text-center mb-10" style="color:var(--text-muted);">Cada etapa conta com o suporte do Centro Técnico Raw.</p>
-    <div class="flex flex-col md:flex-row items-center md:items-start justify-between gap-5 max-w-[960px] mx-auto mb-10">
-      <div class="flex flex-col items-center text-center gap-2 md:w-1/5"><div class="step-circle">1</div><p class="text-[13px] font-medium">Desafio</p></div>
-      <span class="text-[15px] shrink-0" style="color:var(--text-faint);"><span class="hidden md:inline">→</span><span class="md:hidden">↓</span></span>
-      <div class="flex flex-col items-center text-center gap-2 md:w-1/5"><div class="step-circle">2</div><p class="text-[13px] font-medium">Análise</p></div>
-      <span class="text-[15px] shrink-0" style="color:var(--text-faint);"><span class="hidden md:inline">→</span><span class="md:hidden">↓</span></span>
-      <div class="flex flex-col items-center text-center gap-2 md:w-1/5"><div class="step-circle">3</div><p class="text-[13px] font-medium">Material</p></div>
-      <span class="text-[15px] shrink-0" style="color:var(--text-faint);"><span class="hidden md:inline">→</span><span class="md:hidden">↓</span></span>
-      <div class="flex flex-col items-center text-center gap-2 md:w-1/5"><div class="step-circle">4</div><p class="text-[13px] font-medium">Desenvolvimento</p></div>
-      <span class="text-[15px] shrink-0" style="color:var(--text-faint);"><span class="hidden md:inline">→</span><span class="md:hidden">↓</span></span>
-      <div class="flex flex-col items-center text-center gap-2 md:w-1/5"><div class="step-circle">5</div><p class="text-[13px] font-medium">Aplicação</p></div>
+  <section id="secao-6" style="background:var(--surface-alt);">
+    <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <h2 class="text-[22px] sm:text-[28px] font-bold mb-12 text-center">Como funciona</h2>
+      <div class="flex flex-col md:flex-row items-center md:items-start justify-center gap-8 md:gap-16 max-w-[880px] mx-auto">
+        <div class="flex flex-col items-center text-center gap-3 max-w-[220px]"><div class="step-circle">1</div><p class="text-[14px] font-bold">Conte sua necessidade</p><p class="text-[12px]" style="color:var(--text-muted);">Fale com um especialista, sem compromisso.</p></div>
+        <div class="flex flex-col items-center text-center gap-3 max-w-[220px]"><div class="step-circle">2</div><p class="text-[14px] font-bold">Receba uma proposta</p><p class="text-[12px]" style="color:var(--text-muted);">Cotação personalizada, com prazo e condições claras.</p></div>
+        <div class="flex flex-col items-center text-center gap-3 max-w-[220px]"><div class="step-circle">3</div><p class="text-[14px] font-bold">Conte com nosso suporte</p><p class="text-[12px]" style="color:var(--text-muted);">Acompanhamento técnico do início ao fim, sem custo extra.</p></div>
+      </div>
     </div>
-    <div class="text-center"><a href="contato.html#centro-tecnico" class="btn-link inline-flex items-center gap-1.5 text-[13px]">Falar com o Centro Técnico <span class="arrow">→</span></a></div>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">06</span>
-    <span><strong style="color:var(--text);">Centro Técnico + processo</strong> — capacidade técnica: diagrama de 5 etapas e suporte especializado.</span>
+    <span><strong style="color:var(--text);">Como funciona</strong> — processo de 5 etapas técnicas simplificado para 3 passos que qualquer visitante entende.</span>
   </p>
 
   <!-- ============================================================
-       7. CONHECIMENTO — SEO + autoridade
+       7. O QUE NOSSOS CLIENTES DIZEM — prova social
   ============================================================ -->
-  <section id="secao-7" style="background:var(--surface-alt);">
-    <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <h2 class="text-[22px] sm:text-[28px] font-bold mb-8">Conhecimento que move a indústria.</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <a href="artigo.html" class="card p-5 block"><span class="chip inline-block px-3 py-1.5 text-[11px] font-semibold mb-4">Artigo técnico</span><div class="flex flex-col gap-1.5 mb-4"><div class="txt-line" style="width:100%; height:.7em;"></div><div class="txt-line" style="width:68%; height:.7em;"></div></div><p class="text-[11px]" style="color:var(--text-faint);">[ autor · data ]</p></a>
-        <a href="artigo.html" class="card p-5 block"><span class="chip inline-block px-3 py-1.5 text-[11px] font-semibold mb-4">Tendência de mercado</span><div class="flex flex-col gap-1.5 mb-4"><div class="txt-line" style="width:100%; height:.7em;"></div><div class="txt-line" style="width:58%; height:.7em;"></div></div><p class="text-[11px]" style="color:var(--text-faint);">[ autor · data ]</p></a>
-        <a href="artigo.html" class="card p-5 block"><span class="chip inline-block px-3 py-1.5 text-[11px] font-semibold mb-4">Nota técnica</span><div class="flex flex-col gap-1.5 mb-4"><div class="txt-line" style="width:100%; height:.7em;"></div><div class="txt-line" style="width:80%; height:.7em;"></div></div><p class="text-[11px]" style="color:var(--text-faint);">[ autor · data ]</p></a>
+  <section id="secao-7" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <h2 class="text-[22px] sm:text-[28px] font-bold mb-8 text-center">O que nossos clientes dizem</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div class="card p-6">
+        <div class="flex flex-col gap-1.5 mb-5"><div class="txt-line" style="width:97%;"></div><div class="txt-line" style="width:92%;"></div><div class="txt-line" style="width:60%;"></div></div>
+        <div class="flex items-center gap-3"><span class="fill-box" style="width:38px; height:38px; border-radius:999px;"></span><div><p class="text-[13px] font-semibold">[ Nome do cliente ]</p><p class="text-[12px]" style="color:var(--text-faint);">[ cargo · empresa ]</p></div></div>
       </div>
-      <div class="text-right mt-8"><a href="conhecimento.html" class="btn-link inline-flex items-center gap-1.5 text-[13px]">Explorar conhecimento <span class="arrow">→</span></a></div>
+      <div class="card p-6">
+        <div class="flex flex-col gap-1.5 mb-5"><div class="txt-line" style="width:95%;"></div><div class="txt-line" style="width:88%;"></div><div class="txt-line" style="width:50%;"></div></div>
+        <div class="flex items-center gap-3"><span class="fill-box" style="width:38px; height:38px; border-radius:999px;"></span><div><p class="text-[13px] font-semibold">[ Nome do cliente ]</p><p class="text-[12px]" style="color:var(--text-faint);">[ cargo · empresa ]</p></div></div>
+      </div>
+      <div class="card p-6">
+        <div class="flex flex-col gap-1.5 mb-5"><div class="txt-line" style="width:96%;"></div><div class="txt-line" style="width:80%;"></div><div class="txt-line" style="width:65%;"></div></div>
+        <div class="flex items-center gap-3"><span class="fill-box" style="width:38px; height:38px; border-radius:999px;"></span><div><p class="text-[13px] font-semibold">[ Nome do cliente ]</p><p class="text-[12px]" style="color:var(--text-faint);">[ cargo · empresa ]</p></div></div>
+      </div>
     </div>
+    <p class="text-[11px] mt-6 text-center" style="color:var(--text-faint);">* sem depoimentos reais coletados ainda — placeholder neutro, substituir por citações reais de clientes.</p>
   </section>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">07</span>
-    <span><strong style="color:var(--text);">Conhecimento</strong> — SEO + autoridade: cada card leva a artigo.html.</span>
+    <span><strong style="color:var(--text);">Depoimentos</strong> — prova social: substitui "Cases" técnicos por citações de clientes reais, mais persuasivo para conversão.</span>
   </p>
 
   <!-- ============================================================
-       8. CTA FINAL — conversão
+       8. PERGUNTAS FREQUENTES — reduz objeção antes da conversão
   ============================================================ -->
-  <section id="secao-8" class="px-4 sm:px-6 lg:px-8 py-8">
-    <div class="max-w-[1280px] mx-auto text-center py-16 px-6" style="background:var(--btn-primary-bg); color:var(--btn-primary-text); border-radius:1.5rem;">
-      <h2 class="text-[24px] sm:text-[32px] font-bold mb-9">Tem um desafio? Vamos encontrar o caminho.</h2>
-      <div class="flex flex-col sm:flex-row gap-3 items-center justify-center">
-        <a href="contato.html" class="btn px-7 py-3.5 text-[14px]" style="background:var(--btn-primary-text); color:var(--btn-primary-bg);">Falar com um especialista</a>
-        <a href="contato.html" class="btn px-7 py-3.5 text-[14px]" style="background:transparent; color:var(--btn-primary-text); border:1.5px solid var(--btn-primary-text);">Solicitar cotação</a>
+  <section id="secao-8" style="background:var(--surface-alt);">
+    <div class="max-w-[720px] mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <h2 class="text-[22px] sm:text-[28px] font-bold mb-8 text-center">Perguntas frequentes</h2>
+      <div>
+        <details class="faq" open>
+          <summary>Preciso comprar um volume mínimo? <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+          <p>[ resposta curta e direta — placeholder ]</p>
+        </details>
+        <details class="faq">
+          <summary>Vocês atendem todo o Brasil? <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+          <p>[ resposta curta e direta — placeholder ]</p>
+        </details>
+        <details class="faq">
+          <summary>Quanto tempo leva para receber uma cotação? <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+          <p>[ resposta curta e direta — placeholder ]</p>
+        </details>
+        <details class="faq">
+          <summary>O suporte técnico tem custo adicional? <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+          <p>[ resposta curta e direta — placeholder ]</p>
+        </details>
+        <details class="faq">
+          <summary>Como funciona o pedido de amostra? <svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+          <p>[ resposta curta e direta — placeholder ]</p>
+        </details>
       </div>
     </div>
   </section>
-  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5 -mt-8" style="color:var(--text-muted);">
+  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
     <span class="badge-num">08</span>
-    <span><strong style="color:var(--text);">CTA final</strong> — conversão: ambos os botões levam a contato.html.</span>
+    <span><strong style="color:var(--text);">FAQ</strong> — seção nova: responde objeções comuns antes do visitante decidir converter ou não.</span>
   </p>
 
   <!-- ============================================================
-       9. FOOTER (idêntico em todas as páginas)
+       9. CTA FINAL COM FORMULÁRIO RÁPIDO — captura de lead direta na home
+  ============================================================ -->
+  <section id="secao-9" class="px-4 sm:px-6 lg:px-8 py-8">
+    <div class="max-w-[1000px] mx-auto py-14 px-6 sm:px-12 grid md:grid-cols-2 gap-10 items-center" style="background:var(--btn-primary-bg); color:var(--btn-primary-text); border-radius:1.5rem;">
+      <div>
+        <h2 class="text-[24px] sm:text-[30px] font-bold mb-4">Peça uma cotação em menos de 1 minuto.</h2>
+        <div class="flex flex-col gap-2"><div style="height:1.2em; width:90%; border-radius:999px; background:color-mix(in srgb, var(--btn-primary-text) 25%, transparent);"></div><div style="height:1.2em; width:65%; border-radius:999px; background:color-mix(in srgb, var(--btn-primary-text) 25%, transparent);"></div></div>
+      </div>
+      <form onsubmit="return false;" class="flex flex-col gap-3">
+        <div class="input-fill px-4 py-3" style="background:color-mix(in srgb, var(--btn-primary-text) 12%, transparent);"><span class="text-[14px]" style="color:color-mix(in srgb, var(--btn-primary-text) 60%, transparent);">[ nome ]</span></div>
+        <div class="input-fill px-4 py-3" style="background:color-mix(in srgb, var(--btn-primary-text) 12%, transparent);"><span class="text-[14px]" style="color:color-mix(in srgb, var(--btn-primary-text) 60%, transparent);">[ e-mail ou telefone ]</span></div>
+        <div class="input-fill px-4 py-3" style="background:color-mix(in srgb, var(--btn-primary-text) 12%, transparent);"><span class="text-[14px]" style="color:color-mix(in srgb, var(--btn-primary-text) 60%, transparent);">[ o que você precisa? ]</span></div>
+        <button type="submit" class="btn px-6 py-3.5 text-[14px]" style="background:var(--btn-primary-text); color:var(--btn-primary-bg);">Peça uma cotação</button>
+        <a href="contato.html" class="btn-link inline-flex items-center justify-center gap-1.5 text-[13px]" style="color:var(--btn-primary-text);">ou fale com um especialista <span class="arrow">→</span></a>
+      </form>
+    </div>
+  </section>
+  <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5 -mt-8" style="color:var(--text-muted);">
+    <span class="badge-num">09</span>
+    <span><strong style="color:var(--text);">CTA final</strong> — conversão: formulário de cotação embutido direto na home, não só um botão que leva a outra página.</span>
+  </p>
+
+  <!-- ============================================================
+       10. FOOTER
   ============================================================ -->
   <footer style="background:var(--surface-alt); border-top:1px solid var(--border);">
     <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
       <div>
         <a href="index.html" class="fill-box mb-3 inline-flex" style="width:64px; height:32px;"><span class="text-[10px] font-semibold" style="color:var(--text-muted);">RAW</span></a>
-        <p class="text-[13px]" style="color:var(--text-muted);">Materiais que transformam possibilidades em realidade — desde 1992.</p>
+        <p class="text-[13px]" style="color:var(--text-muted);">O material certo para o seu produto — desde 1992.</p>
       </div>
       <div>
         <p class="eyebrow mb-3">Produtos</p>
-        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="produto.html">Produtos</a></li><li><a href="index.html#aplicacoes">Aplicações</a></li><li><a href="index.html#marcas">Marcas</a></li></ul>
+        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="produto.html">Ver produtos</a></li><li><a href="index.html#segmentos">Segmentos atendidos</a></li></ul>
       </div>
       <div>
         <p class="eyebrow mb-3">Empresa</p>
-        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="index.html#sobre">Sobre a Raw</a></li><li><a href="conhecimento.html">Conhecimento</a></li><li><a href="contato.html#centro-tecnico">Centro Técnico</a></li></ul>
+        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="index.html#diferenciais">Por que a Raw</a></li><li><a href="conhecimento.html">Conteúdo</a></li></ul>
       </div>
       <div>
         <p class="eyebrow mb-3">Contato</p>
-        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="contato.html">Falar com um especialista</a></li><li><a href="contato.html">Solicitar cotação</a></li><li><a href="https://linkedin.com">LinkedIn</a></li><li><a href="https://instagram.com">Instagram</a></li></ul>
+        <ul class="flex flex-col gap-2.5 text-[14px] font-medium" style="color:var(--text-muted);"><li><a href="contato.html">Fale com um especialista</a></li><li><a href="contato.html">Peça uma cotação</a></li></ul>
       </div>
     </div>
     <div id="privacidade" class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[12px]" style="border-top:1px solid var(--border); color:var(--text-faint);">
@@ -306,8 +368,8 @@
     </div>
   </footer>
   <p class="wf-note text-[12px] px-4 sm:px-6 lg:px-8 py-2.5 flex items-start gap-2.5" style="color:var(--text-muted);">
-    <span class="badge-num">09</span>
-    <span><strong style="color:var(--text);">Footer</strong> — logo, colunas replicando o menu, redes sociais, contato, copyright e política de privacidade.</span>
+    <span class="badge-num">10</span>
+    <span><strong style="color:var(--text);">Footer</strong> — simplificado: menos colunas de links técnicos, foco nos dois caminhos de contato.</span>
   </p>
 
   <script>
